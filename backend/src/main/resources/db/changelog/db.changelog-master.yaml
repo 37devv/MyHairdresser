@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Irdin
+      changes:
+        - createTable:
+            tableName: hairdresser
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    primaryKeyName: pk_hairdresser_id
+              - column:
+                  name: name
+                  type: varchar(255)
