@@ -1,7 +1,5 @@
 package ch.myhairdresser.backend.mapper;
 
-
-
 import ch.myhairdresser.backend.model.dao.Hairdresser;
 import ch.myhairdresser.backend.model.dto.CreateHairdresserRequest;
 import org.junit.jupiter.api.Test;
@@ -16,7 +14,7 @@ public class HairdresserMapperTest {
     @Test
     public void testDtoToEntityMapping() {
         // Given
-        CreateHairdresserRequest request = new CreateHairdresserRequest("John Doe's hairdresser");
+        CreateHairdresserRequest request = new CreateHairdresserRequest("John Doe's hairdresser", "testdescription");
 
         // When
         Hairdresser hairdresser = hairdresserMapper.fromDto(request);
