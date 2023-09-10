@@ -16,19 +16,6 @@ import HairdresserForm from './HairdresserForm';
 
 const steps = ['Coiffeursalon erstellen', 'Zahlung', 'Review'];
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <HairdresserForm />;
-    case 1:
-      return <PaymentForm />;
-    case 2:
-      return <Review />;
-    default:
-      throw new Error('Unknown step');
-  }
-}
-
 export default function Onboarding() {
   const [activeStep, setActiveStep] = React.useState(0);
 
@@ -39,6 +26,19 @@ export default function Onboarding() {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+
+  function getStepContent(step) {
+    switch (step) {
+      case 0:
+        return <HairdresserForm handleNext={handleNext} />;
+      case 1:
+        return <PaymentForm />;
+      case 2:
+        return <Review />;
+      default:
+        throw new Error('Unknown step');
+    }
+  }
 
   return (
     <React.Fragment>
@@ -58,7 +58,7 @@ export default function Onboarding() {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
+      <Container component="main" maxWidth="lg" >
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
           <Typography component="h1" variant="h4" align="center">
             Checkout
@@ -91,13 +91,13 @@ export default function Onboarding() {
                   </Button>
                 )}
 
-                <Button
+                {/* <Button
                   variant="contained"
                   onClick={handleNext}
                   sx={{ mt: 3, ml: 1 }}
                 >
                   {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
-                </Button>
+                </Button> */}
               </Box>
             </React.Fragment>
           )}

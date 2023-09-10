@@ -4,7 +4,7 @@ import axios from 'axios';
 
 // initial state
 const initialState = {
-  name: '',
+  nameOfHairdresser: '',
   description: '',
 
 };
@@ -15,11 +15,10 @@ const addHairdresserForm = createSlice({
   name: 'addHairdresserForm',
   initialState,
   reducers: {
-    addHairdresser(state, action) {
-      state.name = action.payload.name;
-      state.description = action.payload.description;
+    persistHairdresser(state, action) {
+      state.nameOfHairdresser = action.payload.nameOfHairdresser;
     },
-
+    
   },
   extraReducers: (builder) => {
     builder
@@ -47,4 +46,4 @@ export const onboardHairdresser = createAsyncThunk('api/hairdresser', async (use
 
 export default addHairdresserForm.reducer;
 
-export const { addHairdresser } = addHairdresserForm.actions;
+export const { persistHairdresser } = addHairdresserForm.actions;
