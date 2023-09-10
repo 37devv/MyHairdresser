@@ -32,9 +32,9 @@ export default function Onboarding() {
       case 0:
         return <HairdresserForm handleNext={handleNext} />;
       case 1:
-        return <PaymentForm />;
+        return <PaymentForm handleNext={handleNext} />;
       case 2:
-        return <Review />;
+        return <Review  handleNext={handleNext}/>;
       default:
         throw new Error('Unknown step');
     }

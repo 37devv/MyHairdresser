@@ -1,8 +1,19 @@
 import React, { useState } from 'react';
+import { useForm } from "react-hook-form";
 import Cards from 'react-credit-cards-2';
 import 'react-credit-cards-2/dist/es/styles-compiled.css';
+import Button from '@mui/material/Button';
 
-const PaymentForm = () => {
+
+const PaymentForm = (props) => {
+
+  const { handleSubmit } = useForm();
+
+  const onSubmit = async data => {
+    console.log(data);
+    props.handleNext();
+  }
+
   const [state, setState] = useState({
     number: '',
     expiry: '',
@@ -23,6 +34,7 @@ const PaymentForm = () => {
 
   return (
     <div>
+      
       <Cards
         number={state.number}
         expiry={state.expiry}
@@ -30,7 +42,7 @@ const PaymentForm = () => {
         name={state.name}
         focused={state.focus}
       />
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <input
           type="number"
           name="number"
@@ -63,6 +75,16 @@ const PaymentForm = () => {
           onChange={handleInputChange}
           onFocus={handleInputFocus}
         />
+
+        <Button
+          variant="contained"
+          type="submit"
+          sx={{ mt: 3, ml: 1 }}
+          
+        >
+          Weiter zur Überprüfung
+
+        </Button>
       </form>
     </div>
   );
