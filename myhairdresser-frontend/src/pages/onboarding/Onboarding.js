@@ -13,14 +13,23 @@ import Typography from '@mui/material/Typography';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
 import HairdresserForm from './HairdresserForm';
+import { useNavigate } from '../../../node_modules/react-router-dom/dist/index';
 
 const steps = ['Coiffeursalon erstellen', 'Zahlung', 'Review'];
 
 export default function Onboarding() {
   const [activeStep, setActiveStep] = React.useState(0);
+  const history = useNavigate();
 
   const handleNext = () => {
+    console.log(activeStep);
     setActiveStep(activeStep + 1);
+
+    if(activeStep === 2){
+      setTimeout(() => {
+        history("/"); // Redirect to the specified route after the delay
+      }, 1000);
+    }
   };
 
   const handleBack = () => {
@@ -73,12 +82,10 @@ export default function Onboarding() {
           {activeStep === steps.length ? (
             <React.Fragment>
               <Typography variant="h5" gutterBottom>
-                Thank you for your order.
+                Vielen Dank für die Registration
               </Typography>
               <Typography variant="subtitle1">
-                Your order number is #2001539. We have emailed your order
-                confirmation, and will send you an update when your order has
-                shipped.
+                Loggen sie sich ein
               </Typography>
             </React.Fragment>
           ) : (
