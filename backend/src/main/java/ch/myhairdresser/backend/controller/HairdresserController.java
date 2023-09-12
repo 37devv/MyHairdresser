@@ -5,6 +5,7 @@ import ch.myhairdresser.backend.model.dto.CreateHairdresserRequest;
 import ch.myhairdresser.backend.service.HairdresserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.openapitools.api.HairsalonApi;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

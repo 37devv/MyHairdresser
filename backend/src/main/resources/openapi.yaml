@@ -3,11 +3,13 @@ info:
   title: Hair Salon API
   version: 1.0.0
   contact:
+    name: "Irdin Ibisevic"
     email: "irdin.ibisevic@gmail.com"
 paths:
-  /api/hairsalons:
+  /hairsalon:
     post:
       summary: Create a new hair salon
+      operationId: saveHairsalon
       requestBody:
         description: Hair Salon data to be added
         required: true
