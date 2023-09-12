@@ -14,20 +14,26 @@ import PaymentForm from './PaymentForm';
 import Review from './Review';
 import HairdresserForm from './HairdresserForm';
 import { useNavigate } from '../../../node_modules/react-router-dom/dist/index';
+import { useDispatch, useSelector } from 'react-redux';
+import { onboardHairdresser }  from 'store/reducers/addHairdresser';
 
 const steps = ['Coiffeursalon erstellen', 'Zahlung', 'Review'];
 
 export default function Onboarding() {
   const [activeStep, setActiveStep] = React.useState(0);
-  const history = useNavigate();
+  const navigate = useNavigate();
 
-  const handleNext = () => {
+  const dispatch = useDispatch();
+  const hairdresserData = useSelector((state) => state.addHairdresserForm);
+
+  const handleNext = async () => {
     console.log(activeStep);
     setActiveStep(activeStep + 1);
 
     if(activeStep === 2){
-      setTimeout(() => {
-        history("/"); // Redirect to the specified route after the delay
+      setTimeout(async () => {
+        await dispatch(onboardHairdresser(hairdresserData))
+        navigate("/login"); // Redirect to the specified route after the delay
       }, 1000);
     }
   };
@@ -62,6 +68,9 @@ export default function Onboarding() {
         }}
       >
         <Toolbar>
+          {/*
+          TOP LEFT CORNER TITLE
+          */}
           <Typography variant="h6" color="inherit" noWrap>
             MyHairdresser
           </Typography>
@@ -69,8 +78,11 @@ export default function Onboarding() {
       </AppBar>
       <Container component="main" maxWidth="lg" >
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
+          {/*
+          Title + SIngle steps
+          */}
           <Typography component="h1" variant="h4" align="center">
-            Checkout
+            Onboarding
           </Typography>
           <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
             {steps.map((label) => (

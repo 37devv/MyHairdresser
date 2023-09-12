@@ -4,13 +4,6 @@ import Grid from '@mui/material/Grid';
 import {  useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
 
-const payments = [
-  { name: 'Card type', detail: 'Visa' },
-  { name: 'Card holder', detail: 'Mr John Smith' },
-  { name: 'Card number', detail: 'xxxx-xxxx-xxxx-1234' },
-  { name: 'Expiry date', detail: '04/2024' },
-];
-
 export default function Review(props) {
 
   const hairdresserData = useSelector((state) => state.addHairdresserForm);
@@ -19,36 +12,33 @@ export default function Review(props) {
     <React.Fragment>
 
       {/* Titel of page */}
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h3" gutterBottom>
         Zusammenfassung
       </Typography>
-
-
-      { JSON.stringify(hairdresserData) }
-
       <Grid container spacing={2}>
+
+
         <Grid item xs={12} sm={6}>
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
-            Shipping
+            Infos über den Coiffeur
           </Typography>
-          <Typography gutterBottom>John Smith</Typography>
+          <Typography gutterBottom>Name: {hairdresserData.hairsalondetail.nameOfHairdresser}</Typography>
+          <Typography gutterBottom>Beschreibung: {hairdresserData.hairsalondetail.description}</Typography>
+          <Typography gutterBottom>Mail: {hairdresserData.hairsalondetail.mail}</Typography>
+          <Typography gutterBottom>Name: {hairdresserData.hairsalondetail.nameOfHairdresser}</Typography>
+          <Typography gutterBottom>Strasse: {hairdresserData.hairsalondetail.address.street}</Typography>
+          <Typography gutterBottom>Ort: {hairdresserData.hairsalondetail.address.place}</Typography>
+          <Typography gutterBottom>PLZ: {hairdresserData.hairsalondetail.address.plz}</Typography>
         </Grid>
-        <Grid item container direction="column" xs={12} sm={6}>
+
+
+        <Grid item  xs={12} sm={6}>
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
-            Payment details
+            Zahlungsdetails
           </Typography>
-          <Grid container>
-            {payments.map((payment) => (
-              <React.Fragment key={payment.name}>
-                <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.name}</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.detail}</Typography>
-                </Grid>
-              </React.Fragment>
-            ))}
-          </Grid>
+          <Typography gutterBottom>KK-NR: {hairdresserData.creditCard.number}</Typography>
+          <Typography gutterBottom>Ablaufdatum: {hairdresserData.creditCard.expiry}</Typography>
+          <Typography gutterBottom>Karteninhaber: {hairdresserData.creditCard.name}</Typography>
         </Grid>
       </Grid>
 

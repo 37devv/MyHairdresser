@@ -4,9 +4,23 @@ import axios from 'axios';
 
 // initial state
 const initialState = {
-  nameOfHairdresser: '',
-  description: '',
-
+  hairsalondetail: {
+    nameOfHairdresser: '',
+    mail:'',
+    password:'',
+    description: '',
+    address: {
+      street: '',
+      plz: '',
+      place: '',
+    },  
+  },
+  creditCard: {
+    number: '',
+    expiry: '',
+    cvc: '',
+    name: '',
+  }
 };
 
 // ==============================|| SLICE - addHairdresserForm ||============================== //
@@ -16,7 +30,7 @@ const addHairdresserForm = createSlice({
   initialState,
   reducers: {
     persistHairdresser(state, action) {
-      state.nameOfHairdresser = action.payload.nameOfHairdresser;
+      state.hairsalondetail = action.payload;
     },
     
   },

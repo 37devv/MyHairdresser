@@ -1,3 +1,3 @@
 package ch.myhairdresser.backend.model.dto;
 
-public record CreateHairdresserRequest(String name, String description){}
+public record CreateHairdresserRequest(Hairsalondetail hairsalondetail, CreditCard creditCard){}
