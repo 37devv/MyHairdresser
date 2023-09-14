@@ -24,6 +24,35 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HairSalon'
+    get:
+      summary: Receive possible Hairsalon names for autocomplete on landing page
+      operationId: autocompleteHairsalonName
+      parameters:
+        - name: queryParam
+          in: query
+          description: The query parameter description
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Data retrieved successfully
+                  data:
+                    type: string
+                    example: Sample data
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+
 components:
   schemas:
     CreateHairdresserRequest:
