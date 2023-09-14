@@ -28,9 +28,9 @@ paths:
       summary: Receive possible Hairsalon names for autocomplete on landing page
       operationId: autocompleteHairsalonName
       parameters:
-        - name: queryParam
+        - name: salonNameToComplete
           in: query
-          description: The query parameter description
+          description: name of hairsalon to be resolved
           required: true
           schema:
             type: string
@@ -40,14 +40,8 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: Data retrieved successfully
-                  data:
-                    type: string
-                    example: Sample data
+                type: string
+                description: name of hairsalon
         '400':
           description: Bad Request
         '500':

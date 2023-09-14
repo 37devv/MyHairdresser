@@ -8,7 +8,7 @@ export default function SingleHairsalonSearch() {
         <React.Fragment>
             <Autocomplete
                 disablePortal
-                id="combo-box-demo"
+                id="combo-box-hairsalon-autocomplete"
                 options={top100Films}
                 sx={{ width: 300 }}
                 renderInput={(params) => <TextField {...params} label="Name des Coiffeurs" />}

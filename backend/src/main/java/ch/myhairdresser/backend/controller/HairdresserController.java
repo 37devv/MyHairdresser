@@ -14,14 +14,21 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/hairdressers")
 @RequiredArgsConstructor
 @Slf4j
-public class HairdresserController {
+public class HairdresserController implements HairsalonApi {
 
     private final HairdresserService hairdresserService;
 
     @PostMapping
-    public ResponseEntity<Hairdresser> addHairdresser(@RequestBody CreateHairdresserRequest createHairdresserRequest) {
+    public ResponseEntity<Hairdresser> saveHairsalon(@RequestBody CreateHairdresserRequest createHairdresserRequest) {
         log.info("incomming request {}", createHairdresserRequest.toString());
         Hairdresser addedHairdresser = hairdresserService.addHairdresser(createHairdresserRequest);
         return new ResponseEntity<Hairdresser>(addedHairdresser, HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    @Override
+    public ResponseEntity<String> autocompleteHairsalonName(String salonNameToComplete) {
+        log.info("HairdresserController::autocompleteHairsalonName request {}", salonNameToComplete);
+        return new ResponseEntity<String>(hairdresserService.autocomplete(salonNameToComplete), HttpStatus.OK);
     }
 }
