@@ -4,6 +4,7 @@ import { lazy } from 'react';
 import Loadable from 'components/Loadable';
 import MinimalLayout from 'layout/MinimalLayout';
 import Onboarding from 'pages/onboarding/Onboarding';
+import LandingPage from 'pages/client-facing/LandingPage';
 
 // render - login
 const AuthLogin = Loadable(lazy(() => import('pages/authentication/Login')));
@@ -26,6 +27,10 @@ const LoginRoutes = {
     {
       path: 'onboarding',
       element: <Onboarding />
+    },
+    {
+      path: 'landing',
+      element: <LandingPage />
     },
   ]
 };
