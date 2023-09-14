@@ -33,8 +33,7 @@ public class HairdresserService {
         return hairdresserRepository.save(hairdresser);
     }
 
-    public String autocomplete(String keyword) {
-        List.of(hairdresserRepository.findByName(keyword)).forEach(System.out::println);
-        return "";
+    public List<Hairdresser> autocomplete(String keyword) {
+        return hairdresserRepository.findByNameContaining(keyword);
     }
 }

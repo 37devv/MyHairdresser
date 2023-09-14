@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/hairdressers")
 @RequiredArgsConstructor
@@ -27,8 +29,9 @@ public class HairdresserController implements HairsalonApi {
 
     @GetMapping
     @Override
-    public ResponseEntity<String> autocompleteHairsalonName(String salonNameToComplete) {
+    public ResponseEntity<List<Hairdresser>> autocompleteHairsalonName(String salonNameToComplete) {
         log.info("HairdresserController::autocompleteHairsalonName request {}", salonNameToComplete);
-        return new ResponseEntity<String>(hairdresserService.autocomplete(salonNameToComplete), HttpStatus.OK);
+        List<Hairdresser> a = hairdresserService.autocomplete(salonNameToComplete);
+        return ResponseEntity.ok(a);
     }
 }
