@@ -40,8 +40,10 @@ paths:
           content:
             application/json:
               schema:
-                type: string
-                description: name of hairsalon
+                type: array
+                items:
+                  type: string
+                description: List of hairsalon names
         '400':
           description: Bad Request
         '500':

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -33,7 +34,18 @@ public class HairdresserService {
         return hairdresserRepository.save(hairdresser);
     }
 
-    public List<Hairdresser> autocomplete(String keyword) {
-        return hairdresserRepository.findByNameContaining(keyword);
+    public List<String> autocomplete(String keyword) {
+        List<Hairdresser> hairdressers = hairdresserRepository.findByNameContaining(keyword);
+        List<String> hairdresserNames = hairdressers.stream()
+                                                    .map(Hairdresser::getName)
+                                                    .collect(Collectors.toList());
+
+        hairdressers.stream()
+                .map(hairdresser -> {
+                    hairdresser.getName() + " - " + hairdresser.getDescription()
+                })
+                .collect(Collectors.toList());
+
+        return hairdresserNames;
     }
 }

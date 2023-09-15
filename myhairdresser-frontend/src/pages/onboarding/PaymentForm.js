@@ -50,15 +50,19 @@ const PaymentForm = (props) => {
         INFO: Rein visuell - keine Zahlungsabwicklung!
       </Typography>
 
-      <Cards
+      
+
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {/* //usewatch hook  innerhalb einer komponente wo in einem form gerendert wird */}
+
+        <Cards
         number={state.number}
         expiry={state.expiry}
         cvc={state.cvc}
         name={state.name}
         focused={state.focus}
-      />
+        />
 
-      <form onSubmit={handleSubmit(onSubmit)}>
         <Controller
           name="number"
           control={control}
@@ -66,6 +70,7 @@ const PaymentForm = (props) => {
             /* Anordnung von  {...field} macht Probleme */
             <TextField
               {...field}
+              name="number"
               label="Kreditkartennummer"
               variant="outlined"
               fullWidth
@@ -74,6 +79,7 @@ const PaymentForm = (props) => {
                   ...prevState,
                   number: e.target.value
                 }));
+                field.onChange(e);
               }}
               value={state.number}
               onFocus={handleInputFocus}

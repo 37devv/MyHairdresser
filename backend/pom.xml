@@ -167,6 +167,25 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>process-sources</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target>
+								<!-- Entfernt generierte Tests von OpenAPI https://stackoverflow.com/questions/73461247/spring-boot-openapi-generator-plugin-creates-unwanted-test-file -->
+								<delete dir="${project.build.directory}/generated-sources/openapi/src/test" />
+							</target>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 	</build>
 
