@@ -159,9 +159,8 @@ function LandingPage() {
                         </Box>
                     </Toolbar>
                 </Container>
-
-
             </AppBar>
+
             <Container maxWidth="lg">
                 <Grid container spacing={10}>
                     <Grid item xs={4}>
