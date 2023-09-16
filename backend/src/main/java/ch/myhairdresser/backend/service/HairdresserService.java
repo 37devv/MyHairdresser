@@ -40,12 +40,6 @@ public class HairdresserService {
                                                     .map(Hairdresser::getName)
                                                     .collect(Collectors.toList());
 
-        hairdressers.stream()
-                .map(hairdresser -> {
-                    hairdresser.getName() + " - " + hairdresser.getDescription()
-                })
-                .collect(Collectors.toList());
-
         return hairdresserNames;
     }
 }
