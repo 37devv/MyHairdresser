@@ -39,7 +39,7 @@ export default function SingleHairsalonSearch() {
     }
 
     const handleSearchRequest = () => {
-        navigate("/");
+        navigate("/client/hairsalon?name='hello'");
         console.log("handleSearchRequest");
     }
 

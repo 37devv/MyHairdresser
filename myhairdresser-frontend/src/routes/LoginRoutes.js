@@ -14,7 +14,7 @@ const AuthRegister = Loadable(lazy(() => import('pages/authentication/Register')
 // ==============================|| AUTH ROUTING ||============================== //
 
 const LoginRoutes = {
-  path: '/',
+  path: '/client/',
   element: <MinimalLayout />,
   children: [
     {
@@ -30,13 +30,17 @@ const LoginRoutes = {
       element: <Onboarding />
     },
     {
-      path: 'clientfacing',
+      path: 'landing/',
       element: <LandingPage />,
     },
     {
-      path: 'hairsalon',
+      path: 'hairsalon/',
       element: <HairdresserProfile />
-    }
+    },
+   /*  {
+      path: 'results',
+      element: <Results/>
+    } */
   ]
 };
 
