@@ -4,6 +4,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios';
 import Button from '@mui/material/Button';
+import { useNavigate } from '../../../node_modules/react-router-dom/dist/index';
 
 const baseURL = 'http://localhost:8080/api';
 
@@ -17,6 +18,11 @@ export default function SingleHairsalonSearch() {
     const [options, setOptions] = React.useState([]);
     const loading = open && options.length === 0;
 
+    const navigate = useNavigate();
+
+
+    const [name, setName] = React.useState('');
+
     const callAutocompleteEndpoint = async (nameToAutocomplete) => {
         instance.get('/hairdressers',
             {
@@ -25,7 +31,6 @@ export default function SingleHairsalonSearch() {
                 }
             })
             .then(response => {
-                console.log("Setting following options \n" + response.data);
                 setOptions(response.data);
             })
             .catch(error => {
@@ -34,12 +39,12 @@ export default function SingleHairsalonSearch() {
     }
 
     const handleSearchRequest = () => {
+        navigate("/");
         console.log("handleSearchRequest");
     }
 
     React.useEffect(() => {
         let active = true;
-        console.log("React.useEffect [loading]")
 
         if (!loading) {
             return undefined;
@@ -58,20 +63,17 @@ export default function SingleHairsalonSearch() {
         };
     }, [loading]);
 
+    //Diese Methode wird ausgeführt, nachdem die Seite geladen gerendert wurde.
     React.useEffect(() => {
-
-        console.log("React.useEffect []                          fetchData()")
-
         async function fetchData() {
-            
             await callAutocompleteEndpoint("")
-            
         }
         fetchData();
     }, [])
 
     return (
         <React.Fragment>
+            {name}
             <Autocomplete
                 id="asynchronous-demo"
                 sx={{ width: 300 }}
@@ -86,22 +88,18 @@ export default function SingleHairsalonSearch() {
                 options={options}
                 loading={loading}
                 onInputChange={(event, newInputValue) => {
-                    console.log(newInputValue);
+                    setName(newInputValue);
                   }}
                 renderInput={(params) => (
                     <TextField
                         {...params}
                         label="Name des Coiffeursalons"
-                        onChange={e => console.log(e.target.value)}
                         InputProps={{
                             ...params.InputProps,
                             endAdornment: (
                                 <React.Fragment>
-
                                     {loading ? <CircularProgress color="inherit" size={20} /> : null}
-
                                     {params.InputProps.endAdornment}
-
                                 </React.Fragment>
                             ),
                         }}
