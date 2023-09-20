@@ -1,15 +1,11 @@
 package ch.myhairdresser.backend.mapper;
 
-import ch.myhairdresser.backend.model.dao.Hairdresser;
-import ch.myhairdresser.backend.model.dto.CreateHairdresserRequest;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+public class HairsalonMapperTest {
 
-public class HairdresserMapperTest {
-
-    private final HairdresserMapper hairdresserMapper = Mappers.getMapper(HairdresserMapper.class);
+    private final HairsalonMapper hairsalonMapper = Mappers.getMapper(HairsalonMapper.class);
 
     @Test
     public void testDtoToEntityMapping() {

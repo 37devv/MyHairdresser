@@ -1,3 +1,8 @@
+
+#
+# GENERAL INFO
+#
+
 openapi: 3.0.0
 info:
   title: Hair Salon API
@@ -5,8 +10,19 @@ info:
   contact:
     name: "Irdin Ibisevic"
     email: "irdin.ibisevic@gmail.com"
+
+    #
+    # PATHS
+    #
+
 paths:
+  #------------------------------------------------------------------
+  # Hairsalon
+  #------------------------------------------------------------------
   /hairsalon:
+    #------------------------------------------------------------------
+    #
+    #------------------------------------------------------------------
     post:
       summary: Create a new hair salon
       operationId: saveHairsalon
@@ -16,7 +32,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateHairdresserRequest'
+              $ref: '#/components/schemas/CreateHairsalonRequest'
       responses:
         '201':
           description: Hair salon created successfully
@@ -24,6 +40,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HairSalon'
+    #------------------------------------------------------------------
+    #
+    #------------------------------------------------------------------
     get:
       summary: Receive possible Hairsalon names for autocomplete on landing page
       operationId: autocompleteHairsalonName
@@ -49,9 +68,15 @@ paths:
         '500':
           description: Internal Server Error
 
+#------------------------------------------------------------------
+#components
+#------------------------------------------------------------------
 components:
   schemas:
-    CreateHairdresserRequest:
+    #------------------------------------------------------------------
+    #
+    #------------------------------------------------------------------
+    CreateHairsalonRequest:
       type: object
       properties:
         name:
@@ -64,6 +89,10 @@ components:
         - name
         - description
         - phoneNumber
+
+    #------------------------------------------------------------------
+    #
+    #------------------------------------------------------------------
     HairSalon:
       type: object
       properties:

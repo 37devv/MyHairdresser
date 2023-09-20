@@ -16,6 +16,8 @@
 	<properties>
 		<java.version>17</java.version>
 		<org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
+		<start-class>ch.myhairdresser.backend.BackendApplication</start-class>
+
 	</properties>
 	<dependencies>
 		<dependency>

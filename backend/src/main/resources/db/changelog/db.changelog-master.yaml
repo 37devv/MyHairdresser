@@ -4,7 +4,7 @@ databaseChangeLog:
       author: Irdin
       changes:
         - createTable:
-            tableName: hairdresser
+            tableName: Hairdresser
             columns:
               - column:
                   name: id
@@ -20,3 +20,30 @@ databaseChangeLog:
               - column:
                   name: description
                   type: varchar(255)
+
+        - createTable:
+            tableName: Image
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    primaryKeyName: pk_image_id
+              - column:
+                  name: link
+                  type: varchar(255)
+              - column:
+                  name: hairdresser_id
+                  type: int
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseTableName: Image
+            baseColumnNames: hairdresser_id
+            referencedTableName: Hairdresser
+            referencedColumnNames: id
+            constraintName: fk_hairdresser_id

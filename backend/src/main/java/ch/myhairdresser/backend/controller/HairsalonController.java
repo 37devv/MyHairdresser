@@ -1,8 +1,8 @@
 package ch.myhairdresser.backend.controller;
 
-import ch.myhairdresser.backend.model.dao.Hairdresser;
+import ch.myhairdresser.backend.model.dao.Hairsalon;
 import ch.myhairdresser.backend.model.dto.CreateHairdresserRequest;
-import ch.myhairdresser.backend.service.HairdresserService;
+import ch.myhairdresser.backend.service.HairsalonService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.openapitools.api.HairsalonApi;
@@ -13,25 +13,25 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/hairdressers")
+@RequestMapping("/hairsalon")
 @RequiredArgsConstructor
 @Slf4j
-public class HairdresserController implements HairsalonApi {
+public class HairsalonController implements HairsalonApi {
 
-    private final HairdresserService hairdresserService;
+    private final HairsalonService hairsalonService;
 
     @PostMapping
-    public ResponseEntity<Hairdresser> saveHairsalon(@RequestBody CreateHairdresserRequest createHairdresserRequest) {
+    public ResponseEntity<Hairsalon> saveHairsalon(@RequestBody CreateHairdresserRequest createHairdresserRequest) {
         log.info("incomming request {}", createHairdresserRequest.toString());
-        Hairdresser addedHairdresser = hairdresserService.addHairdresser(createHairdresserRequest);
-        return new ResponseEntity<Hairdresser>(addedHairdresser, HttpStatus.CREATED);
+        Hairsalon addedHairsalon = hairsalonService.addHairsalon(createHairdresserRequest);
+        return new ResponseEntity<Hairsalon>(addedHairsalon, HttpStatus.CREATED);
     }
 
     @GetMapping
     @Override
     public ResponseEntity<List<String>> autocompleteHairsalonName(String salonNameToComplete) {
         log.info("HairdresserController::autocompleteHairsalonName request {}", salonNameToComplete);
-        List<String> hairdresserNames = hairdresserService.autocomplete(salonNameToComplete);
+        List<String> hairdresserNames = hairsalonService.autocomplete(salonNameToComplete);
         return ResponseEntity.ok(hairdresserNames);
     }
 }
