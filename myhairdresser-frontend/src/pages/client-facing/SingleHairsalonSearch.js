@@ -24,7 +24,7 @@ export default function SingleHairsalonSearch() {
     const [name, setName] = React.useState('');
 
     const callAutocompleteEndpoint = async (nameToAutocomplete) => {
-        instance.get('/hairdressers',
+        instance.get('/hairsalons/autocomplete',
             {
                 params: {
                     salonNameToComplete: nameToAutocomplete

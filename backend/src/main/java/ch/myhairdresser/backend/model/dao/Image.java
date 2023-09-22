@@ -17,7 +17,7 @@ public class Image {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String url;
+    private String link;
 
     // Many-to-One relationship with Hairsalon
     @ManyToOne

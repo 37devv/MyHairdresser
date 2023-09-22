@@ -4,7 +4,7 @@ databaseChangeLog:
       author: Irdin
       changes:
         - createTable:
-            tableName: Hairdresser
+            tableName: hairsalon
             columns:
               - column:
                   name: id
@@ -13,16 +13,16 @@ databaseChangeLog:
                   constraints:
                     primaryKey: true
                     nullable: false
-                    primaryKeyName: pk_hairdresser_id
+                    primaryKeyName: pk_hairsalon_id
               - column:
                   name: name
                   type: varchar(255)
               - column:
                   name: description
-                  type: varchar(255)
+                  type: varchar(500)
 
         - createTable:
-            tableName: Image
+            tableName: image
             columns:
               - column:
                   name: id
@@ -36,14 +36,34 @@ databaseChangeLog:
                   name: link
                   type: varchar(255)
               - column:
-                  name: hairdresser_id
+                  name: hairsalon_id
+                  type: int
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: business_hours
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    primaryKeyName: pk_business_hours_id
+              - column:
+                  name: link
+                  type: varchar(255)
+              - column:
+                  name: hairsalon_id
                   type: int
                   constraints:
                     nullable: false
 
         - addForeignKeyConstraint:
-            baseTableName: Image
-            baseColumnNames: hairdresser_id
-            referencedTableName: Hairdresser
+            baseTableName: image
+            baseColumnNames: hairsalon_id
+            referencedTableName: hairsalon
             referencedColumnNames: id
-            constraintName: fk_hairdresser_id
+            constraintName: fk_hairsalon_id

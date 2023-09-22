@@ -19,7 +19,7 @@ paths:
   #------------------------------------------------------------------
   # Hairsalon
   #------------------------------------------------------------------
-  /hairsalon:
+  /hairsalons:
     #------------------------------------------------------------------
     #
     #------------------------------------------------------------------
@@ -32,17 +32,18 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateHairsalonRequest'
+              $ref: '#/components/schemas/HairsalonInDTO'
       responses:
         '201':
           description: Hair salon created successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/HairSalon'
+                $ref: '#/components/schemas/HairsalonOutDTO'
     #------------------------------------------------------------------
     #
     #------------------------------------------------------------------
+  /hairsalons/autocomplete:
     get:
       summary: Receive possible Hairsalon names for autocomplete on landing page
       operationId: autocompleteHairsalonName
@@ -68,15 +69,41 @@ paths:
         '500':
           description: Internal Server Error
 
+  #------------------------------------------------------------------
+  # Single Hairsalon
+  #------------------------------------------------------------------
+  /hairsalons/{salonId}:
+    get:
+      summary: Get a single hair salon by ID
+      operationId: getHairsalonById
+      parameters:
+        - name: salonId
+          in: path
+          description: ID of the hair salon to retrieve
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HairsalonOutDTO'
+        '404':
+          description: Hair salon not found
+        '500':
+          description: Internal Server Error
+
 #------------------------------------------------------------------
 #components
 #------------------------------------------------------------------
 components:
   schemas:
     #------------------------------------------------------------------
-    #
+    # HairsalonInDTO
     #------------------------------------------------------------------
-    CreateHairsalonRequest:
+    HairsalonInDTO:
       type: object
       properties:
         name:
@@ -91,16 +118,70 @@ components:
         - phoneNumber
 
     #------------------------------------------------------------------
-    #
+    # HairsalonOutDTO
     #------------------------------------------------------------------
-    HairSalon:
+    HairsalonOutDTO:
       type: object
       properties:
         id:
           type: integer
         name:
           type: string
+        description:
+          type: string
         address:
           type: string
         phoneNumber:
           type: string
+        businessHours:
+          type: array
+          items:
+            $ref: '#/components/schemas/DailyOpeningHours'
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+
+    #--------------------
+    # Image
+    #--------------------
+    Image:
+      type: object
+      properties:
+        id:
+          type: integer
+        link:
+          type: string
+        hairsalon_id:
+          type: integer
+
+
+    #--------------------
+    # OpeningHours
+    #--------------------
+    DailyOpeningHours:
+      type: object
+      properties:
+        day:
+          type: string
+          enum: [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ]
+        open-morning:
+          type: string
+          format: time
+        closing-morning:
+          type: string
+          format: time
+        open-afternoon:
+          type: string
+          format: time
+        closing-afternoon:
+          type: string
+          format: time
+
+
+    WeeklyOpeningHours:
+      type: array
+      items:
+        $ref: '#/components/schemas/DailyOpeningHours'
+
+    

@@ -34,7 +34,7 @@ const LoginRoutes = {
       element: <LandingPage />,
     },
     {
-      path: 'hairsalon/',
+      path: 'hairsalon/:id',
       element: <HairdresserProfile />
     },
    /*  {

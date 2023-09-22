@@ -2,16 +2,17 @@ package ch.myhairdresser.backend.service;
 
 import ch.myhairdresser.backend.mapper.HairsalonMapper;
 import ch.myhairdresser.backend.model.dao.Hairsalon;
-import ch.myhairdresser.backend.model.dto.CreateHairdresserRequest;
 import ch.myhairdresser.backend.repository.HairsalonRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.factory.Mappers;
+import org.openapitools.model.HairsalonInDTO;
+import org.openapitools.model.HairsalonOutDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 
 @Service
@@ -28,18 +29,25 @@ public class HairsalonService {
         this.hairsalonRepository = hairsalonRepository;
     }
 
-    public Hairsalon addHairsalon(CreateHairdresserRequest createHairdresserRequest) {
-        Hairsalon hairsalon = hairsalonMapper.fromDto(createHairdresserRequest);
-        log.info("adding new hairdresser: {}", hairsalon.toString());
-        return hairsalonRepository.save(hairsalon);
+    public HairsalonOutDTO addHairsalon(HairsalonInDTO hairsalonInDTO) {
+        Hairsalon hairsalon = hairsalonMapper.fromDto(hairsalonInDTO);
+        Hairsalon saved = hairsalonRepository.save(hairsalon);
+        HairsalonOutDTO outDto = hairsalonMapper.toDto(saved);
+        return outDto;
     }
 
     public List<String> autocomplete(String keyword) {
         List<Hairsalon> hairsalons = hairsalonRepository.findByNameContaining(keyword);
-       /* List<String> hairsalonNames = hairsalons.stream()
-                                                    .map(hairsalons)
-                                                    .collect(Collectors.toList());*/
+       List<String> hairsalonNames = hairsalons.stream()
+                                                    .map(Hairsalon::getName)
+                                                    .toList();
 
-        return List.of();
+        return hairsalonNames;
+    }
+
+    public HairsalonOutDTO getHairsalonById(Integer salonId) {
+
+        Hairsalon hairsalon = hairsalonRepository.findById(Long.valueOf(salonId)).get();
+        return hairsalonMapper.toDto(hairsalon);
     }
 }
