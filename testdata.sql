@@ -9,15 +9,17 @@ INSERT INTO public.hairsalon(
 INSERT INTO image (link, hairsalon_id) VALUES
     ('https://www.coiffure-armida.ch/wp-content/uploads/2020/05/Coiffeur_Muri_Salon_.jpg', 1),
     ('https://lh3.googleusercontent.com/p/AF1QipODfoH--4h9B3ZOgm6IoeH12_5ocBSy7Hs-4tOv=s680-w680-h510', 1),
-    ('https://lh3.googleusercontent.com/p/AF1QipO-PbtD9Dsm9OwftUfuyT9cNoL8sdAhJWr1w_u2=s680-w680-h510', 1);
+    ('https://lh3.googleusercontent.com/p/AF1QipO-PbtD9Dsm9OwftUfuyT9cNoL8sdAhJWr1w_u2=s680-w680-h510', 1); 
 	
 	
 	
 	
-	INSERT INTO public."weekly-opening-hours"(
-	id, hairsalon_id)
-	VALUES (1, 1);
+
 	
 	INSERT INTO public."daily-opening-hours"(
-	id, day, open_morning, closing_morning, has_lunch_break, open_afternoon, closing_afternoon, "weekly-opening-hours_id")
+	id, day, open_morning, closing_morning, has_lunch_break, open_afternoon, closing_afternoon, hairsalon_id)
 	VALUES (1, 'Monday', '08:00', '12:00', true, '13:00', '17:00', 1);
+	
+	INSERT INTO public."daily-opening-hours"(
+	id, day, open_morning, closing_morning, has_lunch_break, open_afternoon, closing_afternoon, hairsalon_id)
+	VALUES (2, 'Tuesday', '08:00', '12:00', true, '13:00', '20:00', 1);

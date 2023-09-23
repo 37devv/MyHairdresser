@@ -139,10 +139,10 @@ components:
           type: string
         mail:
           type: string
-        businessHours:
+        business-hours:
           type: array
           items:
-            $ref: '#/components/schemas/weekly-opening-hours'
+            $ref: '#/components/schemas/daily-opening-hours'
         images:
           type: array
           items:
@@ -185,11 +185,3 @@ components:
         closing-afternoon:
           type: string
           format: time
-
-
-    weekly-opening-hours:
-      type: array
-      items:
-        $ref: '#/components/schemas/daily-opening-hours'
-
-    

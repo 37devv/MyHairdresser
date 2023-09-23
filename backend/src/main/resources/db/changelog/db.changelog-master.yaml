@@ -93,32 +93,15 @@ databaseChangeLog:
                   name: closing_afternoon
                   type: time
               - column:
-                  name: weekly-opening-hours_id
-                  type: int
-                  constraints:
-                    nullable: false
-
-
-        - createTable:
-            tableName: weekly-opening-hours
-            columns:
-              - column:
-                  name: id
-                  type: int
-                  autoIncrement: true
-                  constraints:
-                    primaryKey: true
-                    nullable: false
-                    primaryKeyName: pk_business_hours_id
-              - column:
                   name: hairsalon_id
                   type: int
                   constraints:
                     nullable: false
 
+
         - addForeignKeyConstraint:
             baseTableName: daily-opening-hours
-            baseColumnNames: weekly-opening-hours_id
-            referencedTableName: weekly-opening-hours
+            baseColumnNames: hairsalon_id
+            referencedTableName: hairsalon
             referencedColumnNames: id
-            constraintName: fk_weekly-opening-hours_id
+            constraintName: fk_hairsalon_id
