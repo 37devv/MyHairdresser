@@ -56,6 +56,13 @@ databaseChangeLog:
                   constraints:
                     nullable: false
 
+        - addForeignKeyConstraint:
+            baseTableName: image
+            baseColumnNames: hairsalon_id
+            referencedTableName: hairsalon
+            referencedColumnNames: id
+            constraintName: fk_hairsalon_id
+
         - createTable:
             tableName: daily-opening-hours
             columns:
@@ -104,17 +111,14 @@ databaseChangeLog:
                     nullable: false
                     primaryKeyName: pk_business_hours_id
               - column:
-                  name: link
-                  type: varchar(255)
-              - column:
                   name: hairsalon_id
                   type: int
                   constraints:
                     nullable: false
 
         - addForeignKeyConstraint:
-            baseTableName: image
-            baseColumnNames: hairsalon_id
-            referencedTableName: hairsalon
+            baseTableName: daily-opening-hours
+            baseColumnNames: weekly-opening-hours_id
+            referencedTableName: weekly-opening-hours
             referencedColumnNames: id
-            constraintName: fk_hairsalon_id
+            constraintName: fk_weekly-opening-hours_id
