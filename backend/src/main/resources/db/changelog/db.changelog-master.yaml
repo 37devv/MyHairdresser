@@ -57,7 +57,43 @@ databaseChangeLog:
                     nullable: false
 
         - createTable:
-            tableName: business_hours
+            tableName: daily-opening-hours
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    primaryKeyName: pk_daily-opening-hours_id
+              - column:
+                  name: day
+                  type: varchar(255)
+              - column:
+                  name: open_morning
+                  type: time
+              - column:
+                  name: closing_morning
+                  type: time
+              - column:
+                  name: has_lunch_break
+                  type: boolean
+              - column:
+                  name: open_afternoon
+                  type: time
+              - column:
+                  name: closing_afternoon
+                  type: time
+              - column:
+                  name: weekly-opening-hours_id
+                  type: int
+                  constraints:
+                    nullable: false
+
+
+        - createTable:
+            tableName: weekly-opening-hours
             columns:
               - column:
                   name: id

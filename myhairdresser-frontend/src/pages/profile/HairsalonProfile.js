@@ -7,8 +7,8 @@ import OpeningTimes from './OpeningTimes';
 import axios from 'axios';
 import Typography from '@mui/material/Typography';
 import { useParams } from 'react-router-dom';
-import BasicRating from './Rating';
 import ContactInformation from './ContactInformation';
+import HairsalonRating from './HairsalonRating';
 
 const baseURL = 'http://localhost:8080/api';
 
@@ -37,7 +37,7 @@ const instance = axios.create({
 
 
 
-export default function HairdresserProfile() {
+export default function HairsalonProfile() {
 
   const [data, setData] = React.useState({});
   const { id } = useParams();
@@ -97,11 +97,8 @@ export default function HairdresserProfile() {
           <OpeningTimes />
         </Grid>
 
-
-
-
         <Grid item xs={8}>
-          <BasicRating/>
+          <HairsalonRating/>
         </Grid>
         <Grid item xs={4}>
           <ContactInformation data={{

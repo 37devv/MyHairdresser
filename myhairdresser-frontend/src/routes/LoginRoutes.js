@@ -5,7 +5,7 @@ import Loadable from 'components/Loadable';
 import MinimalLayout from 'layout/MinimalLayout';
 import Onboarding from 'pages/onboarding/Onboarding';
 import LandingPage from 'pages/client-facing/LandingPage';
-import HairdresserProfile from 'pages/profile/HairdresserProfile';
+import HairsalonProfile from 'pages/profile/HairsalonProfile';
 
 // render - login
 const AuthLogin = Loadable(lazy(() => import('pages/authentication/Login')));
@@ -35,7 +35,7 @@ const LoginRoutes = {
     },
     {
       path: 'hairsalon/:id',
-      element: <HairdresserProfile />
+      element: <HairsalonProfile />
     },
    /*  {
       path: 'results',

@@ -142,7 +142,7 @@ components:
         businessHours:
           type: array
           items:
-            $ref: '#/components/schemas/DailyOpeningHours'
+            $ref: '#/components/schemas/weekly-opening-hours'
         images:
           type: array
           items:
@@ -165,7 +165,7 @@ components:
     #--------------------
     # OpeningHours
     #--------------------
-    DailyOpeningHours:
+    daily-opening-hours:
       type: object
       properties:
         day:
@@ -177,6 +177,8 @@ components:
         closing-morning:
           type: string
           format: time
+        has-lunch-break:
+          type: boolean
         open-afternoon:
           type: string
           format: time
@@ -185,9 +187,9 @@ components:
           format: time
 
 
-    WeeklyOpeningHours:
+    weekly-opening-hours:
       type: array
       items:
-        $ref: '#/components/schemas/DailyOpeningHours'
+        $ref: '#/components/schemas/daily-opening-hours'
 
     
