@@ -20,6 +20,21 @@ databaseChangeLog:
               - column:
                   name: description
                   type: varchar(500)
+              - column:
+                  name: street
+                  type: varchar(500)
+              - column:
+                  name: plz
+                  type: varchar(500)
+              - column:
+                  name: place
+                  type: varchar(500)
+              - column:
+                  name: phonenumber
+                  type: varchar(500)
+              - column:
+                  name: mail
+                  type: varchar(500)
 
         - createTable:
             tableName: image

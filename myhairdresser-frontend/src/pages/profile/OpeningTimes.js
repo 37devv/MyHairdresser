@@ -11,7 +11,7 @@ export default function OpeningTimes() {
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
-        <Typography variant="h1" gutterBottom>
+        <Typography variant="h3" gutterBottom>
           Öffnungszeiten
         </Typography>
         {/* Iterate through weekdays and display them */}

@@ -21,6 +21,16 @@ public class Hairsalon {
 
     private String description;
 
+    private String street;
+
+    private String plz;
+
+    private String place;
+
+    private String phonenumber;
+
+    private String mail;
+
     @OneToMany(mappedBy = "hairsalon", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Image> images;
 

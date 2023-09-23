@@ -7,6 +7,8 @@ import OpeningTimes from './OpeningTimes';
 import axios from 'axios';
 import Typography from '@mui/material/Typography';
 import { useParams } from 'react-router-dom';
+import BasicRating from './Rating';
+import ContactInformation from './ContactInformation';
 
 const baseURL = 'http://localhost:8080/api';
 
@@ -50,6 +52,7 @@ export default function HairdresserProfile() {
       try {
 
         const response = await instance.get('/hairsalons/' + id); 
+        
         const responseData = response.data;
 
         setData(responseData);
@@ -61,14 +64,13 @@ export default function HairdresserProfile() {
 
         imagesla.push(imageObjects);
 
-        console.log('Images: ' + JSON.stringify(imageObjects));
-        console.log('Images: ' + JSON.stringify(images));
+        console.log('Images fetched: ' + JSON.stringify(imageObjects));
+        console.log('Images static: ' + JSON.stringify(images));
 
       } catch (error) {
-        console.error(error);
+        console.error(JSON.stringify(error));
       }
     }
-
     fetchData();
   }, [])
 
@@ -85,8 +87,8 @@ export default function HairdresserProfile() {
       <Grid container spacing={2}>
         <Grid item xs={8}>
           <Typography variant="h1" gutterBottom>
-        Beschreibung
-        </Typography>
+            Beschreibung
+          </Typography>
           <p>
             {data.description}            
           </p>
@@ -95,10 +97,21 @@ export default function HairdresserProfile() {
           <OpeningTimes />
         </Grid>
 
-        <Grid item xs={12}>
-          <h1>Bewertungen</h1>
-        </Grid>
 
+
+
+        <Grid item xs={8}>
+          <BasicRating/>
+        </Grid>
+        <Grid item xs={4}>
+          <ContactInformation data={{
+            street: data.street,
+            plz: data.plz,
+            place: data.place,
+            phonenumber: data.phonenumber,
+            mail: data.mail
+          }} />
+        </Grid>
       </Grid>
 
     </Container>

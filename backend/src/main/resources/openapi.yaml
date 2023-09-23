@@ -110,12 +110,12 @@ components:
           type: string
         description:
           type: string
-        phoneNumber:
+        phonenumber:
           type: string
       required:
         - name
         - description
-        - phoneNumber
+        - phonenumber
 
     #------------------------------------------------------------------
     # HairsalonOutDTO
@@ -129,9 +129,15 @@ components:
           type: string
         description:
           type: string
-        address:
+        street:
           type: string
-        phoneNumber:
+        plz:
+          type: string
+        place:
+          type: string
+        phonenumber:
+          type: string
+        mail:
           type: string
         businessHours:
           type: array
