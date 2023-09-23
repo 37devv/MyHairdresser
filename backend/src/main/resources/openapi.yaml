@@ -139,7 +139,7 @@ components:
           type: string
         mail:
           type: string
-        business-hours:
+        daily-opening-hours:
           type: array
           items:
             $ref: '#/components/schemas/daily-opening-hours'

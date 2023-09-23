@@ -14,7 +14,7 @@ import java.sql.Time;
 @Setter
 @Slf4j
 @ToString
-@Table(schema = "daily-opening-hours")
+@Table(name="daily-opening-hours")
 public class DailyOpeningHours {
 
     @Id
