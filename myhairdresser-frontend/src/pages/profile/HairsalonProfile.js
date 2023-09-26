@@ -40,19 +40,15 @@ const instance = axios.create({
 export default function HairsalonProfile() {
 
   const [data, setData] = React.useState({});
+  const [fetchedImages, setFetchedImages] = React.useState([]);
   const { id } = useParams();
 
-  const imagesla = [];
-
   React.useEffect(() => {
-
 
     async function fetchData() {
 
       try {
-
         const response = await instance.get('/hairsalons/' + id); 
-        
         const responseData = response.data;
 
         setData(responseData);
@@ -62,7 +58,7 @@ export default function HairsalonProfile() {
           thumbnail: x.link,
         }));
 
-        imagesla.push(imageObjects);
+        setFetchedImages(imageObjects);
 
         console.log('Images fetched: ' + JSON.stringify(imageObjects));
         console.log('Images static: ' + JSON.stringify(images));
@@ -82,7 +78,7 @@ export default function HairsalonProfile() {
       <Typography variant="h1" gutterBottom>
        {data.name}
       </Typography>
-      <ImageGallery items={images} />
+      <ImageGallery items={fetchedImages} />
 
       <Grid container spacing={2}>
         <Grid item xs={8}>

@@ -21,14 +21,22 @@ public class DailyOpeningHours {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name="day")
+    private String day;
+
+    @Column(name="open_morning")
     private Time open_morning;
 
+    @Column(name="closing_morning")
     private Time closing_morning;
 
+    @Column(name="open_afternoon")
     private Time open_afternoon;
 
+    @Column(name="closing_afternoon")
     private Time closing_afternoon;
 
+    @Column(name="has_lunch_break")
     private boolean has_lunch_break;
 
     // Many-to-One relationship with Hairsalon

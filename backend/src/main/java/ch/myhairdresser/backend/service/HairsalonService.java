@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
@@ -30,9 +29,9 @@ public class HairsalonService {
     }
 
     public HairsalonOutDTO addHairsalon(HairsalonInDTO hairsalonInDTO) {
-        Hairsalon hairsalon = hairsalonMapper.fromDto(hairsalonInDTO);
+        Hairsalon hairsalon = hairsalonMapper.fromInDto(hairsalonInDTO);
         Hairsalon saved = hairsalonRepository.save(hairsalon);
-        HairsalonOutDTO outDto = hairsalonMapper.toDto(saved);
+        HairsalonOutDTO outDto = hairsalonMapper.toOutDto(saved);
         return outDto;
     }
 
@@ -48,6 +47,6 @@ public class HairsalonService {
     public HairsalonOutDTO getHairsalonById(Integer salonId) {
 
         Hairsalon hairsalon = hairsalonRepository.findById(Long.valueOf(salonId)).get();
-        return hairsalonMapper.toDto(hairsalon);
+        return hairsalonMapper.toOutDto(hairsalon);
     }
 }

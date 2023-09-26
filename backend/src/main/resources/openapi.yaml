@@ -170,7 +170,6 @@ components:
       properties:
         day:
           type: string
-          enum: [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ]
         open-morning:
           type: string
           format: time
@@ -185,3 +184,5 @@ components:
         closing-afternoon:
           type: string
           format: time
+        hairsalon_id:
+          type: integer
