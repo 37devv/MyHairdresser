@@ -9,6 +9,8 @@ import Typography from '@mui/material/Typography';
 import { useParams } from 'react-router-dom';
 import ContactInformation from './ContactInformation';
 import HairsalonRating from './HairsalonRating';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 
 const baseURL = 'http://localhost:8080/api';
 
@@ -16,24 +18,6 @@ const instance = axios.create({
   baseURL,
 });
 
- const images = [
-  {
-    original: "https://picsum.photos/id/1018/1000/600/",
-    thumbnail: "https://picsum.photos/id/1018/250/150/",
-  },
-  {
-    original: "https://picsum.photos/id/1015/1000/600/",
-    thumbnail: "https://picsum.photos/id/1015/250/150/",
-  },
-  {
-    original: "https://picsum.photos/id/1019/1000/600/",
-    thumbnail: "https://picsum.photos/id/1019/250/150/",
-  },
-  {
-    original: "https://www.coiffure-armida.ch/wp-content/uploads/2020/05/Coiffeur_Muri_Salon_.jpg",
-    thumbnail: "https://www.coiffure-armida.ch/wp-content/uploads/2020/05/Coiffeur_Muri_Salon_.jpg"
-  }
-]; 
 
 
 
@@ -41,6 +25,7 @@ export default function HairsalonProfile() {
 
   const [data, setData] = React.useState({});
   const [fetchedImages, setFetchedImages] = React.useState([]);
+  const [errorOccured, setErrorOccured] = React.useState(false);
   const { id } = useParams();
 
   React.useEffect(() => {
@@ -48,35 +33,41 @@ export default function HairsalonProfile() {
     async function fetchData() {
 
       try {
-        const response = await instance.get('/hairsalons/' + id); 
-        const responseData = response.data;
+        setErrorOccured(false);
 
-        setData(responseData);
+        const response = await instance.get('/hairsalons/' + id);
+        setData(response.data);
 
-        const imageObjects = responseData.images.map(x => ({
+        const imageObjects = response.data.images.map(x => ({
           original: x.link,
           thumbnail: x.link,
         }));
-
         setFetchedImages(imageObjects);
 
-        console.log('Images fetched: ' + JSON.stringify(imageObjects));
-        console.log('Images static: ' + JSON.stringify(images));
-
       } catch (error) {
-        console.error(JSON.stringify(error));
+        console.error("error happened" + error.message);
+        setErrorOccured(true);
       }
     }
     fetchData();
   }, [])
 
 
+  if (errorOccured) {
+    return (
+      <Alert severity="error">
+        <AlertTitle>Error</AlertTitle>
+        This is an error alert — <strong>check it out!</strong>
+      </Alert>
+    )
+  }
+
 
   return (
     <Container maxWidth="lg">
 
       <Typography variant="h1" gutterBottom>
-       {data.name}
+        {data.name}
       </Typography>
       <ImageGallery items={fetchedImages} />
 
@@ -86,7 +77,7 @@ export default function HairsalonProfile() {
             Beschreibung
           </Typography>
           <p>
-            {data.description}            
+            {data.description}
           </p>
         </Grid>
         <Grid item xs={4}>
@@ -94,7 +85,7 @@ export default function HairsalonProfile() {
         </Grid>
 
         <Grid item xs={8}>
-          <HairsalonRating/>
+          <HairsalonRating />
         </Grid>
         <Grid item xs={4}>
           <ContactInformation contactInformation={{
