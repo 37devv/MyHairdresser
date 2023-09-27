@@ -90,14 +90,14 @@ export default function HairsalonProfile() {
           </p>
         </Grid>
         <Grid item xs={4}>
-          <OpeningTimes />
+          <OpeningTimes openingTimes={data['daily-opening-hours']} />
         </Grid>
 
         <Grid item xs={8}>
           <HairsalonRating/>
         </Grid>
         <Grid item xs={4}>
-          <ContactInformation data={{
+          <ContactInformation contactInformation={{
             street: data.street,
             plz: data.plz,
             place: data.place,

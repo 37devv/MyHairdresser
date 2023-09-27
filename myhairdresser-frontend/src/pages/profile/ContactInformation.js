@@ -14,23 +14,23 @@ export default function ContactInformation(props) {
         </Typography>
 
         <Typography>
-          {props.data.street}
+          {props.contactInformation.street}
         </Typography>
 
         <Typography>
-          {props.data.plz}
+          {props.contactInformation.plz}
         </Typography>
 
         <Typography>
-          {props.data.place}
+          {props.contactInformation.place}
         </Typography>
 
         <Typography>
-          {props.data.mail}
+          {props.contactInformation.mail}
         </Typography>
 
         <Typography>
-          {props.data.phonenumber}
+          {props.contactInformation.phonenumber}
         </Typography>
       </CardContent>
     </Card>
