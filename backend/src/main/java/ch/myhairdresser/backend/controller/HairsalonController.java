@@ -28,7 +28,8 @@ public class HairsalonController implements HairsalonsApi {
     }
 
     @GetMapping("/autocomplete")
-    public ResponseEntity<List<String>> autocompleteHairsalonName(@RequestParam(name = "salonNameToComplete", required = true) String salonNameToComplete) {
+    public ResponseEntity<List<String>> autocompleteHairsalonName(@RequestParam(name = "salonNameToComplete",
+                                                                    required = true) String salonNameToComplete) {
         log.info("HairsalonController::autocompleteHairsalonName request {}", salonNameToComplete);
         List<String> hairdresserNames = hairsalonService.autocomplete(salonNameToComplete);
         return ResponseEntity.ok(hairdresserNames);

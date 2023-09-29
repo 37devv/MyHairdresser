@@ -93,6 +93,9 @@ databaseChangeLog:
                   name: closing_afternoon
                   type: time
               - column:
+                  name: closed
+                  type: boolean
+              - column:
                   name: hairsalon_id
                   type: int
                   constraints:
@@ -101,6 +104,39 @@ databaseChangeLog:
 
         - addForeignKeyConstraint:
             baseTableName: daily-opening-hours
+            baseColumnNames: hairsalon_id
+            referencedTableName: hairsalon
+            referencedColumnNames: id
+            constraintName: fk_hairsalon_id
+
+        - createTable:
+            tableName: service
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    primaryKeyName: pk_service_id
+              - column:
+                  name: name
+                  type: varchar(255)
+              - column:
+                  name: price
+                  type: double
+              - column:
+                  name: duration
+                  type: interval
+              - column:
+                  name: hairsalon_id
+                  type: int
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseTableName: service
             baseColumnNames: hairsalon_id
             referencedTableName: hairsalon
             referencedColumnNames: id

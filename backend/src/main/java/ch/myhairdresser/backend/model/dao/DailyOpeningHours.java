@@ -30,6 +30,9 @@ public class DailyOpeningHours {
     @Column(name="closing_morning")
     private Time closing_morning;
 
+    @Column(name="closed")
+    private boolean closed;
+
     @Column(name="open_afternoon")
     private Time open_afternoon;
 

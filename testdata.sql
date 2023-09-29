@@ -17,9 +17,22 @@ INSERT INTO image (link, hairsalon_id) VALUES
 
 	
 	INSERT INTO public."daily-opening-hours"(
-	id, day, open_morning, closing_morning, has_lunch_break, open_afternoon, closing_afternoon, hairsalon_id)
-	VALUES (1, 'Monday', '08:00', '12:00', true, '13:00', '17:00', 1);
+	id, day, open_morning, closing_morning, has_lunch_break, open_afternoon, closing_afternoon, hairsalon_id, closed)
+	VALUES (1, 'Monday', '08:00', '12:00', true, '13:00', '17:00', 1, false);
 	
 	INSERT INTO public."daily-opening-hours"(
-	id, day, open_morning, closing_morning, has_lunch_break, open_afternoon, closing_afternoon, hairsalon_id)
-	VALUES (2, 'Tuesday', '08:00', '12:00', true, '13:00', '20:00', 1);
+	id, day, open_morning, closing_morning, has_lunch_break, open_afternoon, closing_afternoon, hairsalon_id, closed)
+	VALUES (2, 'Tuesday', '08:00', '12:00', true, '13:00', '20:00', 1, false);
+	
+	INSERT INTO public.service(
+	id, name, price, duration, hairsalon_id)
+	VALUES (1, 'Haare schneiden', 25, '15M', 1);
+	
+	INSERT INTO public.service(
+	id, name, price, duration, hairsalon_id)
+	VALUES (2, 'Bart kürzen', 14.50, '10M', 1);
+	
+	INSERT INTO public.service(
+	id, name, price, duration, hairsalon_id)
+	VALUES (3, 'Augenbrauen kürzen', 9.65, '5M', 1);
+	

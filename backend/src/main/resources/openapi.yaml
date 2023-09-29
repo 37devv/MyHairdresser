@@ -147,6 +147,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Image'
+        services:
+          type: array
+          items:
+            $ref: '#/components/schemas/service'
 
     #--------------------
     # Image
@@ -178,11 +182,33 @@ components:
           format: time
         has-lunch-break:
           type: boolean
+        closed:
+          type: boolean
         open-afternoon:
           type: string
           format: time
         closing-afternoon:
           type: string
           format: time
+        hairsalon_id:
+          type: integer
+
+    #--------------------
+    # Services
+    #--------------------
+    service:
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        duration:
+          type: string
+          format: duration-iso8601
+          description: Duration of the service in ISO-8601 format
+        price:
+          type: number
+          format: double
         hairsalon_id:
           type: integer

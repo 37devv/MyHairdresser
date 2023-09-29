@@ -45,7 +45,7 @@ export default function HairsalonProfile() {
         setFetchedImages(imageObjects);
 
       } catch (error) {
-        console.error("error happened" + error.message);
+        console.error("error happened " + error.message);
         setErrorOccured(true);
       }
     }
@@ -53,51 +53,46 @@ export default function HairsalonProfile() {
   }, [])
 
 
-  if (errorOccured) {
-    return (
-      <Alert severity="error">
-        <AlertTitle>Error</AlertTitle>
-        This is an error alert — <strong>check it out!</strong>
-      </Alert>
-    )
-  }
-
-
-  return (
+  const content = errorOccured ? (
+    <Alert severity="error">
+      <AlertTitle>Error</AlertTitle>
+      This is an error alert — <strong>check it out!</strong>
+    </Alert>
+  ) : (
     <Container maxWidth="lg">
-
       <Typography variant="h1" gutterBottom>
         {data.name}
       </Typography>
       <ImageGallery items={fetchedImages} />
-
+  
       <Grid container spacing={2}>
         <Grid item xs={8}>
           <Typography variant="h1" gutterBottom>
             Beschreibung
           </Typography>
-          <p>
-            {data.description}
-          </p>
+          <p>{data.description}</p>
         </Grid>
         <Grid item xs={4}>
-          <OpeningTimes openingTimes={data['daily-opening-hours']} />
+          <OpeningTimes openingTimes={data['daily-opening-hours']} services={data['services']} />
         </Grid>
-
+  
         <Grid item xs={8}>
           <HairsalonRating />
         </Grid>
         <Grid item xs={4}>
-          <ContactInformation contactInformation={{
-            street: data.street,
-            plz: data.plz,
-            place: data.place,
-            phonenumber: data.phonenumber,
-            mail: data.mail
-          }} />
+          <ContactInformation
+            contactInformation={{
+              street: data.street,
+              plz: data.plz,
+              place: data.place,
+              phonenumber: data.phonenumber,
+              mail: data.mail,
+            }}
+          />
         </Grid>
       </Grid>
-
     </Container>
   );
+  
+  return content;
 }

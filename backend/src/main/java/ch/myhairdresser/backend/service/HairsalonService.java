@@ -45,7 +45,6 @@ public class HairsalonService {
     }
 
     public HairsalonOutDTO getHairsalonById(Integer salonId) {
-
         Hairsalon hairsalon = hairsalonRepository.findById(Long.valueOf(salonId)).get();
         return hairsalonMapper.toOutDto(hairsalon);
     }

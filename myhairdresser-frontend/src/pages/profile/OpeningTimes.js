@@ -4,6 +4,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import AppointmentDialog from 'pages/appointment/AppointmentDialog';
 
 export default function OpeningTimes(props) {
   const { openingTimes } = props;
@@ -43,7 +44,8 @@ export default function OpeningTimes(props) {
         </ul>
       </CardContent>
       <CardActions>
-        <Button size="small" variant="contained">Termin buchen</Button>
+        
+        <AppointmentDialog services={props.services}/>
       </CardActions>
     </Card>
   );

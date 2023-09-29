@@ -20,5 +20,10 @@ public interface DailyOpeningHoursMapper {
     @Mapping(target="openAfternoon", source = "open_afternoon")
     @Mapping(target="closingAfternoon", source = "closing_afternoon")
     org.openapitools.model.DailyOpeningHours mapToOutDTO(DailyOpeningHours entity);
+
+
+
+
+
 }
 
