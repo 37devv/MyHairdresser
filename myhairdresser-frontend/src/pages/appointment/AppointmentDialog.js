@@ -8,6 +8,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import ServiceCheckbox from './ServiceCheckbox';
 
+import axios from 'axios';
+
 export default function AppointmentDialog({services}) {
     
   const [open, setOpen] = React.useState(false);
@@ -20,9 +22,9 @@ export default function AppointmentDialog({services}) {
     setOpen(false);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log("Simulating handleSubmit")
-    
+    axios.post();
   }
 
   return (

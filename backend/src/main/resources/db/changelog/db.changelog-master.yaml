@@ -141,3 +141,46 @@ databaseChangeLog:
             referencedTableName: hairsalon
             referencedColumnNames: id
             constraintName: fk_hairsalon_id
+
+
+        - createTable:
+            tableName: appointment
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    primaryKeyName: pk_appointment_id
+              - column:
+                  name: firstname
+                  type: varchar(255)
+              - column:
+                  name: lastname
+                  type: varchar(255)
+              - column:
+                  name: mail
+                  type: varchar(255)
+              - column:
+                  name: telephone
+                  type: varchar(255)
+              - column:
+                  name: description
+                  type: varchar(255)
+              - column:
+                  name: duration
+                  type: interval
+              - column:
+                  name: hairsalon_id
+                  type: int
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseTableName: appointment
+            baseColumnNames: hairsalon_id
+            referencedTableName: hairsalon
+            referencedColumnNames: id
+            constraintName: fk_hairsalon_id

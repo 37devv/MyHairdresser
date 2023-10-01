@@ -95,6 +95,26 @@ paths:
         '500':
           description: Internal Server Error
 
+
+  /appointments:
+    post:
+      summary: Create a appointment
+      operationId: bookAppointment
+      requestBody:
+        description: appointment details
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HairsalonInDTO'
+      responses:
+        '201':
+          description: Appointment booked successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HairsalonOutDTO'
+
 #------------------------------------------------------------------
 #components
 #------------------------------------------------------------------
