@@ -2,9 +2,12 @@ package ch.myhairdresser.backend.model.dao;
 
 import ch.myhairdresser.backend.model.converter.AppointmentDurationConverter;
 import ch.myhairdresser.backend.model.converter.DurationConverter;
+import io.hypersistence.utils.hibernate.type.interval.PostgreSQLIntervalType;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.annotations.Type;
+
 import java.time.Duration;
 
 @SuppressWarnings("ALL")
@@ -29,6 +32,7 @@ public class Appointment {
 
     private String description;
 
+    @Type(PostgreSQLIntervalType.class)
     @Column(name="duration", columnDefinition = "interval")
     private Duration duration;
 
