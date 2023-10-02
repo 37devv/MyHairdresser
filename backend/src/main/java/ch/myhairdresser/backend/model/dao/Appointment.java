@@ -1,13 +1,13 @@
 package ch.myhairdresser.backend.model.dao;
 
+import ch.myhairdresser.backend.model.converter.AppointmentDurationConverter;
 import ch.myhairdresser.backend.model.converter.DurationConverter;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import java.time.Duration;
 
+@SuppressWarnings("ALL")
 @Entity
 @Getter
 @Setter
@@ -29,8 +29,7 @@ public class Appointment {
 
     private String description;
 
-    @Column(name="duration")
-    @Convert(converter = DurationConverter.class)
+    @Column(name="duration", columnDefinition = "interval")
     private Duration duration;
 
     @ManyToOne

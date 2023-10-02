@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useForm, Controller } from 'react-hook-form';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -7,12 +8,27 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import ServiceCheckbox from './ServiceCheckbox';
-
 import axios from 'axios';
+import { DevTool } from "@hookform/devtools";
 
-export default function AppointmentDialog({services}) {
-    
+
+export default function AppointmentDialog({ services }) {
+  const { handleSubmit, control, reset, formState } = useForm();
+  const { isSubmitting } = formState;
+
   const [open, setOpen] = React.useState(false);
+
+  const appointmentData = {
+    firstname: 'John',
+    lastname: 'Doe',
+    mail: 'johndoe@example.com',
+    telephone: '123-456-7890',
+    description: 'Appointment description',
+    duration: 'PT1H', // ISO-8601 duration format
+    price: 49.99,
+    serviceIds: [1, 2, 3], // List of integers
+    hairsalonId: 123,
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -20,12 +36,15 @@ export default function AppointmentDialog({services}) {
 
   const handleClose = () => {
     setOpen(false);
+    reset(); // Reset the form when closing the dialog
   };
 
-  const handleSubmit = async () => {
-    console.log("Simulating handleSubmit")
-    axios.post();
-  }
+  const onSubmit = async (data) => {
+    console.log("Form data:", data);
+    // Make your axios post request here with the form data
+    axios.post("http://localhost:8080/api/appointments", appointmentData);
+    handleClose(); // Close the dialog after submitting
+  };
 
   return (
     <div>
@@ -34,74 +53,110 @@ export default function AppointmentDialog({services}) {
       </Button>
 
       <Dialog open={open} onClose={handleClose}>
-
         <DialogTitle>Termin buchen</DialogTitle>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <DialogContent>
+            <DialogContentText>
+              Füllen Sie die Felder mit * aus und wählen Sie die Services.
+            </DialogContentText>
 
+            <ServiceCheckbox services={services} />
 
-        <DialogContent>
+            <Controller
+              name="firstName"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  label="Vorname*"
+                  fullWidth
+                  variant="standard"
+                  {...field}
+                />
+              )}
+            />
 
-          <DialogContentText>
-            Füllen sie die Felder mit * aus und wählen sie die Services.
-          </DialogContentText>
+            <Controller
+              name="lastName"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  label="Nachname*"
+                  fullWidth
+                  variant="standard"
+                  {...field}
+                />
+              )}
+            />
 
-          <ServiceCheckbox services={services}/>
+            <Controller
+              name="email"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  label="Email Address*"
+                  type="email"
+                  fullWidth
+                  variant="standard"
+                  {...field}
+                />
+              )}
+            />
 
+            <Controller
+              name="mobile"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  label="Mobiltelefon*"
+                  fullWidth
+                  variant="standard"
+                  {...field}
+                />
+              )}
+            />
 
-          <TextField
-            autoFocus
-            margin="dense"
-            id="firstName"
-            label="Vorname*"
-            
-            fullWidth
-            variant="standard"
-          />
+            <Controller
+              name="description"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  label="Beschreibung"
+                  fullWidth
+                  variant="standard"
+                  {...field}
+                />
+              )}
+            />
+          </DialogContent>
 
-          <TextField
-            autoFocus
-            margin="dense"
-            id="lastName"
-            label="Nachname*"
-            fullWidth
-            variant="standard"
-          />
-
-
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Email Address*"
-            type="email"
-            fullWidth
-            variant="standard"
-          />
-
-          <TextField
-            autoFocus
-            margin="dense"
-            id="mobile"
-            label="Mobiltelefon*"
-            fullWidth
-            variant="standard"
-          />
-
-          <TextField
-            autoFocus
-            margin="dense"
-            id="description"
-            label="Beschreibung"
-            fullWidth
-            variant="standard"
-          />
-
-        </DialogContent>
-
-        <DialogActions>
-          <Button onClick={handleClose}>Abbrechen</Button>
-          <Button onClick={handleSubmit} variant="contained">Termin buchen</Button>
-        </DialogActions>
+          <DialogActions>
+            <Button onClick={handleClose}>Abbrechen</Button>
+            <Button
+              type="submit"
+              variant="contained"
+              disabled={isSubmitting}
+            >
+              Termin buchen
+            </Button>
+          </DialogActions>
+        </form>
       </Dialog>
+      <DevTool control={control} />
     </div>
   );
 }

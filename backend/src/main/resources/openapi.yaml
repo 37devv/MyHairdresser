@@ -106,14 +106,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/HairsalonInDTO'
+              $ref: '#/components/schemas/AppointmentInDto'
       responses:
         '201':
           description: Appointment booked successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/HairsalonOutDTO'
+                type: long
 
 #------------------------------------------------------------------
 #components
@@ -230,5 +230,64 @@ components:
         price:
           type: number
           format: double
+        hairsalon_id:
+          type: integer
+
+
+
+    #--------------------
+    # Appointment
+    #--------------------
+    AppointmentInDto:
+      type: object
+      properties:
+        firstname:
+          type: string
+        lastname:
+          type: string
+        mail:
+          type: string
+        telephone:
+          type: string
+        description:
+          type: string
+        duration:
+          type: string
+          format: duration-iso8601
+          description: Duration of the appointment in ISO-8601 format
+        price:
+          type: number
+          format: double
+        serviceIds:
+          type: array
+          items:
+            type: integer
+        hairsalon_id:
+          type: integer
+
+    AppointmentOutDto:
+      type: object
+      properties:
+        firstname:
+          type: string
+        lastname:
+          type: string
+        mail:
+          type: string
+        telephone:
+          type: string
+        description:
+          type: string
+        duration:
+          type: string
+          format: duration-iso8601
+          description: Duration of the appointment in ISO-8601 format
+        price:
+          type: number
+          format: double
+        services:
+          type: array
+          items:
+            type: string
         hairsalon_id:
           type: integer
