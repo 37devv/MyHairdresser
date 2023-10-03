@@ -262,7 +262,7 @@ components:
           type: array
           items:
             type: integer
-        hairsalon_id:
+        hairsalonid:
           type: integer
 
     AppointmentOutDto:
@@ -289,5 +289,5 @@ components:
           type: array
           items:
             type: string
-        hairsalon_id:
+        hairsalonid:
           type: integer

@@ -17,6 +17,7 @@ public interface AppointmentMapper {
     AppointmentMapper INSTANCE = Mappers.getMapper(AppointmentMapper.class);
 
     @Mapping(source = "duration", target = "duration", qualifiedByName = "stringToDuration")
+    @Mapping(source = "hairsalonid", target = "hairsalon.id")
     Appointment fromInDtoToEntity(AppointmentInDto hairsalonInDTO);
 
     @Mapping(source = "duration", target = "duration", qualifiedByName = "durationToString")

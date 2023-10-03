@@ -36,7 +36,7 @@ public class Appointment {
     @Column(name="duration", columnDefinition = "interval")
     private Duration duration;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "hairsalon_id")
     private Hairsalon hairsalon;
 

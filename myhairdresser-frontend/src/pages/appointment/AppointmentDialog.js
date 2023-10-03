@@ -27,7 +27,7 @@ export default function AppointmentDialog({ services }) {
     duration: 'PT1H', // ISO-8601 duration format
     price: 49.99,
     serviceIds: [1, 2, 3], // List of integers
-    hairsalonId: 1,
+    hairsalonid: 1,
   };
 
   const handleClickOpen = () => {

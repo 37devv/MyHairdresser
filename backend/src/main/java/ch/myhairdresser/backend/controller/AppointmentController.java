@@ -8,6 +8,7 @@ import org.openapitools.model.AppointmentInDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +22,7 @@ public class AppointmentController implements AppointmentsApi {
 
     @Override
     @PostMapping
-    public ResponseEntity<Long> bookAppointment(AppointmentInDto appointmentInDto) {
+    public ResponseEntity<Long> bookAppointment(@RequestBody AppointmentInDto appointmentInDto) {
         log.info("AppointmentController::bookAppointment request {}",appointmentInDto);
         Long bookingId = appointmentService.bookAppointment(appointmentInDto);
         return new ResponseEntity<Long>(bookingId, HttpStatus.CREATED);
