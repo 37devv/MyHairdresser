@@ -1,10 +1,10 @@
 package ch.myhairdresser.backend.model.dao;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.Time;
@@ -13,7 +13,6 @@ import java.sql.Time;
 @Getter
 @Setter
 @Slf4j
-@ToString
 @Table(name="daily-opening-hours")
 public class DailyOpeningHours {
 
@@ -45,5 +44,6 @@ public class DailyOpeningHours {
     // Many-to-One relationship with Hairsalon
     @ManyToOne
     @JoinColumn(name = "hairsalon_id")
+    @JsonBackReference
     private Hairsalon hairsalon;
 }

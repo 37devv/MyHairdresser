@@ -1,10 +1,10 @@
 package ch.myhairdresser.backend.model.dao;
 
 import ch.myhairdresser.backend.model.converter.DurationConverter;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.Duration;
@@ -13,7 +13,6 @@ import java.time.Duration;
 @Getter
 @Setter
 @Slf4j
-@ToString
 public class Service {
 
     @Id
@@ -32,6 +31,7 @@ public class Service {
 
     @ManyToOne
     @JoinColumn(name = "hairsalon_id")
+    @JsonBackReference
     private Hairsalon hairsalon;
 
 }

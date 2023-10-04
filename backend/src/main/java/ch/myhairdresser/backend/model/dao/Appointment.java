@@ -1,7 +1,5 @@
 package ch.myhairdresser.backend.model.dao;
 
-import ch.myhairdresser.backend.model.converter.AppointmentDurationConverter;
-import ch.myhairdresser.backend.model.converter.DurationConverter;
 import io.hypersistence.utils.hibernate.type.interval.PostgreSQLIntervalType;
 import jakarta.persistence.*;
 import lombok.*;

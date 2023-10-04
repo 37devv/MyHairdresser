@@ -1,5 +1,6 @@
 package ch.myhairdresser.backend.model.dao;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
@@ -31,12 +32,15 @@ public class Hairsalon {
 
     private String mail;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "hairsalon", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Image> images;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "hairsalon", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<DailyOpeningHours> dailyOpeningHours;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "hairsalon", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Service> services;
 

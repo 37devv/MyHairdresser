@@ -10,11 +10,14 @@ import DialogTitle from '@mui/material/DialogTitle';
 import ServiceCheckbox from './ServiceCheckbox';
 import axios from 'axios';
 import { DevTool } from "@hookform/devtools";
+import { useNavigate } from '../../../node_modules/react-router-dom/dist/index';
 
 
 export default function AppointmentDialog({ services }) {
   const { handleSubmit, control, reset, formState } = useForm();
   const { isSubmitting } = formState;
+
+  const navigate = useNavigate();
 
   const [open, setOpen] = React.useState(false);
 
@@ -42,7 +45,9 @@ export default function AppointmentDialog({ services }) {
   const onSubmit = async (data) => {
     console.log("Form data:", data);
     // Make your axios post request here with the form data
-    axios.post("http://localhost:8080/api/appointments", appointmentData);
+    const {data: appointmentId} = await axios.post("http://localhost:8080/api/appointments", appointmentData);
+    
+    navigate("/client/appointment/" + appointmentId);
     handleClose(); // Close the dialog after submitting
   };
 
