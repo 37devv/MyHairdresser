@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.Type;
 
 import java.time.Duration;
+import java.util.Date;
 
 @SuppressWarnings("ALL")
 @Entity
@@ -29,6 +30,9 @@ public class Appointment {
     private String telephone;
 
     private String description;
+
+    @Temporal(TemporalType.DATE)
+    private Date date;
 
     @Type(PostgreSQLIntervalType.class)
     @Column(name="duration", columnDefinition = "interval")

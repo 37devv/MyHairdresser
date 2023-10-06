@@ -258,6 +258,9 @@ components:
         price:
           type: number
           format: double
+        date:
+          type: string
+          format: date
         serviceIds:
           type: array
           items:

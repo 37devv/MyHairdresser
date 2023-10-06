@@ -31,6 +31,7 @@ export default function AppointmentDialog({ services }) {
     price: 49.99,
     serviceIds: [1, 2, 3], // List of integers
     hairsalonid: 1,
+    date: new Date()
   };
 
   const handleClickOpen = () => {

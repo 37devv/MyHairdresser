@@ -20,6 +20,7 @@ public class AppointmentService {
     public Long bookAppointment(AppointmentInDto appointmentInDto) {
         log.info("AppointmentController::bookAppointment request {}",appointmentInDto);
         Appointment appointmentToSave = appointmentMapper.fromInDtoToEntity(appointmentInDto);
+        //TODO: Create second field GUID to use as link identifier
         Appointment appointment = appointmentRepository.save(appointmentToSave);
         return appointment.getId();
     }

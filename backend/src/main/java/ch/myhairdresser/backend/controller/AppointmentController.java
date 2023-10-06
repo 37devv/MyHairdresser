@@ -10,6 +10,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Time;
+import java.util.Date;
+import java.util.List;
+
 @RestController
 @RequestMapping("/appointments")
 @RequiredArgsConstructor
@@ -31,6 +35,13 @@ public class AppointmentController implements AppointmentsApi {
         log.info("AppointmentController::getAppointmentById request {}", appointmentId);
         Appointment appointment = appointmentService.getAppointmentById(appointmentId);
         return new ResponseEntity<Appointment>(appointment, HttpStatus.OK);
+    }
+
+    @GetMapping("/availability/{date}")
+    public ResponseEntity<List<Time>> getAppointmentSlots(@PathVariable Date date) {
+        log.info("AppointmentController::getAppointmentSlots request {}", date);
+        //Logic TBD
+        return new ResponseEntity<List<Time>>((List<Time>) null, HttpStatus.OK);
     }
 
     //Get Available Slots TBD
