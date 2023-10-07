@@ -11,7 +11,10 @@ import ServiceCheckbox from './ServiceCheckbox';
 import axios from 'axios';
 import { DevTool } from "@hookform/devtools";
 import { useNavigate } from '../../../node_modules/react-router-dom/dist/index';
-
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 
 export default function AppointmentDialog({ services }) {
   const { handleSubmit, control, reset, formState } = useForm();
@@ -20,6 +23,7 @@ export default function AppointmentDialog({ services }) {
   const navigate = useNavigate();
 
   const [open, setOpen] = React.useState(false);
+  const [selectedDate, setSelectedDate] = React.useState(null);
 
   const appointmentData = {
     firstname: 'John',
@@ -46,8 +50,8 @@ export default function AppointmentDialog({ services }) {
   const onSubmit = async (data) => {
     console.log("Form data:", data);
     // Make your axios post request here with the form data
-    const {data: appointmentId} = await axios.post("http://localhost:8080/api/appointments", appointmentData);
-    
+    const { data: appointmentId } = await axios.post("http://localhost:8080/api/appointments", appointmentData);
+
     navigate("/client/appointment/" + appointmentId);
     handleClose(); // Close the dialog after submitting
   };
@@ -149,6 +153,23 @@ export default function AppointmentDialog({ services }) {
               )}
             />
           </DialogContent>
+
+          <DatePicker value={selectedDate} onChange={(newValue) => setSelectedDate(newValue)} />
+
+          <InputLabel id="demo-simple-select-label">Timeslot</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={null}
+            label="Age"
+            onChange={null}
+          >
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem>
+
+
+          </Select>
+
 
           <DialogActions>
             <Button onClick={handleClose}>Abbrechen</Button>

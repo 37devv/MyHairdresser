@@ -24,6 +24,30 @@ INSERT INTO image (link, hairsalon_id) VALUES
 	id, day, open_morning, closing_morning, has_lunch_break, open_afternoon, closing_afternoon, hairsalon_id, closed)
 	VALUES (2, 'Tuesday', '08:00', '12:00', true, '13:00', '20:00', 1, false);
 	
+	INSERT INTO public."daily-opening-hours"(
+	id, day, open_morning, closing_morning, has_lunch_break, open_afternoon, closing_afternoon, hairsalon_id, closed)
+	VALUES (3, 'Wednesday', '08:00', '12:00', true, '13:00', '20:00', 1, false);
+	
+	INSERT INTO public."daily-opening-hours"(
+	id, day, open_morning, closing_morning, has_lunch_break, open_afternoon, closing_afternoon, hairsalon_id, closed)
+	VALUES (4, 'Thursday', '08:00', '12:00', true, '13:00', '20:00', 1, false);
+	
+	INSERT INTO public."daily-opening-hours"(
+	id, day, open_morning, closing_morning, has_lunch_break, open_afternoon, closing_afternoon, hairsalon_id, closed)
+	VALUES (5, 'Friday', '08:00', '12:00', true, '13:00', '20:00', 1, false);
+	
+	INSERT INTO public."daily-opening-hours"(
+	id, day, open_morning, closing_morning, has_lunch_break, open_afternoon, closing_afternoon, hairsalon_id, closed)
+	VALUES (6, 'Saturday', '08:00', '12:00', false, '13:00', '20:00', 1, false);
+	
+	INSERT INTO public."daily-opening-hours"(
+	id, day, open_morning, closing_morning, has_lunch_break, open_afternoon, closing_afternoon, hairsalon_id, closed)
+	VALUES (6, 'Saturday', '08:00', '12:00', true, '13:00', '20:00', 1, true);
+	
+	
+	
+	
+	
 	INSERT INTO public.service(
 	id, name, price, duration, hairsalon_id)
 	VALUES (1, 'Haare schneiden', 25, '15M', 1);

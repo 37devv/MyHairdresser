@@ -187,3 +187,91 @@ databaseChangeLog:
             referencedTableName: hairsalon
             referencedColumnNames: id
             constraintName: fk_hairsalon_id
+
+
+
+        # Timeslot table
+        - createTable:
+            tableName: timeslot
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    primaryKeyName: pk_timeslot_id
+              - column:
+                  name: start
+                  type: time
+              - column:
+                  name: end
+                  type: time
+
+        - createTable:
+            tableName: appointment_service_mapping
+            columns:
+              - column:
+                  name: appointmentserviceid
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    primaryKeyName: pk_appointmentservice_id
+              - column:
+                  name: appointmentid
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: serviceid
+                  type: int
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: appointment_service_mapping
+            baseColumnNames: appointmentid
+            referencedTableName: appointment
+            referencedColumnNames: id
+            constraintName: fk_appointmentid
+        - addForeignKeyConstraint:
+            baseTableName: appointment_service_mapping
+            baseColumnNames: serviceid
+            referencedTableName: service
+            referencedColumnNames: id
+            constraintName: fk_serviceid
+        - createTable:
+            tableName: appointment_timeslot_mapping
+            columns:
+              - column:
+                  name: appointmenttimeslotid
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    primaryKeyName: pk_appointmenttimeslot_id
+              - column:
+                  name: appointmentid
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: timeslotid
+                  type: int
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: appointment_timeslot_mapping
+            baseColumnNames: appointmentid
+            referencedTableName: appointment
+            referencedColumnNames: id
+            constraintName: fk_appointment_timeslot_appointmentid
+        - addForeignKeyConstraint:
+            baseTableName: appointment_timeslot_mapping
+            baseColumnNames: timeslotid
+            referencedTableName: timeslot
+            referencedColumnNames: id
+            constraintName: fk_appointment_timeslot_timeslotid
