@@ -33,7 +33,7 @@ export default function AppointmentDialog({ services }) {
     description: 'Appointment description',
     duration: 'PT1H', // ISO-8601 duration format
     price: 49.99,
-    serviceIds: [1, 2, 3], // List of integers
+    serviceIds: [1, 3], // List of integers
     hairsalonid: 1,
     date: new Date()
   };

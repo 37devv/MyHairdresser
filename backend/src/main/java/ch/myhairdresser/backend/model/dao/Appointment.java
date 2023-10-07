@@ -31,6 +31,8 @@ public class Appointment {
 
     private String description;
 
+    private Double price;
+
     @Temporal(TemporalType.DATE)
     private Date date;
 

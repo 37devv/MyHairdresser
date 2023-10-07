@@ -173,6 +173,9 @@ databaseChangeLog:
                   name: duration
                   type: interval
               - column:
+                  name: price
+                  type: double
+              - column:
                   name: date
                   type: date
               - column:

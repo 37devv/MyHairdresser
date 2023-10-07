@@ -42,7 +42,7 @@ INSERT INTO image (link, hairsalon_id) VALUES
 	
 	INSERT INTO public."daily-opening-hours"(
 	id, day, open_morning, closing_morning, has_lunch_break, open_afternoon, closing_afternoon, hairsalon_id, closed)
-	VALUES (6, 'Saturday', '08:00', '12:00', true, '13:00', '20:00', 1, true);
+	VALUES (7, 'Saturday', '08:00', '12:00', true, '13:00', '20:00', 1, true);
 	
 	
 	
