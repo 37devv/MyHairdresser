@@ -275,3 +275,7 @@ databaseChangeLog:
             referencedTableName: timeslot
             referencedColumnNames: id
             constraintName: fk_appointment_timeslot_timeslotid
+
+  - include:
+      file: timeslot_data.xml
+      relativeToChangelogFile: true

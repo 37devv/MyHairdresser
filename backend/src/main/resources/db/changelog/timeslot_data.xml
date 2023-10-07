@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="prepopulate-timeslot" author="Irdin">
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="1"/>
+            <column name="start" value="00:00"/>
+            <column name="end" value="00:15"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="2"/>
+            <column name="start" value="00:15"/>
+            <column name="end" value="00:30"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="3"/>
+            <column name="start" value="00:30"/>
+            <column name="end" value="00:45"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="4"/>
+            <column name="start" value="00:45"/>
+            <column name="end" value="01:00"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="5"/>
+            <column name="start" value="01:00"/>
+            <column name="end" value="01:15"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="6"/>
+            <column name="start" value="01:15"/>
+            <column name="end" value="01:30"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="7"/>
+            <column name="start" value="01:30"/>
+            <column name="end" value="01:45"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="8"/>
+            <column name="start" value="01:45"/>
+            <column name="end" value="02:00"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="9"/>
+            <column name="start" value="02:00"/>
+            <column name="end" value="02:15"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="10"/>
+            <column name="start" value="02:15"/>
+            <column name="end" value="02:30"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="11"/>
+            <column name="start" value="02:30"/>
+            <column name="end" value="02:45"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="12"/>
+            <column name="start" value="02:45"/>
+            <column name="end" value="03:00"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="13"/>
+            <column name="start" value="03:00"/>
+            <column name="end" value="03:15"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="14"/>
+            <column name="start" value="03:15"/>
+            <column name="end" value="03:30"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="15"/>
+            <column name="start" value="03:30"/>
+            <column name="end" value="03:45"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="16"/>
+            <column name="start" value="03:45"/>
+            <column name="end" value="04:00"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="17"/>
+            <column name="start" value="04:00"/>
+            <column name="end" value="04:15"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="18"/>
+            <column name="start" value="04:15"/>
+            <column name="end" value="04:30"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="19"/>
+            <column name="start" value="04:30"/>
+            <column name="end" value="04:45"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="20"/>
+            <column name="start" value="04:45"/>
+            <column name="end" value="05:00"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="21"/>
+            <column name="start" value="05:00"/>
+            <column name="end" value="05:15"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="22"/>
+            <column name="start" value="05:15"/>
+            <column name="end" value="05:30"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="23"/>
+            <column name="start" value="05:30"/>
+            <column name="end" value="05:45"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="24"/>
+            <column name="start" value="05:45"/>
+            <column name="end" value="06:00"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="25"/>
+            <column name="start" value="06:00"/>
+            <column name="end" value="06:15"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="26"/>
+            <column name="start" value="06:15"/>
+            <column name="end" value="06:30"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="27"/>
+            <column name="start" value="06:30"/>
+            <column name="end" value="06:45"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="28"/>
+            <column name="start" value="06:45"/>
+            <column name="end" value="07:00"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="29"/>
+            <column name="start" value="07:00"/>
+            <column name="end" value="07:15"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="30"/>
+            <column name="start" value="07:15"/>
+            <column name="end" value="07:30"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="31"/>
+            <column name="start" value="07:30"/>
+            <column name="end" value="07:45"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="32"/>
+            <column name="start" value="07:45"/>
+            <column name="end" value="08:00"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="33"/>
+            <column name="start" value="08:00"/>
+            <column name="end" value="08:15"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="34"/>
+            <column name="start" value="08:15"/>
+            <column name="end" value="08:30"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="35"/>
+            <column name="start" value="08:30"/>
+            <column name="end" value="08:45"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="36"/>
+            <column name="start" value="08:45"/>
+            <column name="end" value="09:00"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="37"/>
+            <column name="start" value="09:00"/>
+            <column name="end" value="09:15"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="38"/>
+            <column name="start" value="09:15"/>
+            <column name="end" value="09:30"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="39"/>
+            <column name="start" value="09:30"/>
+            <column name="end" value="09:45"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="40"/>
+            <column name="start" value="09:45"/>
+            <column name="end" value="10:00"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="41"/>
+            <column name="start" value="10:00"/>
+            <column name="end" value="10:15"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="42"/>
+            <column name="start" value="10:15"/>
+            <column name="end" value="10:30"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="43"/>
+            <column name="start" value="10:30"/>
+            <column name="end" value="10:45"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="44"/>
+            <column name="start" value="10:45"/>
+            <column name="end" value="11:00"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="45"/>
+            <column name="start" value="11:00"/>
+            <column name="end" value="11:15"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="46"/>
+            <column name="start" value="11:15"/>
+            <column name="end" value="11:30"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="47"/>
+            <column name="start" value="11:30"/>
+            <column name="end" value="11:45"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="48"/>
+            <column name="start" value="11:45"/>
+            <column name="end" value="12:00"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="49"/>
+            <column name="start" value="12:00"/>
+            <column name="end" value="12:15"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="50"/>
+            <column name="start" value="12:15"/>
+            <column name="end" value="12:30"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="51"/>
+            <column name="start" value="12:30"/>
+            <column name="end" value="12:45"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="52"/>
+            <column name="start" value="12:45"/>
+            <column name="end" value="13:00"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="53"/>
+            <column name="start" value="13:00"/>
+            <column name="end" value="13:15"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="54"/>
+            <column name="start" value="13:15"/>
+            <column name="end" value="13:30"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="55"/>
+            <column name="start" value="13:30"/>
+            <column name="end" value="13:45"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="56"/>
+            <column name="start" value="13:45"/>
+            <column name="end" value="14:00"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="57"/>
+            <column name="start" value="14:00"/>
+            <column name="end" value="14:15"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="58"/>
+            <column name="start" value="14:15"/>
+            <column name="end" value="14:30"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="59"/>
+            <column name="start" value="14:30"/>
+            <column name="end" value="14:45"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="60"/>
+            <column name="start" value="14:45"/>
+            <column name="end" value="15:00"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="61"/>
+            <column name="start" value="15:00"/>
+            <column name="end" value="15:15"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="62"/>
+            <column name="start" value="15:15"/>
+            <column name="end" value="15:30"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="63"/>
+            <column name="start" value="15:30"/>
+            <column name="end" value="15:45"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="64"/>
+            <column name="start" value="15:45"/>
+            <column name="end" value="16:00"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="65"/>
+            <column name="start" value="16:00"/>
+            <column name="end" value="16:15"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="66"/>
+            <column name="start" value="16:15"/>
+            <column name="end" value="16:30"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="67"/>
+            <column name="start" value="16:30"/>
+            <column name="end" value="16:45"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="68"/>
+            <column name="start" value="16:45"/>
+            <column name="end" value="17:00"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="69"/>
+            <column name="start" value="17:00"/>
+            <column name="end" value="17:15"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="70"/>
+            <column name="start" value="17:15"/>
+            <column name="end" value="17:30"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="71"/>
+            <column name="start" value="17:30"/>
+            <column name="end" value="17:45"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="72"/>
+            <column name="start" value="17:45"/>
+            <column name="end" value="18:00"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="73"/>
+            <column name="start" value="18:00"/>
+            <column name="end" value="18:15"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="74"/>
+            <column name="start" value="18:15"/>
+            <column name="end" value="18:30"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="75"/>
+            <column name="start" value="18:30"/>
+            <column name="end" value="18:45"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="76"/>
+            <column name="start" value="18:45"/>
+            <column name="end" value="19:00"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="77"/>
+            <column name="start" value="19:00"/>
+            <column name="end" value="19:15"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="78"/>
+            <column name="start" value="19:15"/>
+            <column name="end" value="19:30"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="79"/>
+            <column name="start" value="19:30"/>
+            <column name="end" value="19:45"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="80"/>
+            <column name="start" value="19:45"/>
+            <column name="end" value="20:00"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="81"/>
+            <column name="start" value="20:00"/>
+            <column name="end" value="20:15"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="82"/>
+            <column name="start" value="20:15"/>
+            <column name="end" value="20:30"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="83"/>
+            <column name="start" value="20:30"/>
+            <column name="end" value="20:45"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="84"/>
+            <column name="start" value="20:45"/>
+            <column name="end" value="21:00"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="85"/>
+            <column name="start" value="21:00"/>
+            <column name="end" value="21:15"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="86"/>
+            <column name="start" value="21:15"/>
+            <column name="end" value="21:30"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="87"/>
+            <column name="start" value="21:30"/>
+            <column name="end" value="21:45"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="88"/>
+            <column name="start" value="21:45"/>
+            <column name="end" value="22:00"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="89"/>
+            <column name="start" value="22:00"/>
+            <column name="end" value="22:15"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="90"/>
+            <column name="start" value="22:15"/>
+            <column name="end" value="22:30"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="91"/>
+            <column name="start" value="22:30"/>
+            <column name="end" value="22:45"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="92"/>
+            <column name="start" value="22:45"/>
+            <column name="end" value="23:00"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="93"/>
+            <column name="start" value="23:00"/>
+            <column name="end" value="23:15"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="94"/>
+            <column name="start" value="23:15"/>
+            <column name="end" value="23:30"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="95"/>
+            <column name="start" value="23:30"/>
+            <column name="end" value="23:45"/>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" valueNumeric="96"/>
+            <column name="start" value="23:45"/>
+            <column name="end" value="00:00"/>
+        </insert>
+    </changeSet>
+
+
+</databaseChangeLog>
