@@ -23,7 +23,7 @@ public class AppointmentService {
     private final HairsalonRepository hairsalonRepository;
     private static final AppointmentMapper appointmentMapper = Mappers.getMapper(AppointmentMapper.class);
 
-    public Long bookAppointment(AppointmentInDto appointmentInDto) {
+    public String bookAppointment(AppointmentInDto appointmentInDto) {
         //Mapper
         Appointment appointmentToSave = appointmentMapper.fromInDtoToEntity(appointmentInDto);
         Optional<Hairsalon> hairsalon = hairsalonRepository.findById(appointmentToSave.getHairsalon().getId());
@@ -39,7 +39,7 @@ public class AppointmentService {
 
         Appointment appointment = appointmentRepository.save(appointmentToSave);
         //TODO: Return UUID
-        return appointment.getId();
+        return appointment.getAppointmentidentifier();
     }
 
     private DurationTimeResult resolveCostAndDurationForSelectedServices(Optional<Hairsalon> hairsalon, AppointmentInDto appointmentInDto) {
@@ -70,10 +70,9 @@ public class AppointmentService {
 
     }
 
-    public Appointment getAppointmentById(int id) {
-        log.info("AppointmentService::getAppointmentById request {}", id);
-        Appointment appointment = appointmentRepository.findById(Long.valueOf(id)).get();
-        //TODO: Search after UUID
+    public Appointment getAppointmentByUuid(String uuid) {
+        log.info("AppointmentService::getAppointmentById request {}", uuid);
+        Appointment appointment = appointmentRepository.findByAppointmentidentifier(uuid).get();
         return appointment;
     }
 

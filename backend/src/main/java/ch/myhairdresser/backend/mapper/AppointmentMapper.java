@@ -18,9 +18,11 @@ public interface AppointmentMapper {
 
     @Mapping(source = "duration", target = "duration", qualifiedByName = "stringToDuration")
     @Mapping(source = "hairsalonid", target = "hairsalon.id")
+    @Mapping(target = "services", ignore = true)  // This line tells MapStruct to ignore the services field.
     Appointment fromInDtoToEntity(AppointmentInDto hairsalonInDTO);
 
     @Mapping(source = "duration", target = "duration", qualifiedByName = "durationToString")
+    @Mapping(target = "services", ignore = true)  // Similarly, ignore services when mapping in the other direction.
     AppointmentOutDto fromEntityToOutDto(Appointment appointment);
 
 

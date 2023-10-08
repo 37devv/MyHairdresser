@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import {
-    Typography, Grid, Box, List, ListItem, ListItemText
+    Typography, Grid, Box
 } from '@material-ui/core';
 import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
@@ -53,35 +53,26 @@ function AppointmentConfirmation() {
                         <Grid item xs={8}>
 
                             <Typography variant="h6">Infos zum Termin:</Typography>
-                            <Typography>Datum/Uhrzeit:</Typography>
-                            <Typography>Gebuchte Services:</Typography>
-                            <Typography>Dauer: {humanReadableDuration(data.duration)}</Typography>
-                            <Typography>Preis: {data.price} CHF</Typography>
-                            <Typography>Allfällige Info Ihrer Seite:</Typography>
+                            <Typography><strong>Datum/Uhrzeit:</strong></Typography>
+                            <Typography><strong>Gebuchte Services:</strong> {data.services.map((service, index, array) => (
+                                <span key={service.id}>
+                                    {service.name}
+                                    {index !== array.length - 1 && ", "}
+                                </span>
+                            ))}</Typography>
+                            <Typography><strong>Dauer:</strong> {humanReadableDuration(data.duration)}</Typography>
+                            <Typography><strong>Preis:</strong> {formatPrice(data.price)}</Typography>
 
                             <br />
                             {/* Hair Salon Information */}
                             <Typography variant="h6">Coiffeursalon Info</Typography>
-                            <Typography>Name: {data.hairsalon.name}</Typography>
-                            <Typography>Location: {data.hairsalon.street}, {data.hairsalon.plz} {data.hairsalon.place}</Typography>
-                            <Typography>Phone: {data.hairsalon.phonenumber}</Typography>
-                            <Typography>Email: {data.hairsalon.mail}</Typography>
+                            <Typography><strong>Name:</strong> {data.hairsalon.name}</Typography>
+                            <Typography><strong>Location:</strong> {data.hairsalon.street}, {data.hairsalon.plz} {data.hairsalon.place}</Typography>
+                            <Typography><strong>Phone:</strong> {data.hairsalon.phonenumber}</Typography>
+                            <Typography><strong>Email:</strong> {data.hairsalon.mail}</Typography>
 
                             <br />
-                            <Typography variant="h6">Services</Typography>
-
-                            needs to be overworked!!!!!! IS currently returning all services
-
-                            <List>
-                                {data.hairsalon.services.map(service => (
-                                    <ListItem key={service.id}>
-                                        <ListItemText
-                                            primary={service.name}
-                                            secondary={`Price: ${formatPrice(service.price)}, Duration: ${humanReadableDuration(service.duration)}`}
-                                        />
-                                    </ListItem>
-                                ))}
-                            </List>
+                            
                             <Button variant="contained" color="error">
                                 Termin stornieren
                             </Button>

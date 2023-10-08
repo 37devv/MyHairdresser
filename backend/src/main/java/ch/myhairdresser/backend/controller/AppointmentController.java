@@ -24,16 +24,16 @@ public class AppointmentController implements AppointmentsApi {
 
     @Override
     @PostMapping
-    public ResponseEntity<Long> bookAppointment(@RequestBody AppointmentInDto appointmentInDto) {
+    public ResponseEntity<String> bookAppointment(@RequestBody AppointmentInDto appointmentInDto) {
         log.info("AppointmentController::bookAppointment request {}",appointmentInDto);
-        Long bookingId = appointmentService.bookAppointment(appointmentInDto);
-        return new ResponseEntity<Long>(bookingId, HttpStatus.CREATED);
+        String bookingUuid = appointmentService.bookAppointment(appointmentInDto);
+        return new ResponseEntity<String>(bookingUuid, HttpStatus.CREATED);
     }
 
     @GetMapping("/{appointmentId}")
-    public ResponseEntity<Appointment> getAppointmentById(@PathVariable Integer appointmentId) {
+    public ResponseEntity<Appointment> getAppointmentByUuid(@PathVariable String appointmentId) {
         log.info("AppointmentController::getAppointmentById request {}", appointmentId);
-        Appointment appointment = appointmentService.getAppointmentById(appointmentId);
+        Appointment appointment = appointmentService.getAppointmentByUuid(appointmentId);
         return new ResponseEntity<Appointment>(appointment, HttpStatus.OK);
     }
 

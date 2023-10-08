@@ -113,7 +113,7 @@ paths:
           content:
             application/json:
               schema:
-                type: long
+                type: string
 
 #------------------------------------------------------------------
 #components
