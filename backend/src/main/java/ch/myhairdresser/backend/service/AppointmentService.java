@@ -12,10 +12,7 @@ import org.openapitools.model.AppointmentInDto;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -29,25 +26,26 @@ public class AppointmentService {
     public Long bookAppointment(AppointmentInDto appointmentInDto) {
         //Mapper
         Appointment appointmentToSave = appointmentMapper.fromInDtoToEntity(appointmentInDto);
-
         Optional<Hairsalon> hairsalon = hairsalonRepository.findById(appointmentToSave.getHairsalon().getId());
 
-
-        List<Integer> serviceIdsSelectedByUser = appointmentInDto.getServiceIds();
-        List<ch.myhairdresser.backend.model.dao.Service> servicesAvailableFromHairdresser = hairsalon.get().getServices();
-
-        DurationTimeResult durationTimeResult = receiveCostAndLengthFromSelectedHairdresserServices(serviceIdsSelectedByUser, servicesAvailableFromHairdresser);
+        //Set Duration and Price
+        DurationTimeResult durationTimeResult = resolveCostAndDurationForSelectedServices(hairsalon, appointmentInDto);
         appointmentToSave.setDuration(durationTimeResult.duration());
         appointmentToSave.setPrice(durationTimeResult.price());
+        appointmentToSave.setServices(durationTimeResult.bookedServices());
+
+        //Genereate UUID to identify appointment
+        appointmentToSave.setAppointmentidentifier(UUID.randomUUID().toString());
 
         Appointment appointment = appointmentRepository.save(appointmentToSave);
-
-
-        //TODO: Create second field GUID to use as link identifier
+        //TODO: Return UUID
         return appointment.getId();
     }
 
-    private DurationTimeResult receiveCostAndLengthFromSelectedHairdresserServices(List<Integer> serviceIdsSelectedByUser, List<ch.myhairdresser.backend.model.dao.Service> servicesAvailableFromHairdresser) {
+    private DurationTimeResult resolveCostAndDurationForSelectedServices(Optional<Hairsalon> hairsalon, AppointmentInDto appointmentInDto) {
+
+        List<Integer> serviceIdsSelectedByUser = appointmentInDto.getServiceIds();
+        List<ch.myhairdresser.backend.model.dao.Service> servicesAvailableFromHairdresser = hairsalon.get().getServices();
 
 
         List<ch.myhairdresser.backend.model.dao.Service> filteredServices = servicesAvailableFromHairdresser.stream()
@@ -65,20 +63,21 @@ public class AppointmentService {
                 .mapToDouble(ch.myhairdresser.backend.model.dao.Service::getPrice)
                 .sum();
 
+        Set<ch.myhairdresser.backend.model.dao.Service> bookedServices = new HashSet<>(filteredServices);
 
-        return new DurationTimeResult(totalDuration, totalPrice);
+
+        return new DurationTimeResult(totalDuration, totalPrice, bookedServices);
 
     }
 
     public Appointment getAppointmentById(int id) {
         log.info("AppointmentService::getAppointmentById request {}", id);
         Appointment appointment = appointmentRepository.findById(Long.valueOf(id)).get();
+        //TODO: Search after UUID
         return appointment;
     }
 
 
 }
 
-record DurationTimeResult(Duration duration, Double price) {
-
-}
+record DurationTimeResult(Duration duration, Double price, Set<ch.myhairdresser.backend.model.dao.Service> bookedServices) {}

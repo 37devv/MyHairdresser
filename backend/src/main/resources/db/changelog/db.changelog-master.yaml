@@ -155,6 +155,9 @@ databaseChangeLog:
                     nullable: false
                     primaryKeyName: pk_appointment_id
               - column:
+                  name: appointmentidentifier
+                  type: varchar(255)
+              - column:
                   name: firstname
                   type: varchar(255)
               - column:

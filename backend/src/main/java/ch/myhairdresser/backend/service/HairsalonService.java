@@ -37,9 +37,9 @@ public class HairsalonService {
 
     public List<String> autocomplete(String keyword) {
         List<Hairsalon> hairsalons = hairsalonRepository.findByNameContaining(keyword);
-       List<String> hairsalonNames = hairsalons.stream()
-                                                    .map(Hairsalon::getName)
-                                                    .toList();
+        List<String> hairsalonNames = hairsalons.stream()
+                .map(Hairsalon::getName)
+                .toList();
 
         return hairsalonNames;
     }

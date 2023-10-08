@@ -1,5 +1,6 @@
 package ch.myhairdresser.backend.model.dao;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.hypersistence.utils.hibernate.type.interval.PostgreSQLIntervalType;
 import jakarta.persistence.*;
 import lombok.*;
@@ -8,6 +9,7 @@ import org.hibernate.annotations.Type;
 
 import java.time.Duration;
 import java.util.Date;
+import java.util.Set;
 
 @SuppressWarnings("ALL")
 @Entity
@@ -20,6 +22,8 @@ public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String appointmentidentifier;
 
     private String firstname;
 
@@ -43,5 +47,15 @@ public class Appointment {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "hairsalon_id")
     private Hairsalon hairsalon;
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "appointment_service_mapping", // Name of the join table
+            joinColumns = @JoinColumn(name = "appointmentid"), // Column in join table for Appointment
+            inverseJoinColumns = @JoinColumn(name = "serviceid") // Column in join table for Service
+    )
+    @JsonManagedReference
+    private Set<Service> services;
 
 }
