@@ -44,6 +44,4 @@ public class AppointmentController implements AppointmentsApi {
         return new ResponseEntity<List<Time>>((List<Time>) null, HttpStatus.OK);
     }
 
-    //Get Available Slots TBD
-
 }

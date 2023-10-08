@@ -15,6 +15,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import dayjs from 'dayjs';
 
 export default function AppointmentDialog({ services }) {
   const { handleSubmit, control, reset, formState } = useForm();
@@ -35,7 +36,7 @@ export default function AppointmentDialog({ services }) {
     price: 49.99,
     serviceIds: [1, 3], // List of integers
     hairsalonid: 1,
-    date: new Date()
+    date: selectedDate
   };
 
   const handleClickOpen = () => {
@@ -55,6 +56,13 @@ export default function AppointmentDialog({ services }) {
     navigate("/client/appointment/" + appointmentId);
     handleClose(); // Close the dialog after submitting
   };
+
+  const handleDateChange = (data) => {
+    const date = data.$d;
+    const localDate = dayjs(date).format('YYYY-MM-DD'); 
+    
+    setSelectedDate(localDate);
+  }
 
   return (
     <div>
@@ -154,7 +162,7 @@ export default function AppointmentDialog({ services }) {
             />
           </DialogContent>
 
-          <DatePicker value={selectedDate} onChange={(newValue) => setSelectedDate(newValue)} />
+          <DatePicker value={selectedDate} onChange={handleDateChange} />
 
           <InputLabel id="demo-simple-select-label">Timeslot</InputLabel>
           <Select
