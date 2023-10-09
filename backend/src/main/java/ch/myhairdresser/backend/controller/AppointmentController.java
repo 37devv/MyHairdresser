@@ -1,6 +1,7 @@
 package ch.myhairdresser.backend.controller;
 
 import ch.myhairdresser.backend.model.dao.Appointment;
+import ch.myhairdresser.backend.model.dto.AvailableTimeslotResult;
 import ch.myhairdresser.backend.service.AppointmentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,11 +41,12 @@ public class AppointmentController implements AppointmentsApi {
     }
 
     @GetMapping("/availability")
-    public ResponseEntity<List<Time>> getAppointmentSlots(@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate date,
-                                                          @RequestParam Integer hairsalonid) {
+    public ResponseEntity<AvailableTimeslotResult> getAppointmentSlots(@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate date,
+                                                          @RequestParam Integer hairsalonid,
+                                                          @RequestParam List<Integer> serviceIds) {
         log.info("AppointmentController::getAppointmentSlots request date: {}, hairsalonid: {}", date, hairsalonid);
-        appointmentService.getAvailableTimeslots(date, hairsalonid);
-        return new ResponseEntity<List<Time>>((List<Time>) null, HttpStatus.OK);
+        AvailableTimeslotResult availableTimeslots = appointmentService.getAvailableTimeslots(date, hairsalonid, serviceIds);
+        return new ResponseEntity<AvailableTimeslotResult>(availableTimeslots, HttpStatus.OK);
     }
 
 }

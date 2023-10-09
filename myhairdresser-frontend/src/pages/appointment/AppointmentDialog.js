@@ -17,7 +17,13 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import dayjs from 'dayjs';
 import { useParams } from 'react-router-dom';
+import Alert from '@mui/material/Alert';
 
+const SEVERITY = {
+  WARNING: "WARNING",
+  OK: "OK",
+  ERROR: "ERROR"
+}
 
 export default function AppointmentDialog({ services }) {
   const { handleSubmit, control, reset, formState } = useForm();
@@ -29,6 +35,11 @@ export default function AppointmentDialog({ services }) {
   const [open, setOpen] = React.useState(false);
   const [selectedDate, setSelectedDate] = React.useState(null);
 
+  const [backendResponse, setBackendResponse] = React.useState(null);
+  const [timeslot, setSelectedTimeslot] = React.useState(null);
+  /* const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+ */
   const appointmentData = {
     firstname: 'John',
     lastname: 'Doe',
@@ -42,38 +53,51 @@ export default function AppointmentDialog({ services }) {
     date: selectedDate
   };
 
+  const handleDateChange = async (data) => {
+    //First handle the data and format it in a correct way
+    const date = data.$d;
+    const localDate = dayjs(date).format('YYYY-MM-DD');
+    setSelectedDate(localDate);
+
+
+    //Send the date alongside ID of hairdresser to backend, to retrieve possible timeslots
+    const response = await axios.get("http://localhost:8080/api/appointments/availability?date=" + localDate + "&hairsalonid=" + id);
+    setBackendResponse(response.data);
+    console.log(response);
+  }
+
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
-    reset(); // Reset the form when closing the dialog
+    reset();
   };
 
   const onSubmit = async (data) => {
     console.log("Form data:", data);
-    // Make your axios post request here with the form data
     const { data: appointmentId } = await axios.post("http://localhost:8080/api/appointments", appointmentData);
 
     navigate("/client/appointment/" + appointmentId);
-    handleClose(); // Close the dialog after submitting
+    handleClose();
   };
 
-  const handleDateChange = async (data) => {
-    const date = data.$d;
-    const localDate = dayjs(date).format('YYYY-MM-DD'); 
-    
-    setSelectedDate(localDate);
-    const response = await axios.get("http://localhost:8080/api/appointments/availability?date=" + localDate + "&hairsalonid=" + id);
-    console.log(response);
-  }
+
 
   return (
     <div>
       <Button variant="contained" onClick={handleClickOpen}>
         Termin buchen
       </Button>
+
+
+
+
+
+
+
+
 
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Termin buchen</DialogTitle>
@@ -167,21 +191,39 @@ export default function AppointmentDialog({ services }) {
             />
           </DialogContent>
 
-          <DatePicker value={selectedDate} onChange={handleDateChange} />
+          <DatePicker value={selectedDate} disablePast onChange={handleDateChange} />
 
-          <InputLabel id="demo-simple-select-label">Timeslot</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={null}
-            label="Age"
-            onChange={null}
-          >
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+          {
+            backendResponse && backendResponse.severity === SEVERITY.WARNING &&
+            (
+              <Alert severity="warning">{backendResponse.message}</Alert>
+            )
+          }
+
+          {
+            backendResponse && backendResponse.severity === SEVERITY.OK &&
+            (
+              <>
+                <InputLabel id="demo-simple-select-label">Timeslot</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={timeslot} // You'll need to set this to some state variable to track the selected timeslot value
+                  label="Age"  // "Age" doesn't seem relevant. You might want to change the label to "Timeslot" or something similar
+                  onChange={e => setSelectedTimeslot(e.target.value)} // You'll likely want to set up a handler here to track the selected timeslot value
+                >
+                  {backendResponse.timeslots && backendResponse.timeslots.map((timeslot, index) => (
+                    <MenuItem key={index} value={timeslot}>
+                      {timeslot}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </>
+            )
+          }
 
 
-          </Select>
+
 
 
           <DialogActions>

@@ -1,8 +1,8 @@
 package ch.myhairdresser.backend.model.dto;
 
 
-import java.sql.Time;
+import java.time.LocalTime;
 import java.util.List;
 
-public record AvailableTimeslotResult(Severity severity, List<Time> timeslots, String message) {}
+public record AvailableTimeslotResult(Severity severity, List<LocalTime> timeslots, String message) {}
 

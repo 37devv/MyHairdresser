@@ -17,7 +17,10 @@ import org.springframework.stereotype.Service;
 import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -43,7 +46,7 @@ public class AppointmentService {
         appointmentToSave.setAppointmentidentifier(UUID.randomUUID().toString());
 
         Appointment appointment = appointmentRepository.save(appointmentToSave);
-        //TODO: Return UUID
+
         return appointment.getAppointmentidentifier();
     }
 
@@ -81,25 +84,36 @@ public class AppointmentService {
         return appointment;
     }
 
-    public AvailableTimeslotResult getAvailableTimeslots(LocalDate date, Integer hairsalonId){
+    public AvailableTimeslotResult getAvailableTimeslots(LocalDate date, Integer hairsalonId, List<Integer> serviceIds){
+        Hairsalon hairsalon = hairsalonRepository.findById(Long.valueOf(hairsalonId)).get();
 
         //Schauen ob der Salon geschlossen ist
-        if(isHairsalonClosedOnGivenDaten(date,hairsalonId)){
+        if(isHairsalonClosedOnGivenDaten(date,hairsalon)){
             log.info("Hairsalon is closed on {}", date);
             return new AvailableTimeslotResult(Severity.WARNING, null,
-                    "Der Salon ist an diesem Wochentag geschlossen.");
+                    "Der Salon ist an diesem Wochentag geschlossen. Bitte wählen Sie einen neuen Tag.");
         }
 
+        return new AvailableTimeslotResult(Severity.OK, retrieveDailyOpeningHours(date, hairsalon), "");
+    }
+
+    private List<LocalTime> retrieveDailyOpeningHours(LocalDate date, Hairsalon hairsalon) {
+        Optional<DailyOpeningHours> dailyOpeningHours = hairsalon.getDailyOpeningHours().stream().
+                filter(e ->
+                        e.getDay() == date.getDayOfWeek().getValue()
+                ).findFirst();
 
 
+
+        if (dailyOpeningHours.isPresent()){
+            return generateTimeSlots(dailyOpeningHours.get());
+        }
 
         return null;
     }
 
-    private boolean isHairsalonClosedOnGivenDaten(LocalDate date, Integer hairsalonId) {
-
-        Optional<Hairsalon> hairsalon = hairsalonRepository.findById(Long.valueOf(hairsalonId));
-        List<DailyOpeningHours> dailyOpeningHours = hairsalon.get().getDailyOpeningHours();
+    private boolean isHairsalonClosedOnGivenDaten(LocalDate date, Hairsalon hairsalon) {
+        List<DailyOpeningHours> dailyOpeningHours = hairsalon.getDailyOpeningHours();
 
         DayOfWeek weekday = date.getDayOfWeek();
 
@@ -107,6 +121,23 @@ public class AppointmentService {
         return dailyOpeningHours.stream()
                 .filter(doh -> doh.getDay() == weekday.getValue())
                 .anyMatch(DailyOpeningHours::isClosed);
+    }
+
+    public List<LocalTime> generateTimeSlots(DailyOpeningHours openingHours) {
+        LocalTime startMorning = openingHours.getOpen_morning().toLocalTime();
+        LocalTime endMorning = openingHours.getClosing_morning().toLocalTime();
+
+        List<LocalTime> morningSlots = Stream.iterate(startMorning, time -> time.isBefore(endMorning), time -> time.plusMinutes(15))
+                .collect(Collectors.toList());
+
+        LocalTime startAfternoon = openingHours.getOpen_afternoon().toLocalTime();
+        LocalTime endAfternoon = openingHours.getClosing_afternoon().toLocalTime();
+
+        List<LocalTime> afternoonSlots = Stream.iterate(startAfternoon, time -> time.isBefore(endAfternoon), time -> time.plusMinutes(15))
+                .collect(Collectors.toList());
+
+        morningSlots.addAll(afternoonSlots);
+        return morningSlots;
     }
 }
 
