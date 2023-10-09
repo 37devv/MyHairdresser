@@ -18,31 +18,31 @@ INSERT INTO image (link, hairsalon_id) VALUES
 	
 	INSERT INTO public."daily-opening-hours"(
 	id, day, open_morning, closing_morning, has_lunch_break, open_afternoon, closing_afternoon, hairsalon_id, closed)
-	VALUES (1, 'Monday', '08:00', '12:00', true, '13:00', '17:00', 1, false);
+	VALUES (1, 1, '08:00', '12:00', true, '13:00', '17:00', 1, false);
 	
 	INSERT INTO public."daily-opening-hours"(
 	id, day, open_morning, closing_morning, has_lunch_break, open_afternoon, closing_afternoon, hairsalon_id, closed)
-	VALUES (2, 'Tuesday', '08:00', '12:00', true, '13:00', '20:00', 1, false);
+	VALUES (2, 2, '08:00', '12:00', true, '13:00', '20:00', 1, false);
 	
 	INSERT INTO public."daily-opening-hours"(
 	id, day, open_morning, closing_morning, has_lunch_break, open_afternoon, closing_afternoon, hairsalon_id, closed)
-	VALUES (3, 'Wednesday', '08:00', '12:00', true, '13:00', '20:00', 1, false);
+	VALUES (3, 3, '08:00', '12:00', true, '13:00', '20:00', 1, false);
 	
 	INSERT INTO public."daily-opening-hours"(
 	id, day, open_morning, closing_morning, has_lunch_break, open_afternoon, closing_afternoon, hairsalon_id, closed)
-	VALUES (4, 'Thursday', '08:00', '12:00', true, '13:00', '20:00', 1, false);
+	VALUES (4, 4, '08:00', '12:00', true, '13:00', '20:00', 1, false);
 	
 	INSERT INTO public."daily-opening-hours"(
 	id, day, open_morning, closing_morning, has_lunch_break, open_afternoon, closing_afternoon, hairsalon_id, closed)
-	VALUES (5, 'Friday', '08:00', '12:00', true, '13:00', '20:00', 1, false);
+	VALUES (5, 5, '08:00', '12:00', true, '13:00', '20:00', 1, false);
 	
 	INSERT INTO public."daily-opening-hours"(
 	id, day, open_morning, closing_morning, has_lunch_break, open_afternoon, closing_afternoon, hairsalon_id, closed)
-	VALUES (6, 'Saturday', '08:00', '12:00', false, '13:00', '20:00', 1, false);
+	VALUES (6, 6, '08:00', '12:00', false, '13:00', '20:00', 1, false);
 	
 	INSERT INTO public."daily-opening-hours"(
 	id, day, open_morning, closing_morning, has_lunch_break, open_afternoon, closing_afternoon, hairsalon_id, closed)
-	VALUES (7, 'Saturday', '08:00', '12:00', true, '13:00', '20:00', 1, true);
+	VALUES (7, 7, '08:00', '12:00', true, '13:00', '20:00', 1, true);
 	
 	
 	

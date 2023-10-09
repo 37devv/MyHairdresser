@@ -6,6 +6,17 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import AppointmentDialog from 'pages/appointment/AppointmentDialog';
 
+const DAYS = {
+  1: 'Montag',
+  2: 'Dienstag',
+  3: 'Mittwoch',
+  4: 'Donnerstag',
+  5: 'Freitag',
+  6: 'Samstag',
+  7: 'Sonntag'
+};
+
+
 export default function OpeningTimes(props) {
   const { openingTimes } = props;
 
@@ -35,7 +46,7 @@ export default function OpeningTimes(props) {
         <ul>
           {openingTimes.map((dayData, index) => (
             <li key={index}>
-              <strong>{dayData.day}:</strong><br />
+              <strong>{DAYS[dayData.day]}:</strong><br />
               Morning: {new Date(dayData['open-morning']).toLocaleTimeString('de-CH', {hour: '2-digit', minute: '2-digit'})} - {new Date(dayData['closing-morning']).toLocaleTimeString('de-CH', {hour: '2-digit', minute: '2-digit'})}<br />
               Afternoon: {new Date(dayData['open-afternoon']).toLocaleTimeString('de-CH', {hour: '2-digit', minute: '2-digit'})} - {new Date(dayData['closing-afternoon']).toLocaleTimeString('de-CH', {hour: '2-digit', minute: '2-digit'})}<br />
               Lunch Break: {dayData['has-lunch-break'] ? 'Yes' : 'No'}

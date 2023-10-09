@@ -193,7 +193,7 @@ components:
       type: object
       properties:
         day:
-          type: string
+          type: integer
         open-morning:
           type: string
           format: time

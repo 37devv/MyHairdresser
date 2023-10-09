@@ -2,7 +2,10 @@ package ch.myhairdresser.backend.service;
 
 import ch.myhairdresser.backend.mapper.AppointmentMapper;
 import ch.myhairdresser.backend.model.dao.Appointment;
+import ch.myhairdresser.backend.model.dao.DailyOpeningHours;
 import ch.myhairdresser.backend.model.dao.Hairsalon;
+import ch.myhairdresser.backend.model.dto.AvailableTimeslotResult;
+import ch.myhairdresser.backend.model.dto.Severity;
 import ch.myhairdresser.backend.repository.AppointmentRepository;
 import ch.myhairdresser.backend.repository.HairsalonRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +14,9 @@ import org.mapstruct.factory.Mappers;
 import org.openapitools.model.AppointmentInDto;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -71,12 +76,38 @@ public class AppointmentService {
     }
 
     public Appointment getAppointmentByUuid(String uuid) {
-        log.info("AppointmentService::getAppointmentById request {}", uuid);
+
         Appointment appointment = appointmentRepository.findByAppointmentidentifier(uuid).get();
         return appointment;
     }
 
+    public AvailableTimeslotResult getAvailableTimeslots(LocalDate date, Integer hairsalonId){
 
+        //Schauen ob der Salon geschlossen ist
+        if(isHairsalonClosedOnGivenDaten(date,hairsalonId)){
+            log.info("Hairsalon is closed on {}", date);
+            return new AvailableTimeslotResult(Severity.WARNING, null,
+                    "Der Salon ist an diesem Wochentag geschlossen.");
+        }
+
+
+
+
+        return null;
+    }
+
+    private boolean isHairsalonClosedOnGivenDaten(LocalDate date, Integer hairsalonId) {
+
+        Optional<Hairsalon> hairsalon = hairsalonRepository.findById(Long.valueOf(hairsalonId));
+        List<DailyOpeningHours> dailyOpeningHours = hairsalon.get().getDailyOpeningHours();
+
+        DayOfWeek weekday = date.getDayOfWeek();
+
+        //This checks if the hairsalon is closed on given date
+        return dailyOpeningHours.stream()
+                .filter(doh -> doh.getDay() == weekday.getValue())
+                .anyMatch(DailyOpeningHours::isClosed);
+    }
 }
 
 record DurationTimeResult(Duration duration, Double price, Set<ch.myhairdresser.backend.model.dao.Service> bookedServices) {}

@@ -16,10 +16,13 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import dayjs from 'dayjs';
+import { useParams } from 'react-router-dom';
+
 
 export default function AppointmentDialog({ services }) {
   const { handleSubmit, control, reset, formState } = useForm();
   const { isSubmitting } = formState;
+  const { id } = useParams();
 
   const navigate = useNavigate();
 
@@ -57,11 +60,13 @@ export default function AppointmentDialog({ services }) {
     handleClose(); // Close the dialog after submitting
   };
 
-  const handleDateChange = (data) => {
+  const handleDateChange = async (data) => {
     const date = data.$d;
     const localDate = dayjs(date).format('YYYY-MM-DD'); 
     
     setSelectedDate(localDate);
+    const response = await axios.get("http://localhost:8080/api/appointments/availability?date=" + localDate + "&hairsalonid=" + id);
+    console.log(response);
   }
 
   return (

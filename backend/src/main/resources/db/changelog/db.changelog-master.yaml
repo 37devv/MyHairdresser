@@ -76,7 +76,7 @@ databaseChangeLog:
                     primaryKeyName: pk_daily-opening-hours_id
               - column:
                   name: day
-                  type: varchar(255)
+                  type: int
               - column:
                   name: open_morning
                   type: time

@@ -6,11 +6,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.openapitools.api.AppointmentsApi;
 import org.openapitools.model.AppointmentInDto;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -37,10 +39,11 @@ public class AppointmentController implements AppointmentsApi {
         return new ResponseEntity<Appointment>(appointment, HttpStatus.OK);
     }
 
-    @GetMapping("/availability/{date}")
-    public ResponseEntity<List<Time>> getAppointmentSlots(@PathVariable Date date) {
-        log.info("AppointmentController::getAppointmentSlots request {}", date);
-        //Logic TBD
+    @GetMapping("/availability")
+    public ResponseEntity<List<Time>> getAppointmentSlots(@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate date,
+                                                          @RequestParam Integer hairsalonid) {
+        log.info("AppointmentController::getAppointmentSlots request date: {}, hairsalonid: {}", date, hairsalonid);
+        appointmentService.getAvailableTimeslots(date, hairsalonid);
         return new ResponseEntity<List<Time>>((List<Time>) null, HttpStatus.OK);
     }
 

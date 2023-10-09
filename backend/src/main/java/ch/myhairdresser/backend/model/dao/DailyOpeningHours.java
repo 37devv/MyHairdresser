@@ -21,7 +21,7 @@ public class DailyOpeningHours {
     private Long id;
 
     @Column(name="day")
-    private String day;
+    private Integer day;
 
     @Column(name="open_morning")
     private Time open_morning;
