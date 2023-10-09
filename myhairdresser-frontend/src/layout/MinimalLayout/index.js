@@ -49,7 +49,7 @@ function MinimalLayout() {
               variant="h6"
               noWrap
               component="a"
-              href="/free/client"
+              href="/free/client/landing"
               sx={{
                 mr: 2,
                 display: { xs: 'none', md: 'flex' },
@@ -116,7 +116,7 @@ function MinimalLayout() {
                 textDecoration: 'none',
               }}
             >
-              LOGO
+              MyHairdresser
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (
