@@ -90,3 +90,6 @@ INSERT INTO image (link, hairsalon_id) VALUES
 		id, appointmentidentifier, firstname, lastname, mail, telephone, description, duration, price, date, hairsalon_id)
 VALUES (9, '53i105f5-aag8-61d2-cf65-9e8e2991gf65', 'David', 'Dream', 'david.dream@mail.ch', '079 824 67 45', 'Lorem ipsum solor dit amet',  '65M', 100, '2023-10-31', 1);
 
+INSERT INTO public.appointment(
+    id, appointmentidentifier, firstname, lastname, mail, telephone, description, duration, price, date, hairsalon_id)
+VALUES (10, '23j215g6-aag9-72e3-de76-7f9f3092gh76', 'Luis', 'Muriel', 'luis.muriel@mail.ch', '079 834 78 56', 'Lorem ipsum solor dit amet', '45M', 75, '2023-10-30', 1);
