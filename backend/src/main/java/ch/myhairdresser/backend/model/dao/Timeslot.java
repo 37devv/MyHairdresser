@@ -19,10 +19,10 @@ public class Timeslot {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="open_morning")
+    @Column(name="start")
     private Time start;
 
-    @Column(name="closing_morning")
+    @Column(name="end")
     private Time end;
 
     @ManyToMany(mappedBy = "timeslots")

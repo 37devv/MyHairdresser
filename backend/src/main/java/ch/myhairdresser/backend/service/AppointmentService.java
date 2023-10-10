@@ -143,8 +143,18 @@ public class AppointmentService {
 
         List<Appointment> byDateAndHairsalonId = appointmentRepository.findByDateAndHairsalon_Id(Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant()), hairsalon_id);
 
+
+        //Remove all vergebene timeslots z.b id 62,63,64
+        //Kalkuliere alle möglichen Timeslots anhand von Terminlänge
+        
+
+
         /*
-        1. Fetch all Appointments from a hairdresser from a single day
+        1. Fetch all Appointments from
+        ..
+
+        .
+        a hairdresser from a single day
         2. Calculate Length and Duration of selected
         3. Based on this, remove all non possible timeslots
 
