@@ -44,7 +44,7 @@ public class AppointmentController implements AppointmentsApi {
     public ResponseEntity<AvailableTimeslotResult> getAppointmentSlots(@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate date,
                                                           @RequestParam Integer hairsalonid,
                                                           @RequestParam List<Integer> serviceIds) {
-        log.info("AppointmentController::getAppointmentSlots request date: {}, hairsalonid: {}", date, hairsalonid);
+        log.info("AppointmentController::getAppointmentSlots request date: {}, hairsalonid: {}, serviceIds: {}", date, hairsalonid, serviceIds);
         AvailableTimeslotResult availableTimeslots = appointmentService.getAvailableTimeslots(date, hairsalonid, serviceIds);
         return new ResponseEntity<AvailableTimeslotResult>(availableTimeslots, HttpStatus.OK);
     }

@@ -19,7 +19,8 @@ const MenuProps = {
   },
 };
 
-export default function ServiceCheckbox({ services }) {
+export default function ServiceCheckbox({ services, handleServiceIdChange }) {
+
   const [selectedServices, setSelectedServices] = React.useState([]);
   const [selectedServiceIds, setSelectedServiceIds] = React.useState([]);
   const [totalPrice, setTotalPrice] = React.useState(0);
@@ -47,6 +48,8 @@ export default function ServiceCheckbox({ services }) {
 
     setTotalPrice(selectedServicesTotalPrice);
     setTotalDuration(selectedServicesTotalDuration);
+    //Send to parent component to retrieve id's
+    handleServiceIdChange(selectedIds);
   };
 
   // Function to parse ISO 8601 duration to minutes

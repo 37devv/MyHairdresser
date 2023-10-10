@@ -37,9 +37,9 @@ export default function AppointmentDialog({ services }) {
 
   const [backendResponse, setBackendResponse] = React.useState(null);
   const [timeslot, setSelectedTimeslot] = React.useState(null);
-  /* const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
- */
+  const [serviceIds, setServiceIds] = React.useState([]);
+
+
   const appointmentData = {
     firstname: 'John',
     lastname: 'Doe',
@@ -48,7 +48,7 @@ export default function AppointmentDialog({ services }) {
     description: 'Appointment description',
     duration: 'PT1H', // ISO-8601 duration format
     price: 49.99,
-    serviceIds: [1, 3], // List of integers
+    serviceIds: serviceIds, // List of integers
     hairsalonid: 1,
     date: selectedDate
   };
@@ -61,7 +61,16 @@ export default function AppointmentDialog({ services }) {
 
 
     //Send the date alongside ID of hairdresser to backend, to retrieve possible timeslots
-    const response = await axios.get("http://localhost:8080/api/appointments/availability?date=" + localDate + "&hairsalonid=" + id);
+    const params = new URLSearchParams({
+      date: localDate,
+      hairsalonid: id
+    });
+    
+    serviceIds.forEach(id => params.append('serviceIds', id));
+    
+    const response = await axios.get("http://localhost:8080/api/appointments/availability", {
+      params: params
+    });
     setBackendResponse(response.data);
     console.log(response);
   }
@@ -73,6 +82,11 @@ export default function AppointmentDialog({ services }) {
   const handleClose = () => {
     setOpen(false);
     reset();
+  };
+
+  const handleServiceIdChange = (data) => {
+    console.log("Servicecheckboxdata: " + data)
+    setServiceIds(data);
   };
 
   const onSubmit = async (data) => {
@@ -91,14 +105,6 @@ export default function AppointmentDialog({ services }) {
         Termin buchen
       </Button>
 
-
-
-
-
-
-
-
-
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Termin buchen</DialogTitle>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -107,7 +113,7 @@ export default function AppointmentDialog({ services }) {
               Füllen Sie die Felder mit * aus und wählen Sie die Services.
             </DialogContentText>
 
-            <ServiceCheckbox services={services} />
+            <ServiceCheckbox services={services} handleServiceIdChange={handleServiceIdChange} />
 
             <Controller
               name="firstName"
