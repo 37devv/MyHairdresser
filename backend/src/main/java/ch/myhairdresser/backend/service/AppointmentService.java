@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.time.*;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 @Service
@@ -83,18 +84,24 @@ public class AppointmentService {
     public AvailableTimeslotResult getAvailableTimeslots(LocalDate date, Integer hairsalonId, List<Integer> serviceIds) {
         Hairsalon hairsalon = hairsalonRepository.findById(Long.valueOf(hairsalonId)).get();
 
-        //Schauen ob der Salon geschlossen ist
+        //Check if salon is closed
         if(isHairsalonClosedOnGivenDaten(date,hairsalon)){
             log.info("Hairsalon is closed on {}", date);
-            return new AvailableTimeslotResult(Severity.WARNING, null,
-                    "Der Salon ist an diesem Wochentag geschlossen. Bitte wählen Sie einen neuen Tag.");
+            return new AvailableTimeslotResult(
+                    Severity.WARNING,
+                    null,
+                    "Der Salon ist an diesem Wochentag geschlossen. Bitte wählen Sie einen neuen Tag."
+            );
         }
 
+        //Retrieve daily OpeningHours
         Optional<DailyOpeningHours> openingHoursForSingleDay = retrieveDailyOpeningHours(date, hairsalon);
 
         if (openingHoursForSingleDay.isPresent()){
             List<LocalTime> allTimeSlotsFromSingleDay = generateTimeSlotsForGivenWeekday(openingHoursForSingleDay.get());
-            List<LocalTime> possibleTimeslots = generateTimeSlotsBasedOnTimeAndAvailabilityConstraints(allTimeSlotsFromSingleDay, date, hairsalonId);
+            DurationTimeResult durationTimeResult = resolveCostAndDurationForSelectedServices(Optional.of(hairsalon), serviceIds);
+
+            List<LocalTime> possibleTimeslots = generateTimeSlotsBasedOnTimeAndAvailabilityConstraints(allTimeSlotsFromSingleDay, date, hairsalonId, new ArrayList<>(durationTimeResult.bookedServices()));
             return new AvailableTimeslotResult(Severity.OK, possibleTimeslots, "");
         }
 
@@ -139,30 +146,16 @@ public class AppointmentService {
     }
 
     //This method returns timeslots where its
-    private List<LocalTime> generateTimeSlotsBasedOnTimeAndAvailabilityConstraints(List<LocalTime> dailySlots, LocalDate date, int hairsalon_id){
+    private List<LocalTime> generateTimeSlotsBasedOnTimeAndAvailabilityConstraints(List<LocalTime> dailySlots,
+                                                                                   LocalDate date, int hairsalon_id,
+                                                                                   List<ch.myhairdresser.backend.model.dao.Service> bookedServices){
 
         List<Appointment> byDateAndHairsalonId = appointmentRepository.findByDateAndHairsalon_Id(Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant()), hairsalon_id);
 
         List<LocalTime> dailySlotsWithoutBookedOnes = removeAllBookedSlots(dailySlots, byDateAndHairsalonId);
-        return dailySlotsWithoutBookedOnes;
-        //Remove all vergebene timeslots z.b id 62,63,64
-
-        //Kalkuliere alle möglichen Timeslots anhand von Terminlänge
-
-
-
-        /*
-        1. Fetch all Appointments from
-        ..
-
-        .
-        a hairdresser from a single day
-        2. Calculate Length and Duration of selected
-        3. Based on this, remove all non possible timeslots
-
-         */
-
-
+        List<LocalTime> result = returnAllPossibleSlotsBasedOnTimeConstraint(dailySlotsWithoutBookedOnes,
+                bookedServices);
+        return result;
     }
 
     private List<LocalTime> removeAllBookedSlots(List<LocalTime> dailySlots, List<Appointment> listOfAppointments) {
@@ -178,8 +171,20 @@ public class AppointmentService {
                 .collect(Collectors.toList());
     }
 
-    private List<LocalTime> returnAllPossibleSlotsBasedOnTimeConstraint(List<LocalTime> dailySlots, List<Object> bookedServices){
-        return null;
+    private List<LocalTime> returnAllPossibleSlotsBasedOnTimeConstraint(List<LocalTime> dailySlots,
+                                                                        List<ch.myhairdresser.backend.model.dao.Service> bookedServices){
+        // Calculate the total duration required
+        Duration totalDuration = bookedServices.stream()
+                .map(ch.myhairdresser.backend.model.dao.Service::getDuration)
+                .reduce(Duration.ZERO, Duration::plus);
+
+        // Convert the total duration to the equivalent number of slots. Assuming each slot is 15 minutes
+        int requiredSlotsCount = (int) Math.ceil((double) totalDuration.toMinutes() / 15);
+
+        // Filter the dailySlots
+        return IntStream.range(0, dailySlots.size() - requiredSlotsCount + 1)
+                .mapToObj(index -> dailySlots.get(index))
+                .collect(Collectors.toList());
     }
 }
 
