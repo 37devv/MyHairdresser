@@ -143,10 +143,12 @@ public class AppointmentService {
 
         List<Appointment> byDateAndHairsalonId = appointmentRepository.findByDateAndHairsalon_Id(Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant()), hairsalon_id);
 
-
+        List<LocalTime> dailySlotsWithoutBookedOnes = removeAllBookedSlots(dailySlots, byDateAndHairsalonId);
+        return dailySlotsWithoutBookedOnes;
         //Remove all vergebene timeslots z.b id 62,63,64
+
         //Kalkuliere alle möglichen Timeslots anhand von Terminlänge
-        
+
 
 
         /*
@@ -161,6 +163,22 @@ public class AppointmentService {
          */
 
 
+    }
+
+    private List<LocalTime> removeAllBookedSlots(List<LocalTime> dailySlots, List<Appointment> listOfAppointments) {
+        // Create a set of all booked slots for fast lookup
+        Set<LocalTime> bookedSlots = listOfAppointments.stream()
+                .flatMap(appointment -> appointment.getTimeslots().stream())
+                .map(timeslot -> timeslot.getStart().toLocalTime())
+                .collect(Collectors.toSet());
+
+        // Filter dailySlots to exclude booked slots
+        return dailySlots.stream()
+                .filter(slot -> !bookedSlots.contains(slot))
+                .collect(Collectors.toList());
+    }
+
+    private List<LocalTime> returnAllPossibleSlotsBasedOnTimeConstraint(List<LocalTime> dailySlots, List<Object> bookedServices){
         return null;
     }
 }
