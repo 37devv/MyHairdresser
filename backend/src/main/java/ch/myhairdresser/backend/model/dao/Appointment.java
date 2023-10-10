@@ -58,4 +58,13 @@ public class Appointment {
     @JsonManagedReference
     private Set<Service> services;
 
+    @ManyToMany
+    @JoinTable(
+            name = "appointment_timeslot_mapping", // Name of the join table
+            joinColumns = @JoinColumn(name = "appointmentid"), // Column in join table for Appointment
+            inverseJoinColumns = @JoinColumn(name = "timeslotid") // Column in join table for Service
+    )
+    @JsonManagedReference
+    private Set<Timeslot> timeslots;
+
 }
