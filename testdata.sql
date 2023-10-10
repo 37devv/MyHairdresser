@@ -60,3 +60,33 @@ INSERT INTO image (link, hairsalon_id) VALUES
 	id, name, price, duration, hairsalon_id)
 	VALUES (3, 'Augenbrauen kürzen', 9.65, '5M', 1);
 	
+	
+	INSERT INTO public.appointment(
+	id, appointmentidentifier, firstname, lastname, mail, telephone, description, duration, price, date, hairsalon_id)
+	VALUES (1, '98f560b6-aad3-47d7-ba61-9e3a2360bd30', 'Peter', 'Pan', 'peter.pan@mail.ch', '079 824 67 99', 'Lorem ipsum solor dit amet',  '50M', 50, '2023-10-31', 1);
+	
+		-- 1st statement
+	INSERT INTO public.appointment(
+		id, appointmentidentifier, firstname, lastname, mail, telephone, description, duration, price, date, hairsalon_id)
+	VALUES (5, '19e761b1-aac4-47a7-bb51-9a4a2567bd21', 'John', 'Doe', 'john.doe@mail.ch', '079 824 67 89', 'Lorem ipsum solor dit amet',  '10M', 60, '2023-10-31', 1);
+
+	-- 2nd statement
+	INSERT INTO public.appointment(
+		id, appointmentidentifier, firstname, lastname, mail, telephone, description, duration, price, date, hairsalon_id)
+	VALUES (6, '20f872c2-aad5-48a8-bc52-9b5b2678cd32', 'Alice', 'Wonderland', 'alice.wonderland@mail.ch', '079 824 67 78', 'Lorem ipsum solor dit amet',  '20M', 70, '2023-10-31', 1);
+
+	-- 3rd statement
+	INSERT INTO public.appointment(
+		id, appointmentidentifier, firstname, lastname, mail, telephone, description, duration, price, date, hairsalon_id)
+	VALUES (7, '31g983d3-aae6-49b9-bd53-9c6c2789de43', 'Bob', 'Builder', 'bob.builder@mail.ch', '079 824 67 67', 'Lorem ipsum solor dit amet',  '30M', 80, '2023-10-31', 1);
+
+	-- 4th statement
+	INSERT INTO public.appointment(
+		id, appointmentidentifier, firstname, lastname, mail, telephone, description, duration, price, date, hairsalon_id)
+	VALUES (8, '42h094e4-aaf7-50c1-be54-9d7d2890ef54', 'Charlie', 'Chocolate', 'charlie.chocolate@mail.ch', '079 824 67 56', 'Lorem ipsum solor dit amet',  '40M', 90, '2023-10-31', 1);
+
+	-- 5th statement
+	INSERT INTO public.appointment(
+		id, appointmentidentifier, firstname, lastname, mail, telephone, description, duration, price, date, hairsalon_id)
+VALUES (9, '53i105f5-aag8-61d2-cf65-9e8e2991gf65', 'David', 'Dream', 'david.dream@mail.ch', '079 824 67 45', 'Lorem ipsum solor dit amet',  '65M', 100, '2023-10-31', 1);
+
