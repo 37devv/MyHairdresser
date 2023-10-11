@@ -40,17 +40,26 @@ export default function AppointmentDialog({ services }) {
   const [serviceIds, setServiceIds] = React.useState([]);
 
 
-  const appointmentData = {
-    firstname: 'John',
-    lastname: 'Doe',
-    mail: 'johndoe@example.com',
-    telephone: '123-456-7890',
-    description: 'Appointment description',
-    duration: 'PT1H', // ISO-8601 duration format
-    price: 49.99,
-    serviceIds: serviceIds, // List of integers
-    hairsalonid: 1,
-    date: selectedDate
+
+  const onSubmit = async (data) => {
+    console.log("Form data:", data);
+    console.log("timeslot: ", timeslot)
+    console.log("selectedDate: ", selectedDate)
+    const { data: appointmentId } = await axios.post("http://localhost:8080/api/appointments",
+     {
+      firstname: data.firstname,
+      lastname: data.lastname,
+      mail: data.email,
+      telephone: data.telephone,
+      description: data.description,      
+      serviceIds: serviceIds, // List of integers
+      hairsalonid: id,
+      date: selectedDate,
+      time: data.timeslot
+    });
+
+    navigate("/client/appointment/" + appointmentId);
+    handleClose();
   };
 
   const handleDateChange = async (data) => {
@@ -89,13 +98,7 @@ export default function AppointmentDialog({ services }) {
     setServiceIds(data);
   };
 
-  const onSubmit = async (data) => {
-    console.log("Form data:", data);
-    const { data: appointmentId } = await axios.post("http://localhost:8080/api/appointments", appointmentData);
-
-    navigate("/client/appointment/" + appointmentId);
-    handleClose();
-  };
+  
 
 
 
