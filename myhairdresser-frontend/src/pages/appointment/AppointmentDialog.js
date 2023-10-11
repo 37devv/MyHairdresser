@@ -124,13 +124,16 @@ export default function AppointmentDialog({ services }) {
               name="firstName"
               control={control}
               defaultValue=""
-              render={({ field }) => (
+              rules={{ required: "Vorname is required" }}  // <-- Set the required rule here
+              render={({ field, fieldState }) => (
                 <TextField
                   autoFocus
                   margin="dense"
                   label="Vorname*"
                   fullWidth
                   variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error ? fieldState.error.message : null}
                   {...field}
                 />
               )}
@@ -140,13 +143,16 @@ export default function AppointmentDialog({ services }) {
               name="lastName"
               control={control}
               defaultValue=""
-              render={({ field }) => (
+              rules={{ required: "Nachname is required" }}  // <-- Set the required rule here
+              render={({ field, fieldState }) => (
                 <TextField
                   autoFocus
                   margin="dense"
                   label="Nachname*"
                   fullWidth
                   variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error ? fieldState.error.message : null}
                   {...field}
                 />
               )}
@@ -156,7 +162,8 @@ export default function AppointmentDialog({ services }) {
               name="email"
               control={control}
               defaultValue=""
-              render={({ field }) => (
+              rules={{ required: "Email Address is required" }}  // <-- Set the required rule here
+              render={({ field, fieldState }) => (
                 <TextField
                   autoFocus
                   margin="dense"
@@ -164,6 +171,8 @@ export default function AppointmentDialog({ services }) {
                   type="email"
                   fullWidth
                   variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error ? fieldState.error.message : null}
                   {...field}
                 />
               )}
@@ -173,17 +182,21 @@ export default function AppointmentDialog({ services }) {
               name="mobile"
               control={control}
               defaultValue=""
-              render={({ field }) => (
+              rules={{ required: "Mobiltelefon is required" }}  // <-- Set the required rule here
+              render={({ field, fieldState }) => (
                 <TextField
                   autoFocus
                   margin="dense"
                   label="Mobiltelefon*"
                   fullWidth
                   variant="standard"
+                  error={!!fieldState.error}
+                  helperText={fieldState.error ? fieldState.error.message : null}
                   {...field}
                 />
               )}
             />
+
 
             <Controller
               name="description"
@@ -200,47 +213,50 @@ export default function AppointmentDialog({ services }) {
                 />
               )}
             />
+
+
+            <DatePicker disabled={serviceIds.length === 0} value={selectedDate} disablePast onChange={handleDateChange} />
+
+
+
+            {
+              selectedDate === null &&
+              (
+                <Alert severity="info">Sie müssen ein Datum auswählen</Alert>
+              )
+            }
+
+            {
+              backendResponse && backendResponse.severity === SEVERITY.WARNING &&
+              (
+                <Alert severity="warning">{backendResponse.message}</Alert>
+              )
+            }
+
+            {
+              backendResponse && backendResponse.severity === SEVERITY.OK &&
+              (
+                <>
+                  <InputLabel id="demo-simple-select-label">Timeslot</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={timeslot} // You'll need to set this to some state variable to track the selected timeslot value
+                    label="Age"  // "Age" doesn't seem relevant. You might want to change the label to "Timeslot" or something similar
+                    onChange={e => setSelectedTimeslot(e.target.value)} // You'll likely want to set up a handler here to track the selected timeslot value
+                  >
+                    {backendResponse.timeslots && backendResponse.timeslots.map((timeslot, index) => (
+                      <MenuItem key={index} value={timeslot}>
+                        {timeslot}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </>
+              )
+            }
           </DialogContent>
 
-          <DatePicker disabled={serviceIds.length === 0} value={selectedDate} disablePast onChange={handleDateChange} />
 
-
-
-          {
-            selectedDate === null &&
-            (
-              <Alert severity="info">Sie müssen ein Datum auswählen</Alert>
-            )
-          }
-
-          {
-            backendResponse && backendResponse.severity === SEVERITY.WARNING &&
-            (
-              <Alert severity="warning">{backendResponse.message}</Alert>
-            )
-          }
-
-          {
-            backendResponse && backendResponse.severity === SEVERITY.OK &&
-            (
-              <>
-                <InputLabel id="demo-simple-select-label">Timeslot</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={timeslot} // You'll need to set this to some state variable to track the selected timeslot value
-                  label="Age"  // "Age" doesn't seem relevant. You might want to change the label to "Timeslot" or something similar
-                  onChange={e => setSelectedTimeslot(e.target.value)} // You'll likely want to set up a handler here to track the selected timeslot value
-                >
-                  {backendResponse.timeslots && backendResponse.timeslots.map((timeslot, index) => (
-                    <MenuItem key={index} value={timeslot}>
-                      {timeslot}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </>
-            )
-          }
 
 
 

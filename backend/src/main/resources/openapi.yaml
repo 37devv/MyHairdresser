@@ -261,6 +261,9 @@ components:
         date:
           type: string
           format: date
+        time:
+          type: string
+          format: time
         serviceIds:
           type: array
           items:
