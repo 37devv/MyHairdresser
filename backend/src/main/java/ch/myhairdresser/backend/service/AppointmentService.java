@@ -29,7 +29,6 @@ public class AppointmentService {
     private final AppointmentRepository appointmentRepository;
     private final HairsalonRepository hairsalonRepository;
     private static final AppointmentMapper appointmentMapper = Mappers.getMapper(AppointmentMapper.class);
-
     public String bookAppointment(AppointmentInDto appointmentInDto) {
         //Mapper
         Appointment appointmentToSave = appointmentMapper.fromInDtoToEntity(appointmentInDto);

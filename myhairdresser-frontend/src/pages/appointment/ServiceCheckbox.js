@@ -86,9 +86,9 @@ export default function ServiceCheckbox({ services, handleServiceIdChange }) {
           ))}
         </Select>
       </FormControl>
-      <div>Total Price: {totalPrice} USD</div>
-      <div>Total Duration: {totalDuration.toFixed(2)} minutes</div>
-      <div>Selected Service IDs: {selectedServiceIds.join(', ')}</div>
+      <div>Preis: {totalPrice.toFixed(2)} CHF </div>
+      <div>Dauer: {totalDuration.toFixed(2)} Minuten</div>
+      <div>Service IDs: {selectedServiceIds.join(', ')}</div>
     </div>
   );
 }

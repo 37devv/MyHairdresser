@@ -65,9 +65,9 @@ export default function AppointmentDialog({ services }) {
       date: localDate,
       hairsalonid: id
     });
-    
+
     serviceIds.forEach(id => params.append('serviceIds', id));
-    
+
     const response = await axios.get("http://localhost:8080/api/appointments/availability", {
       params: params
     });
@@ -114,7 +114,12 @@ export default function AppointmentDialog({ services }) {
             </DialogContentText>
 
             <ServiceCheckbox services={services} handleServiceIdChange={handleServiceIdChange} />
-
+            {
+              serviceIds.length === 0 &&
+              (
+                <Alert severity="info">Sie müssen minimum ein Service auswählen</Alert>
+              )
+            }
             <Controller
               name="firstName"
               control={control}
@@ -197,7 +202,16 @@ export default function AppointmentDialog({ services }) {
             />
           </DialogContent>
 
-          <DatePicker value={selectedDate} disablePast onChange={handleDateChange} />
+          <DatePicker disabled={serviceIds.length === 0} value={selectedDate} disablePast onChange={handleDateChange} />
+
+
+
+          {
+            selectedDate === null &&
+            (
+              <Alert severity="info">Sie müssen ein Datum auswählen</Alert>
+            )
+          }
 
           {
             backendResponse && backendResponse.severity === SEVERITY.WARNING &&
@@ -237,7 +251,7 @@ export default function AppointmentDialog({ services }) {
             <Button
               type="submit"
               variant="contained"
-              disabled={isSubmitting}
+              disabled={isSubmitting || selectedDate === null}
             >
               Termin buchen
             </Button>
