@@ -27,7 +27,7 @@ const SEVERITY = {
 
 export default function AppointmentDialog({ services }) {
   const { handleSubmit, control, reset, formState } = useForm();
-  const { isSubmitting } = formState;
+  const { isSubmitting, errors } = formState;
   const { id } = useParams();
 
   const navigate = useNavigate();
@@ -237,23 +237,35 @@ export default function AppointmentDialog({ services }) {
               backendResponse && backendResponse.severity === SEVERITY.OK &&
               (
                 <>
-                  <InputLabel id="demo-simple-select-label">Timeslot</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={timeslot} // You'll need to set this to some state variable to track the selected timeslot value
-                    label="Age"  // "Age" doesn't seem relevant. You might want to change the label to "Timeslot" or something similar
-                    onChange={e => setSelectedTimeslot(e.target.value)} // You'll likely want to set up a handler here to track the selected timeslot value
-                  >
-                    {backendResponse.timeslots && backendResponse.timeslots.map((timeslot, index) => (
-                      <MenuItem key={index} value={timeslot}>
-                        {timeslot}
-                      </MenuItem>
-                    ))}
-                  </Select>
+                  <InputLabel id="timeslot-select-label">Timeslot</InputLabel>
+                  <Controller
+                    name="timeslot"
+                    control={control}
+                    defaultValue=""
+                    value={timeslot}
+                    onChange={e => setSelectedTimeslot(e.target.value)}
+                    rules={{ required: "Sie müssen einen Timeslot auswählen" }}
+                    render={({ field, fieldState }) => (
+                      <Select
+                        {...field}
+                        labelId="timeslot-select-label"
+                        id="timeslot-select"
+                        error={!!fieldState.error}
+                        label="Timeslot"
+                      >
+                        {backendResponse.timeslots && backendResponse.timeslots.map((timeslot, index) => (
+                          <MenuItem key={index} value={timeslot}>
+                            {timeslot}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    )}
+                  />
+                  {errors.timeslot && <p style={{ color: 'red' }}>{errors.timeslot.message}</p>} {/* Display error message if there's an error */}
                 </>
               )
             }
+
           </DialogContent>
 
 
