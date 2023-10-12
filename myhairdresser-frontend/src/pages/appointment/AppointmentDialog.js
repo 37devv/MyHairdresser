@@ -33,7 +33,7 @@ export default function AppointmentDialog({ services }) {
   const navigate = useNavigate();
 
   const [open, setOpen] = React.useState(false);
-  const [selectedDate, setSelectedDate] = React.useState(dayjs(Date.now()));
+  const [selectedDate, setSelectedDate] = React.useState(dayjs());
 
   const [backendResponse, setBackendResponse] = React.useState(null);
   const [timeslot, setSelectedTimeslot] = React.useState(null);
@@ -45,33 +45,34 @@ export default function AppointmentDialog({ services }) {
     console.log("selectedDate: ", selectedDate)
 
     const { data: appointmentId } = await axios.post("http://localhost:8080/api/appointments",
-     {
-      firstname: data.firstname,
-      lastname: data.lastname,
-      mail: data.email,
-      telephone: data.telephone,
-      description: data.description,      
-      serviceIds: serviceIds, // List of integers
-      hairsalonid: id,
-      date: selectedDate,
-      time: data.timeslot
-    });
+      {
+        firstname: data.firstname,
+        lastname: data.lastname,
+        mail: data.email,
+        telephone: data.telephone,
+        description: data.description,
+        serviceIds: serviceIds, // List of integers
+        hairsalonid: id,
+        date: selectedDate,
+        time: data.timeslot
+      });
 
     navigate("/client/appointment/" + appointmentId);
     handleClose();
   };
 
+
   const handleDateChange = async (data) => {
-    console.log(handleDateChange)
+    console.log(data)
     //First handle the data and format it in a correct way
-    const date = data.$d;
-    const localDate = dayjs(date).format('YYYY-MM-DD');
+
+    const localDate = dayjs(data.$d);
     setSelectedDate(localDate);
 
 
     //Send the date alongside ID of hairdresser to backend, to retrieve possible timeslots
     const params = new URLSearchParams({
-      date: localDate,
+      date: localDate.format('YYYY-MM-DD'),
       hairsalonid: id
     });
 
@@ -97,8 +98,8 @@ export default function AppointmentDialog({ services }) {
   const handleServiceIdChange = async (data) => {
     setServiceIds(data);
 
-     //Send the date alongside ID of hairdresser to backend, to retrieve possible timeslots
-     const params = new URLSearchParams({
+    //Send the date alongside ID of hairdresser to backend, to retrieve possible timeslots
+    const params = new URLSearchParams({
       date: selectedDate.format('YYYY-MM-DD'),
       hairsalonid: id
     });
@@ -113,7 +114,7 @@ export default function AppointmentDialog({ services }) {
 
   };
 
-  
+
   return (
     <div>
       <Button variant="contained" onClick={handleClickOpen}>
@@ -230,7 +231,7 @@ export default function AppointmentDialog({ services }) {
             />
 
 
-            <DatePicker /* disabled={serviceIds.length === 0} */  value={selectedDate}  onChange={handleDateChange} />
+            <DatePicker disabled={serviceIds.length === 0}  value={selectedDate} onChange={handleDateChange} />
 
 
 
