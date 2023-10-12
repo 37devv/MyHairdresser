@@ -6,8 +6,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import SingleHairsalonSearch from './SingleHairsalonSearch';
-import PlaceAutocomplete from './PlaceAutocomplete';
-import NearbySearch from './NearbySearch';
+import FilterHairsalonSearch from './FilterHairsalonSearch';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -66,8 +65,7 @@ export default function BasicTabs() {
         <SingleHairsalonSearch/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <PlaceAutocomplete />
-        <NearbySearch />
+        <FilterHairsalonSearch />
       </CustomTabPanel>
     </Box>
     </Paper>
