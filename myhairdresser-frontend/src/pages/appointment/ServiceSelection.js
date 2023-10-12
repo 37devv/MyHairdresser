@@ -48,6 +48,8 @@ export default function ServiceSelection({ services, handleServiceIdChange }) {
 
     setTotalPrice(selectedServicesTotalPrice);
     setTotalDuration(selectedServicesTotalDuration);
+
+    
     //Send to parent component to retrieve id's
     handleServiceIdChange(selectedIds);
   };

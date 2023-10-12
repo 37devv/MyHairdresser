@@ -33,18 +33,17 @@ export default function AppointmentDialog({ services }) {
   const navigate = useNavigate();
 
   const [open, setOpen] = React.useState(false);
-  const [selectedDate, setSelectedDate] = React.useState(null);
+  const [selectedDate, setSelectedDate] = React.useState(dayjs(Date.now()));
 
   const [backendResponse, setBackendResponse] = React.useState(null);
   const [timeslot, setSelectedTimeslot] = React.useState(null);
   const [serviceIds, setServiceIds] = React.useState([]);
 
-
-
   const onSubmit = async (data) => {
     console.log("Form data:", data);
     console.log("timeslot: ", timeslot)
     console.log("selectedDate: ", selectedDate)
+
     const { data: appointmentId } = await axios.post("http://localhost:8080/api/appointments",
      {
       firstname: data.firstname,
@@ -63,6 +62,7 @@ export default function AppointmentDialog({ services }) {
   };
 
   const handleDateChange = async (data) => {
+    console.log(handleDateChange)
     //First handle the data and format it in a correct way
     const date = data.$d;
     const localDate = dayjs(date).format('YYYY-MM-DD');
@@ -84,6 +84,7 @@ export default function AppointmentDialog({ services }) {
     console.log(response);
   }
 
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -93,9 +94,23 @@ export default function AppointmentDialog({ services }) {
     reset();
   };
 
-  const handleServiceIdChange = (data) => {
-    console.log("Servicecheckboxdata: " + data)
+  const handleServiceIdChange = async (data) => {
     setServiceIds(data);
+
+     //Send the date alongside ID of hairdresser to backend, to retrieve possible timeslots
+     const params = new URLSearchParams({
+      date: selectedDate.format('YYYY-MM-DD'),
+      hairsalonid: id
+    });
+
+    data.forEach(id => params.append('serviceIds', id));
+
+    const response = await axios.get("http://localhost:8080/api/appointments/availability", {
+      params: params
+    });
+    setBackendResponse(response.data);
+    console.log(response);
+
   };
 
   
@@ -215,7 +230,7 @@ export default function AppointmentDialog({ services }) {
             />
 
 
-            <DatePicker disabled={serviceIds.length === 0} value={selectedDate} disablePast onChange={handleDateChange} />
+            <DatePicker /* disabled={serviceIds.length === 0} */  value={selectedDate}  onChange={handleDateChange} />
 
 
 
