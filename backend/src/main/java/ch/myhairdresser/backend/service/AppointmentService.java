@@ -36,7 +36,7 @@ public class AppointmentService {
     public String bookAppointment(AppointmentInDto appointmentInDto) {
         //Mapper
         Appointment appointmentToSave = appointmentMapper.fromInDtoToEntity(appointmentInDto);
-        Optional<Hairsalon> hairsalon = hairsalonRepository.findById(appointmentToSave.getHairsalon().getId());
+        Optional<Hairsalon> hairsalon = hairsalonRepository.findById(Long.valueOf(appointmentInDto.getHairsalonid()));
 
         //Set Duration and Price
         DurationTimeResult durationTimeResult = resolveCostAndDurationForSelectedServices(hairsalon, appointmentInDto.getServiceIds());

@@ -9,19 +9,30 @@ import Button from '@mui/material/Button';
 import dayjs from 'dayjs';
 import {getAppointmentTimeRange} from './AppointmentTimeRangeUtil';
 
-function humanReadableDuration(duration) {
-    const matches = duration.match(/(\d+)([HM])/);
-    const value = matches[1];
-    const unit = matches[2];
-    switch (unit) {
-        case 'H':
-            return `${value} Stunde${value > 1 ? 'n' : ''}`;
-        case 'M':
-            return `${value} Minute${value > 1 ? 'n' : ''}`;
-        default:
-            return duration;
+function isoDurationToGermanFormat(duration) {
+    const matches = duration.match(/PT(?:(\d+)H)?(?:(\d+)M)?/);
+    if (!matches) {
+        throw new Error("Invalid ISO 8601 duration format");
     }
+
+    const hours = matches[1] ? parseInt(matches[1], 10) : 0;
+    const minutes = matches[2] ? parseInt(matches[2], 10) : 0;
+    
+    let result = "";
+
+    if (hours > 0) {
+        result += `${hours} ${hours === 1 ? "Stunde" : "Stunden"}`;
+    }
+
+    if (minutes > 0) {
+        if (result) result += " ";
+        result += `${minutes} ${minutes === 1 ? "Minute" : "Minuten"}`;
+    }
+
+    return result || "Invalid duration";
 }
+
+
 
 function formatPrice(price) {
     return `${price.toFixed(2)}CHF`;
@@ -62,7 +73,7 @@ function AppointmentConfirmation() {
                                     {index !== array.length - 1 && ", "}
                                 </span>
                             ))}</Typography>
-                            <Typography><strong>Dauer:</strong> {humanReadableDuration(data.duration)}</Typography>
+                            <Typography><strong>Dauer:</strong> {isoDurationToGermanFormat(data.duration)}</Typography>
                             <Typography><strong>Preis:</strong> {formatPrice(data.price)}</Typography>
 
                             <br />

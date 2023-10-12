@@ -39,22 +39,22 @@ export default function AppointmentDialog({ services }) {
   const [timeslot, setSelectedTimeslot] = React.useState(null);
   const [serviceIds, setServiceIds] = React.useState([]);
 
-  const onSubmit = async (data) => {
-    console.log("Form data:", data);
+  const onSubmit = async (formdata) => {
+    console.log("Form data:", formdata);
     console.log("timeslot: ", timeslot)
     console.log("selectedDate: ", selectedDate)
 
     const { data: appointmentId } = await axios.post("http://localhost:8080/api/appointments",
       {
-        firstname: data.firstname,
-        lastname: data.lastname,
-        mail: data.email,
-        telephone: data.telephone,
-        description: data.description,
+        firstname: formdata.firstName,
+        lastname: formdata.lastName,
+        mail: formdata.email,
+        telephone: formdata.mobile,
+        description: formdata.description,
         serviceIds: serviceIds, // List of integers
         hairsalonid: id,
         date: selectedDate,
-        time: data.timeslot
+        time: formdata.timeslot
       });
 
     navigate("/client/appointment/" + appointmentId);
@@ -139,7 +139,7 @@ export default function AppointmentDialog({ services }) {
             <Controller
               name="firstName"
               control={control}
-              defaultValue=""
+              defaultValue="Irdin"
               rules={{ required: "Vorname is required" }}  // <-- Set the required rule here
               render={({ field, fieldState }) => (
                 <TextField
@@ -158,7 +158,7 @@ export default function AppointmentDialog({ services }) {
             <Controller
               name="lastName"
               control={control}
-              defaultValue=""
+              defaultValue="Ibisevic"
               rules={{ required: "Nachname is required" }}  // <-- Set the required rule here
               render={({ field, fieldState }) => (
                 <TextField
@@ -177,7 +177,7 @@ export default function AppointmentDialog({ services }) {
             <Controller
               name="email"
               control={control}
-              defaultValue=""
+              defaultValue="irdin.ibisevic@gmail.com"
               rules={{ required: "Email Address is required" }}  // <-- Set the required rule here
               render={({ field, fieldState }) => (
                 <TextField
@@ -197,7 +197,7 @@ export default function AppointmentDialog({ services }) {
             <Controller
               name="mobile"
               control={control}
-              defaultValue=""
+              defaultValue="079 558 46 83"
               rules={{ required: "Mobiltelefon is required" }}  // <-- Set the required rule here
               render={({ field, fieldState }) => (
                 <TextField
@@ -217,7 +217,7 @@ export default function AppointmentDialog({ services }) {
             <Controller
               name="description"
               control={control}
-              defaultValue=""
+              defaultValue="Ich hätte gerne blaue Haare"
               render={({ field }) => (
                 <TextField
                   autoFocus

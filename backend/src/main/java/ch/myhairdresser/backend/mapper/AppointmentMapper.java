@@ -16,31 +16,19 @@ public interface AppointmentMapper {
 
     AppointmentMapper INSTANCE = Mappers.getMapper(AppointmentMapper.class);
 
-    //@Mapping(source = "duration", target = "duration", qualifiedByName = "stringToDuration")
+    @Mapping(source = "firstname", target = "firstname")
+    @Mapping(source = "lastname", target = "lastname")
+    @Mapping(source = "telephone", target = "telephone")
+    @Mapping(source = "description", target = "description")
+    @Mapping(source = "mail", target = "mail")
     @Mapping(source = "hairsalonid", target = "hairsalon.id")
-    @Mapping(target = "services", ignore = true)  // This line tells MapStruct to ignore the services field.
-    Appointment fromInDtoToEntity(AppointmentInDto hairsalonInDTO);
+    Appointment fromInDtoToEntity(AppointmentInDto appointmentInDto);
 
-    //@Mapping(source = "duration", target = "duration", qualifiedByName = "durationToString")
-    @Mapping(target = "services", ignore = true)  // Similarly, ignore services when mapping in the other direction.
+    // If you need to map back from Entity to OutDto, you can adjust this method similarly
+    @Mapping(source = "firstname", target = "firstname")
+    @Mapping(source = "lastname", target = "lastname")
+    @Mapping(source = "telephone", target = "telephone")
+    @Mapping(source = "description", target = "description")
+    @Mapping(target = "services", ignore = true)
     AppointmentOutDto fromEntityToOutDto(Appointment appointment);
-
-
-    /*@Named("stringToDuration")
-    default Duration stringToDuration(String durationString) {
-        try {
-            return Duration.parse(durationString);
-        } catch (DateTimeParseException e) {
-            // Handle invalid duration format if needed
-            throw new IllegalArgumentException("Invalid duration format: " + durationString);
-        }
-    }*/
-
-
-    /*@Named("durationToString")
-    default String durationToString(Duration duration) {
-        // Implement the conversion from Duration to a string
-        // You can use Duration.toString() or any custom logic here
-        return duration.toString();
-    }*/
 }
