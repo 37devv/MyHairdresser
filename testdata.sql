@@ -60,6 +60,10 @@ INSERT INTO image (link, hairsalon_id) VALUES
 	id, name, price, duration, hairsalon_id)
 	VALUES (3, 'Augenbrauen kürzen', 9.65, '5M', 1);
 	
+	INSERT INTO public.service(
+	id, name, price, duration, hairsalon_id)
+	VALUES (4, 'Haare färben', 75.35, '55M', 1);
+	
 	
 	INSERT INTO public.appointment(
 	id, appointmentidentifier, firstname, lastname, mail, telephone, description, duration, price, date, hairsalon_id)

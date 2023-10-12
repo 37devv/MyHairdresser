@@ -251,10 +251,6 @@ components:
           type: string
         description:
           type: string
-        duration:
-          type: string
-          format: duration-iso8601
-          description: Duration of the appointment in ISO-8601 format
         price:
           type: number
           format: double

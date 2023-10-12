@@ -7,6 +7,7 @@ import {
 import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
 import dayjs from 'dayjs';
+import {getAppointmentTimeRange} from './AppointmentTimeRangeUtil';
 
 function humanReadableDuration(duration) {
     const matches = duration.match(/(\d+)([HM])/);
@@ -54,7 +55,7 @@ function AppointmentConfirmation() {
                         <Grid item xs={8}>
 
                             <Typography variant="h6">Infos zum Termin:</Typography>
-                            <Typography><strong>Datum/Uhrzeit:</strong> {dayjs(data.date).format('DD.MM.YYYY')} </Typography>
+                            <Typography><strong>Datum/Uhrzeit:</strong> {dayjs(data.date).format('DD.MM.YYYY')} {getAppointmentTimeRange(data)}</Typography>
                             <Typography><strong>Gebuchte Services:</strong> {data.services.map((service, index, array) => (
                                 <span key={service.id}>
                                     {service.name}

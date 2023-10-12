@@ -7,7 +7,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import ServiceCheckbox from './ServiceCheckbox';
+import ServiceSelection from './ServiceSelection';
 import axios from 'axios';
 import { DevTool } from "@hookform/devtools";
 import { useNavigate } from '../../../node_modules/react-router-dom/dist/index';
@@ -99,9 +99,6 @@ export default function AppointmentDialog({ services }) {
   };
 
   
-
-
-
   return (
     <div>
       <Button variant="contained" onClick={handleClickOpen}>
@@ -116,7 +113,7 @@ export default function AppointmentDialog({ services }) {
               Füllen Sie die Felder mit * aus und wählen Sie die Services.
             </DialogContentText>
 
-            <ServiceCheckbox services={services} handleServiceIdChange={handleServiceIdChange} />
+            <ServiceSelection services={services} handleServiceIdChange={handleServiceIdChange} />
             {
               serviceIds.length === 0 &&
               (
@@ -270,12 +267,6 @@ export default function AppointmentDialog({ services }) {
             }
 
           </DialogContent>
-
-
-
-
-
-
 
           <DialogActions>
             <Button onClick={handleClose}>Abbrechen</Button>

@@ -19,7 +19,7 @@ const MenuProps = {
   },
 };
 
-export default function ServiceCheckbox({ services, handleServiceIdChange }) {
+export default function ServiceSelection({ services, handleServiceIdChange }) {
 
   const [selectedServices, setSelectedServices] = React.useState([]);
   const [selectedServiceIds, setSelectedServiceIds] = React.useState([]);

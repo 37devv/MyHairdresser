@@ -16,17 +16,17 @@ public interface AppointmentMapper {
 
     AppointmentMapper INSTANCE = Mappers.getMapper(AppointmentMapper.class);
 
-    @Mapping(source = "duration", target = "duration", qualifiedByName = "stringToDuration")
+    //@Mapping(source = "duration", target = "duration", qualifiedByName = "stringToDuration")
     @Mapping(source = "hairsalonid", target = "hairsalon.id")
     @Mapping(target = "services", ignore = true)  // This line tells MapStruct to ignore the services field.
     Appointment fromInDtoToEntity(AppointmentInDto hairsalonInDTO);
 
-    @Mapping(source = "duration", target = "duration", qualifiedByName = "durationToString")
+    //@Mapping(source = "duration", target = "duration", qualifiedByName = "durationToString")
     @Mapping(target = "services", ignore = true)  // Similarly, ignore services when mapping in the other direction.
     AppointmentOutDto fromEntityToOutDto(Appointment appointment);
 
 
-    @Named("stringToDuration")
+    /*@Named("stringToDuration")
     default Duration stringToDuration(String durationString) {
         try {
             return Duration.parse(durationString);
@@ -34,13 +34,13 @@ public interface AppointmentMapper {
             // Handle invalid duration format if needed
             throw new IllegalArgumentException("Invalid duration format: " + durationString);
         }
-    }
+    }*/
 
 
-    @Named("durationToString")
+    /*@Named("durationToString")
     default String durationToString(Duration duration) {
         // Implement the conversion from Duration to a string
         // You can use Duration.toString() or any custom logic here
         return duration.toString();
-    }
+    }*/
 }
