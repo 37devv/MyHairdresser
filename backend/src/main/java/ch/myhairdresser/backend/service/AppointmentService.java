@@ -148,8 +148,6 @@ public class AppointmentService {
         return dailyOpeningHours;
     }
 
-
-
     private List<LocalTime> generateTimeSlotsForGivenWeekday(DailyOpeningHours openingHours) {
         LocalTime startMorning = openingHours.getOpen_morning().toLocalTime();
         LocalTime endMorning = openingHours.getClosing_morning().toLocalTime();
@@ -203,11 +201,20 @@ public class AppointmentService {
         // Convert the total duration to the equivalent number of slots. Assuming each slot is 15 minutes
         int requiredSlotsCount = calculateAmountOfSlotsNeeded(totalDuration);
 
-        // Filter the dailySlots
+        // Filter the dailySlots to find starting slots where the next requiredSlotsCount - 1 slots are also available
         return IntStream.range(0, dailySlots.size() - requiredSlotsCount + 1)
+                .filter(index -> {
+                    for (int i = 0; i < requiredSlotsCount; i++) {
+                        if (!dailySlots.contains(dailySlots.get(index).plusMinutes(i * 15))) {
+                            return false;
+                        }
+                    }
+                    return true;
+                })
                 .mapToObj(index -> dailySlots.get(index))
                 .collect(Collectors.toList());
     }
+
 
     private int calculateAmountOfSlotsNeeded(Duration totalDuration ){
         return (int) Math.ceil((double) totalDuration.toMinutes() / 15);
