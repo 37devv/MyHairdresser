@@ -75,8 +75,9 @@ function getHairSalonIdByName(salonName) {
         <React.Fragment>
             
             <Autocomplete
+
                 id="asynchronous-demo"
-                sx={{ width: 300 }}
+                style={{ width: 300, marginTop: '10px', marginBottom: '20px' }}
                 open={open}
                 onOpen={() => {
                     setOpen(true);
