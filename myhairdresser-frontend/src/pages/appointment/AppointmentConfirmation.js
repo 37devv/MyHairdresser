@@ -38,6 +38,8 @@ function formatPrice(price) {
     return `${price.toFixed(2)}CHF`;
 }
 
+
+
 function AppointmentConfirmation() {
     const { id } = useParams();
 
@@ -52,6 +54,22 @@ function AppointmentConfirmation() {
                 console.log(error);
             });
     }, [id]);
+
+    const cancelAppointment = async () => {
+        try {
+          const response = await axios.delete(`http://localhost:8080/api/appointments/${id}`);
+          if (response.status === 204) {
+            // The deletion was successful (status code 204 No Content)
+            console.log("Appointment canceled successfully");
+            // Redirect to the landing page
+            window.location.href = '/free/client/landing';
+          } else {
+            console.log("Appointment cancellation failed");
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      };
 
     return (
         <div>
@@ -86,7 +104,7 @@ function AppointmentConfirmation() {
 
                             <br />
                             
-                            <Button variant="contained" color="error">
+                            <Button variant="contained" color="error" onClick={cancelAppointment}>
                                 Termin stornieren
                             </Button>
                         </Grid>

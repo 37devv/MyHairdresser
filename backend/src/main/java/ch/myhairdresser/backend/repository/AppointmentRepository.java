@@ -14,5 +14,8 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
 
     Optional<Appointment> findByAppointmentidentifier(String appointmentIdentifier);
 
+
+    int deleteByAppointmentidentifier(String appointmentidentifier);
+
     List<Appointment> findByDateAndHairsalon_Id(Date date, int hairsalonId);
 }

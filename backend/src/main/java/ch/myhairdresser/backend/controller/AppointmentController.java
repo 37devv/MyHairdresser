@@ -33,6 +33,12 @@ public class AppointmentController implements AppointmentsApi {
         return new ResponseEntity<String>(bookingUuid, HttpStatus.CREATED);
     }
 
+    @DeleteMapping("/{appointmentId}")
+    public ResponseEntity<?> deleteAppointment(@PathVariable String appointmentId) {
+        log.info("AppointmentController::deleteAppointment request {}", appointmentId);
+        return appointmentService.deleteAppointment(appointmentId);
+    }
+
     @GetMapping("/{appointmentId}")
     public ResponseEntity<Appointment> getAppointmentByUuid(@PathVariable String appointmentId) {
         log.info("AppointmentController::getAppointmentById request {}", appointmentId);

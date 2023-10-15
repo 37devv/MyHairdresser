@@ -10,11 +10,15 @@ import ch.myhairdresser.backend.model.dto.Severity;
 import ch.myhairdresser.backend.repository.AppointmentRepository;
 import ch.myhairdresser.backend.repository.HairsalonRepository;
 import ch.myhairdresser.backend.repository.TimeslotRepository;
+import io.swagger.models.Response;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.factory.Mappers;
 import org.openapitools.model.AppointmentInDto;
 import org.springframework.cglib.core.Local;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.sql.Time;
@@ -218,6 +222,20 @@ public class AppointmentService {
 
     private int calculateAmountOfSlotsNeeded(Duration totalDuration ){
         return (int) Math.ceil((double) totalDuration.toMinutes() / 15);
+    }
+
+    @Transactional
+    public ResponseEntity<?> deleteAppointment(String appointmentUuid) {
+        // If the return value is greater than 0, it means the delete operation was successful; otherwise, it means no matching records were found for deletion. If the return value is greater than 0, it means the delete operation was successful; otherwise, it means no matching records were found for deletion.
+        int deletedRows = appointmentRepository.deleteByAppointmentidentifier(appointmentUuid);
+
+        if (deletedRows > 0) {
+            // Return 204 No Content for a successful deletion
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        } else {
+            // Return 404 Not Found if no matching records were found for deletion
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Entity not found");
+        }
     }
 }
 
