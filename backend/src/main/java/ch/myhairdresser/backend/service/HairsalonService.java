@@ -35,13 +35,13 @@ public class HairsalonService {
         return outDto;
     }
 
-    public List<String> autocomplete(String keyword) {
+    public List<Hairsalon> autocomplete(String keyword) {
         List<Hairsalon> hairsalons = hairsalonRepository.findByNameContaining(keyword);
         List<String> hairsalonNames = hairsalons.stream()
                 .map(Hairsalon::getName)
                 .toList();
 
-        return hairsalonNames;
+        return hairsalons;
     }
 
     public HairsalonOutDTO getHairsalonById(Integer salonId) {

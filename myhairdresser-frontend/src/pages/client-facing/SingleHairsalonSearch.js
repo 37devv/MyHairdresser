@@ -18,10 +18,11 @@ export default function SingleHairsalonSearch() {
     const [options, setOptions] = React.useState([]);
     const loading = open && options.length === 0;
 
+    const [hairsalonId, setHairsalonId] = React.useState([]);
+
     const navigate = useNavigate();
 
 
-    const [name, setName] = React.useState('');
 
     const callAutocompleteEndpoint = async (nameToAutocomplete) => {
         instance.get('/hairsalons/autocomplete',
@@ -39,7 +40,7 @@ export default function SingleHairsalonSearch() {
     }
 
     const handleSearchRequest = () => {
-        navigate("/client/hairsalon?name='hello'");
+        navigate("/client/hairsalon/"+ hairsalonId);
         console.log("handleSearchRequest");
     }
 
@@ -63,17 +64,16 @@ export default function SingleHairsalonSearch() {
         };
     }, [loading]);
 
-    //Diese Methode wird ausgeführt, nachdem die Seite geladen gerendert wurde.
-    React.useEffect(() => {
-        async function fetchData() {
-            await callAutocompleteEndpoint("")
-        }
-        fetchData();
-    }, [])
+   // Function to get the ID for a given hair salon name
+function getHairSalonIdByName(salonName) {
+    const foundSalon = options.find((salon) => salon.name === salonName);
+    console.log(foundSalon.id);
+    return foundSalon ? foundSalon.id : null;
+  }
 
     return (
         <React.Fragment>
-            {name}
+            
             <Autocomplete
                 id="asynchronous-demo"
                 sx={{ width: 300 }}
@@ -84,11 +84,13 @@ export default function SingleHairsalonSearch() {
                 onClose={() => {
                     setOpen(false);
                 }}
-                etOptionLabel={(option) => option}
+                getOptionLabel={(option) => option.name}
                 options={options}
                 loading={loading}
                 onInputChange={(event, newInputValue) => {
-                    setName(newInputValue);
+                    console.log(event.target.value)
+                    console.log(newInputValue)
+                    setHairsalonId(getHairSalonIdByName(newInputValue));
                   }}
                 renderInput={(params) => (
                     <TextField
@@ -106,7 +108,7 @@ export default function SingleHairsalonSearch() {
                     />
                 )}
             />
-            <Button variant="contained" onClick={handleSearchRequest}>Search</Button>
+            <Button variant="contained" onClick={handleSearchRequest}>Profil aufrufen</Button>
         </React.Fragment>
     );
 }
