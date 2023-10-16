@@ -47,16 +47,21 @@ export default function OpeningTimes(props) {
           {openingTimes.map((dayData, index) => (
             <li key={index}>
               <strong>{DAYS[dayData.day]}:</strong><br />
-              Morning: {new Date(dayData['open-morning']).toLocaleTimeString('de-CH', {hour: '2-digit', minute: '2-digit'})} - {new Date(dayData['closing-morning']).toLocaleTimeString('de-CH', {hour: '2-digit', minute: '2-digit'})}<br />
-              Afternoon: {new Date(dayData['open-afternoon']).toLocaleTimeString('de-CH', {hour: '2-digit', minute: '2-digit'})} - {new Date(dayData['closing-afternoon']).toLocaleTimeString('de-CH', {hour: '2-digit', minute: '2-digit'})}<br />
-              Lunch Break: {dayData['has-lunch-break'] ? 'Yes' : 'No'}
+              {dayData.closed ? (
+                <span>Geschlossen</span>
+              ) : (
+                <React.Fragment>
+                  Morgen: {new Date(dayData['open-morning']).toLocaleTimeString('de-CH', { hour: '2-digit', minute: '2-digit' })} - {new Date(dayData['closing-morning']).toLocaleTimeString('de-CH', { hour: '2-digit', minute: '2-digit' })}<br />
+                  Nachmittag: {new Date(dayData['open-afternoon']).toLocaleTimeString('de-CH', { hour: '2-digit', minute: '2-digit' })} - {new Date(dayData['closing-afternoon']).toLocaleTimeString('de-CH', { hour: '2-digit', minute: '2-digit' })}<br />
+                </React.Fragment>
+              )}
             </li>
           ))}
         </ul>
       </CardContent>
       <CardActions>
-        
-        <AppointmentDialog services={props.services}/>
+
+        <AppointmentDialog services={props.services} />
       </CardActions>
     </Card>
   );
