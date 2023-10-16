@@ -13,7 +13,16 @@ const initialState = {
       street: '',
       plz: '',
       place: '',
-    },  
+    },
+    openingTimes: {
+      monday: { morningFrom: '', morningTo: '', afternoonFrom: '', afternoonTo: '', closed: false },
+      tuesday: { morningFrom: '', morningTo: '', afternoonFrom: '', afternoonTo: '', closed: false },
+      wednesday: { morningFrom: '', morningTo: '', afternoonFrom: '', afternoonTo: '', closed: false },
+      thursday: { morningFrom: '', morningTo: '', afternoonFrom: '', afternoonTo: '', closed: false },
+      friday: { morningFrom: '', morningTo: '', afternoonFrom: '', afternoonTo: '', closed: false },
+      saturday: { morningFrom: '', morningTo: '', afternoonFrom: '', afternoonTo: '', closed: false },
+      sunday: { morningFrom: '', morningTo: '', afternoonFrom: '', afternoonTo: '', closed: false },
+    }, 
   },
   creditCard: {
     number: '',

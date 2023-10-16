@@ -19,16 +19,16 @@ databaseChangeLog:
                   type: varchar(255)
               - column:
                   name: description
-                  type: varchar(500)
+                  type: varchar(1000)
               - column:
                   name: street
-                  type: varchar(500)
+                  type: varchar(255)
               - column:
                   name: plz
-                  type: varchar(500)
+                  type: varchar(255)
               - column:
                   name: place
-                  type: varchar(500)
+                  type: varchar(255)
               - column:
                   name: phonenumber
                   type: varchar(500)
