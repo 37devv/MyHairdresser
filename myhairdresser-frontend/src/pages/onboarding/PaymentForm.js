@@ -6,6 +6,7 @@ import { useForm, Controller, FormProvider } from "react-hook-form";
 import TextField from '@mui/material/TextField';
 import { DevTool } from "@hookform/devtools";
 import FormCard from './FormCard';
+import CreditCardTable from './CreditCardTable';
 
 const PaymentForm = (props) => {
 
@@ -27,10 +28,14 @@ const PaymentForm = (props) => {
 
   return (
     <div>
+
       <Typography variant="h3" gutterBottom>
         INFO: Rein visuell - keine Zahlungsabwicklung!
-      </Typography>
 
+
+
+      </Typography>
+<CreditCardTable/>
 
       <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>

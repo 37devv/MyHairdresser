@@ -38,6 +38,7 @@ export default function HairdresserForm(props) {
 
   return (
     <React.Fragment>
+      <Typography variant="h4" gutterBottom>Redux store: </Typography>
       {JSON.stringify(hairsalondetail)}
       <Typography variant="h3" gutterBottom>
         Coiffeursalon erstellen
