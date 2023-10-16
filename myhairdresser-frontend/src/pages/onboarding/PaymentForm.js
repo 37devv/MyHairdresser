@@ -16,14 +16,18 @@ const PaymentForm = (props) => {
       expiry: '',
       cvc: '',
       name: '',
-      focus: '',
+      focused: '',
     },
   });
-  const { handleSubmit, control } = methods;
+  const { handleSubmit, control, setValue } = methods;
 
   const onSubmit = async data => {
     console.log(data);
     props.handleNext();
+  }
+
+  const handleInputFocus = ({ target }) => {
+    setValue('focused', target.name);
   }
 
   return (
@@ -35,37 +39,82 @@ const PaymentForm = (props) => {
 
 
       </Typography>
-<CreditCardTable/>
+      <CreditCardTable />
 
       <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        {/* //usewatch hook  innerhalb einer komponente wo in einem form gerendert wird */}
+        <form onSubmit={handleSubmit(onSubmit)}>
+          {/* //usewatch hook  innerhalb einer komponente wo in einem form gerendert wird */}
 
-        <FormCard />
+          <FormCard />
 
-        <Controller
-          name="number"
-          control={control}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              label="Kreditkartennummer"
-              variant="outlined"
-              fullWidth
-            />
-          )}
-        />
+          <Controller
+            name="number"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Kreditkartennummer"
+                variant="outlined"
+                fullWidth
+                onFocus={handleInputFocus}
+              />
+            )}
+          />
 
-        <Button
-          variant="contained"
-          type="submit"
-          sx={{ mt: 3, ml: 1 }}
+          <Controller
+            name="name"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Name des Inhabers"
+                variant="outlined"
+                fullWidth
+                onFocus={handleInputFocus}
+              />
+            )}
+          />
 
-        >
-          Weiter zur Überprüfung
 
-        </Button>
-      </form>
+          <Controller
+            name="expiry"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Ablaufdatum"
+                variant="outlined"
+                fullWidth
+                onFocus={handleInputFocus}
+              />
+            )}
+          />
+
+
+          <Controller
+            name="cvc"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="CVC/CVV"
+                variant="outlined"
+                fullWidth
+                onFocus={handleInputFocus}
+              />
+            )}
+          />
+
+          <Button
+            variant="contained"
+            type="submit"
+            sx={{ mt: 3, ml: 1 }}
+
+          >
+            Weiter zur Überprüfung
+
+          </Button>
+        </form>
       </FormProvider>
       <DevTool control={control} />
     </div>
