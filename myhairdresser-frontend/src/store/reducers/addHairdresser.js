@@ -9,11 +9,7 @@ const initialState = {
     mail:'',
     password:'',
     description: '',
-    address: {
-      street: '',
-      plz: '',
-      place: '',
-    },
+    address: "",
     openingTimes: {
       monday: { morningFrom: '', morningTo: '', afternoonFrom: '', afternoonTo: '', closed: false },
       tuesday: { morningFrom: '', morningTo: '', afternoonFrom: '', afternoonTo: '', closed: false },
@@ -43,6 +39,9 @@ const addHairdresserForm = createSlice({
     persistHairdresser(state, action) {
       state.hairsalondetail = action.payload;
     },
+    persistCardInfo(state, action) {
+      state.creditCard = action.payload;
+    }
     
   },
   extraReducers: (builder) => {
@@ -71,4 +70,4 @@ export const onboardHairdresser = createAsyncThunk('api/hairdresser', async (use
 
 export default addHairdresserForm.reducer;
 
-export const { persistHairdresser } = addHairdresserForm.actions;
+export const { persistHairdresser, persistCardInfo } = addHairdresserForm.actions;

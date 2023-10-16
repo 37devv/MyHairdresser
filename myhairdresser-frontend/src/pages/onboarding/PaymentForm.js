@@ -7,6 +7,8 @@ import TextField from '@mui/material/TextField';
 import { DevTool } from "@hookform/devtools";
 import FormCard from './FormCard';
 import CreditCardTable from './CreditCardTable';
+import { useDispatch } from 'react-redux';
+import { persistCardInfo } from 'store/reducers/addHairdresser';
 
 const PaymentForm = (props) => {
 
@@ -21,8 +23,12 @@ const PaymentForm = (props) => {
   });
   const { handleSubmit, control, setValue } = methods;
 
+  const dispatch = useDispatch();
+
+
   const onSubmit = async data => {
     console.log(data);
+    dispatch(persistCardInfo(data));
     props.handleNext();
   }
 

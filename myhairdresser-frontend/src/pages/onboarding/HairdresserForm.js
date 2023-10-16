@@ -12,6 +12,7 @@ import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
+import PlaceAutocompleteRHF from 'pages/client-facing/PlaceAutocompleteRHF';
 
 export default function HairdresserForm(props) {
 
@@ -149,6 +150,7 @@ export default function HairdresserForm(props) {
                 render={({ field }) => (
                   <TextField
                     label="Passwort"
+                    type="password"
                     variant="outlined"
                     fullWidth
                     {...field}
@@ -158,21 +160,21 @@ export default function HairdresserForm(props) {
             </Grid>
 
             <Grid item xs={12} sm={6}>
+
               <Controller
                 name="address.street"
                 control={control}
-                render={({ field }) => (
-                  <TextField
-                    label="Strasse"
-                    variant="outlined"
-                    fullWidth
-                    {...field}
+                render={({ field, fieldState, formState }) => (
+                  <PlaceAutocompleteRHF
+                    field={field}
+                    fieldState={fieldState}
+                    formState={formState}
                   />
                 )}
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            {/* <Grid item xs={12} sm={6}>
               <Controller
                 name="address.plz"
                 control={control}
@@ -200,7 +202,7 @@ export default function HairdresserForm(props) {
                   />
                 )}
               />
-            </Grid>
+            </Grid> */}
 
             <Grid item xs={12} sm={6}>
 
@@ -217,108 +219,108 @@ export default function HairdresserForm(props) {
 
 
             {Object.keys(dayMappings).map((day, index) => {
-        const isClosed = getValues(`openingTimes.${day}.closed`);
+              const isClosed = getValues(`openingTimes.${day}.closed`);
 
-        return (
-          <div
-            key={day}
-            style={{
-              display: 'inline-block',
-              width: '50%',
-              marginBottom: '16px',
-              marginTop: '16px',
-              paddingRight: '8px',
-              marginLeft: '8px',
-              border: '1px solid #ccc',
-              padding: '16px',
-            }}
-          >
-            <Typography variant="h5" style={{ marginBottom: '8px' }}>
-              {dayMappings[day]}
-            </Typography>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  name={`openingTimes.${day}.closed`}
-                  onChange={handleCheckboxChange(day)}
-                  checked={isClosed}
-                  color="primary"
-                />
-              }
-              label="Geschlossen"
-            />
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-              <div style={{ width: '45%' }}>
-                <Controller
-                  name={`openingTimes.${day}.morningFrom`}
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      label="Morgen Von"
-                      variant="outlined"
-                      size="small"
-                      fullWidth
-                      disabled={isClosed}
-                      {...field}
-                    />
-                  )}
-                />
-              </div>
-              <div style={{ width: '45%' }}>
-                <Controller
-                  name={`openingTimes.${day}.morningTo`}
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      label="Morgen bis"
-                      variant="outlined"
-                      size="small"
-                      fullWidth
-                      disabled={isClosed}
-                      {...field}
-                    />
-                  )}
-                />
-              </div>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: '8px' }}>
-              <div style={{ width: '45%' }}>
-                <Controller
-                  name={`openingTimes.${day}.afternoonFrom`}
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      label="Nachmittag Von"
-                      variant="outlined"
-                      size="small"
-                      fullWidth
-                      disabled={isClosed}
-                      {...field}
-                    />
-                  )}
-                />
-              </div>
-              <div style={{ width: '45%' }}>
-                <Controller
-                  name={`openingTimes.${day}.afternoonTo`}
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      label="Nachmittag bis"
-                      variant="outlined"
-                      size="small"
-                      fullWidth
-                      disabled={isClosed}
-                      {...field}
-                    />
-                  )}
-                />
-              </div>
-            </div>
-            {index % 2 === 0 && <br />}
-          </div>
-        );
-      })}
+              return (
+                <div
+                  key={day}
+                  style={{
+                    display: 'inline-block',
+                    width: '50%',
+                    marginBottom: '16px',
+                    marginTop: '16px',
+                    paddingRight: '8px',
+                    marginLeft: '8px',
+                    border: '1px solid #ccc',
+                    padding: '16px',
+                  }}
+                >
+                  <Typography variant="h5" style={{ marginBottom: '8px' }}>
+                    {dayMappings[day]}
+                  </Typography>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name={`openingTimes.${day}.closed`}
+                        onChange={handleCheckboxChange(day)}
+                        checked={isClosed}
+                        color="primary"
+                      />
+                    }
+                    label="Geschlossen"
+                  />
+                  <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <div style={{ width: '45%' }}>
+                      <Controller
+                        name={`openingTimes.${day}.morningFrom`}
+                        control={control}
+                        render={({ field }) => (
+                          <TextField
+                            label="Morgen Von"
+                            variant="outlined"
+                            size="small"
+                            fullWidth
+                            disabled={isClosed}
+                            {...field}
+                          />
+                        )}
+                      />
+                    </div>
+                    <div style={{ width: '45%' }}>
+                      <Controller
+                        name={`openingTimes.${day}.morningTo`}
+                        control={control}
+                        render={({ field }) => (
+                          <TextField
+                            label="Morgen bis"
+                            variant="outlined"
+                            size="small"
+                            fullWidth
+                            disabled={isClosed}
+                            {...field}
+                          />
+                        )}
+                      />
+                    </div>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: '8px' }}>
+                    <div style={{ width: '45%' }}>
+                      <Controller
+                        name={`openingTimes.${day}.afternoonFrom`}
+                        control={control}
+                        render={({ field }) => (
+                          <TextField
+                            label="Nachmittag Von"
+                            variant="outlined"
+                            size="small"
+                            fullWidth
+                            disabled={isClosed}
+                            {...field}
+                          />
+                        )}
+                      />
+                    </div>
+                    <div style={{ width: '45%' }}>
+                      <Controller
+                        name={`openingTimes.${day}.afternoonTo`}
+                        control={control}
+                        render={({ field }) => (
+                          <TextField
+                            label="Nachmittag bis"
+                            variant="outlined"
+                            size="small"
+                            fullWidth
+                            disabled={isClosed}
+                            {...field}
+                          />
+                        )}
+                      />
+                    </div>
+                  </div>
+                  {index % 2 === 0 && <br />}
+                </div>
+              );
+            })}
 
 
 
@@ -383,6 +385,7 @@ export default function HairdresserForm(props) {
             <Grid item xs={12}>
               <Button variant="contained" color="success" onClick={addService}>
                 Service hinzufügen
+                <AddIcon />
               </Button>
             </Grid>
           </Grid>
