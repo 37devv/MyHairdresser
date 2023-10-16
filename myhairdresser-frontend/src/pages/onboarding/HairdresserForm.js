@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, useFieldArray } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
 import { persistHairdresser } from 'store/reducers/addHairdresser';
 import Grid from '@mui/material/Grid';
@@ -9,6 +9,7 @@ import { DevTool } from "@hookform/devtools";
 import Button from '@mui/material/Button';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import IconButton from '@mui/material/IconButton';
 
 export default function HairdresserForm(props) {
 
@@ -16,42 +17,19 @@ export default function HairdresserForm(props) {
 
   const hairsalondetail = useSelector((state) => state.addHairdresserForm.hairsalondetail);
 
-  const { handleSubmit, control, watch, setValue} = useForm({
-    defaultValues: {
-      nameOfHairdresser: hairsalondetail.nameOfHairdresser,
-      description: hairsalondetail.description,
-      mail: hairsalondetail.mail,
-      password: hairsalondetail.password,
-      address: {
-        street: hairsalondetail.address.street,
-        plz: hairsalondetail.address.plz,
-        place: hairsalondetail.address.place,
-      },
-      openingTimes: {
-        monday: { morningFrom: '', morningTo: '', afternoonFrom: '', afternoonTo: '', closed: false },
-        tuesday: { morningFrom: '', morningTo: '', afternoonFrom: '', afternoonTo: '', closed: false },
-        wednesday: { morningFrom: '', morningTo: '', afternoonFrom: '', afternoonTo: '', closed: false },
-        thursday: { morningFrom: '', morningTo: '', afternoonFrom: '', afternoonTo: '', closed: false },
-        friday: { morningFrom: '', morningTo: '', afternoonFrom: '', afternoonTo: '', closed: false },
-        saturday: { morningFrom: '', morningTo: '', afternoonFrom: '', afternoonTo: '', closed: false },
-        sunday: { morningFrom: '', morningTo: '', afternoonFrom: '', afternoonTo: '', closed: false },
-      },
-    },
+  const { handleSubmit, control, watch, setValue } = useForm({
+    defaultValues: hairsalondetail
   });
+
+
 
   const handleCheckboxChange = (day) => (event) => {
     const setClosed = event.target.checked;
     const openingTimes = watch('openingTimes');
-    console.log("before: "+ openingTimes[day].closed)
- 
-    
-
-     // Update the openingTimes object
-  openingTimes[day].closed = setClosed;
-
-  // Use setValue to trigger a re-render of the form
-  setValue(`openingTimes.${day}.closed`, setClosed);
-  console.log("after: "+ openingTimes[day].closed)
+    // Update the openingTimes object
+    openingTimes[day].closed = setClosed;
+    // Use setValue to trigger a re-render of the form
+    setValue(`openingTimes.${day}.closed`, setClosed);
   };
 
   const onSubmit = async data => {
@@ -59,6 +37,20 @@ export default function HairdresserForm(props) {
     dispatch(persistHairdresser(data));
     props.handleNext();
   }
+
+  const services = useFieldArray({
+    control,
+    name: 'services',
+    keyName: 'serviceKey',
+  });
+
+  const addService = () => {
+    services.append({ name: '', price: '', duration: '' });
+  };
+
+  const removeService = (index) => {
+    services.remove(index);
+  };
 
   const dayMappings = {
     monday: 'Montag',
@@ -75,9 +67,6 @@ export default function HairdresserForm(props) {
 
       <Typography variant="h3" gutterBottom>
         Coiffeursalon erstellen
-      </Typography>
-      <Typography variant="h4" gutterBottom>
-        Weitere Profilinfos können nachher im Dashboard ergänzt werden.
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <React.Fragment>
@@ -188,90 +177,178 @@ export default function HairdresserForm(props) {
               />
             </Grid>
 
+            <Grid item xs={12} sm={6}>
+
+              {/* Empty grid so it looks nicer in the form */}
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+
+              <Typography variant="h3" style={{ marginBottom: '8px' }}>
+                Öffnungszeiten
+              </Typography>
+            </Grid>
 
 
 
-            {Object.keys(dayMappings).map((day) => (
-              <Grid container spacing={3} key={day}>
-                <Grid item xs={12}>
-                  <Typography variant="h6">{dayMappings[day]}</Typography>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        name={`openingTimes.${day}.closed`}
-                        onChange={handleCheckboxChange(day)}
-                        color="primary"
-                      />
-                    }
-                    label="Geschlossen"
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <Controller
-                    name={`openingTimes.${day}.morningFrom`}
-                    control={control}
-                    render={({ field }) => (
-                      <TextField
-                        label="Morgen Von"
-                        variant="outlined"
-                        fullWidth
-                        disabled={watch(`openingTimes.${day}.closed`)}
-                        {...field}
-                      />
-                    )}
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <Controller
-                    name={`openingTimes.${day}.morningTo`}
-                    control={control}
-                    render={({ field }) => (
-                      <TextField
-                        label="Morgen bis"
-                        variant="outlined"
-                        fullWidth
-                        disabled={watch(`openingTimes.${day}.closed`)}
-                        {...field}
-                      />
-                    )}
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <Controller
-                    name={`openingTimes.${day}.afternoonFrom`}
-                    control={control}
-                    render={({ field }) => (
-                      <TextField
-                        label="Nachmittag Von"
-                        variant="outlined"
-                        fullWidth
-                        disabled={watch(`openingTimes.${day}.closed`)}
-                        {...field}
-                      />
-                    )}
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <Controller
-                    name={`openingTimes.${day}.afternoonTo`}
-                    control={control}
-                    render={({ field }) => (
-                      <TextField
-                        label="Nachmittag bis"
-                        variant="outlined"
-                        fullWidth
-                        disabled={watch(`openingTimes.${day}.closed`)}
-                        {...field}
-                      />
-                    )}
-                  />
-                </Grid>
-              </Grid>
+            {Object.keys(dayMappings).map((day, index) => (
+              <div
+                key={day}
+                style={{
+                  display: 'inline-block',
+                  width: '50%',
+                  marginBottom: '16px',
+                  marginTop: '16px',
+                  paddingRight: '8px', // Add space on the right side
+                  marginLeft: '8px', // Add margin on the left side
+                  border: '1px solid #ccc', // Add a border
+                  padding: '16px', // Add padding
+                }}
+              >
+                <Typography variant="h5" style={{ marginBottom: '8px' }}>
+                  {dayMappings[day]}
+                </Typography>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name={`openingTimes.${day}.closed`}
+                      onChange={handleCheckboxChange(day)}
+                      color="primary"
+                    />
+                  }
+                  label="Geschlossen"
+                />
+                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <div style={{ width: '45%' }}>
+                    <Controller
+                      name={`openingTimes.${day}.morningFrom`}
+                      control={control}
+                      render={({ field }) => (
+                        <TextField
+                          label="Morgen Von"
+                          variant="outlined"
+                          size="small"
+                          fullWidth
+                          disabled={watch(`openingTimes.${day}.closed`)}
+                          {...field}
+                        />
+                      )}
+                    />
+                  </div>
+                  <div style={{ width: '45%' }}>
+                    <Controller
+                      name={`openingTimes.${day}.morningTo`}
+                      control={control}
+                      render={({ field }) => (
+                        <TextField
+                          label="Morgen bis"
+                          variant="outlined"
+                          size="small"
+                          fullWidth
+                          disabled={watch(`openingTimes.${day}.closed`)}
+                          {...field}
+                        />
+                      )}
+                    />
+                  </div>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: '8px' }}>
+                  <div style={{ width: '45%' }}>
+                    <Controller
+                      name={`openingTimes.${day}.afternoonFrom`}
+                      control={control}
+                      render={({ field }) => (
+                        <TextField
+                          label="Nachmittag Von"
+                          variant="outlined"
+                          size="small"
+                          fullWidth
+                          disabled={watch(`openingTimes.${day}.closed`)}
+                          {...field}
+                        />
+                      )}
+                    />
+                  </div>
+                  <div style={{ width: '45%' }}>
+                    <Controller
+                      name={`openingTimes.${day}.afternoonTo`}
+                      control={control}
+                      render={({ field }) => (
+                        <TextField
+                          label="Nachmittag bis"
+                          variant="outlined"
+                          size="small"
+                          fullWidth
+                          disabled={watch(`openingTimes.${day}.closed`)}
+                          {...field}
+                        />
+                      )}
+                    />
+                  </div>
+                </div>
+                {index % 2 === 0 && <br />} {/* Add a line break after every pair of days */}
+              </div>
             ))}
 
 
 
 
+
+
+
+          </Grid>
+
+
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Typography variant="h5" gutterBottom>
+                Services
+              </Typography>
+            </Grid>
+            {services.fields.map((service, index) => (
+              <React.Fragment key={service.serviceKey}>
+                <Grid item xs={3}>
+                  <Controller
+                    name={`services[${index}].name`}
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
+                      <TextField label="Name" variant="outlined" fullWidth {...field} />
+                    )}
+                  />
+                </Grid>
+                <Grid item xs={3}>
+                  <Controller
+                    name={`services[${index}].price`}
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
+                      <TextField label="Price" variant="outlined" fullWidth {...field} />
+                    )}
+                  />
+                </Grid>
+                <Grid item xs={3}>
+                  <Controller
+                    name={`services[${index}].duration`}
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
+                      <TextField label="Duration" variant="outlined" fullWidth {...field} />
+                    )}
+                  />
+                </Grid>
+                <Grid item xs={3}>
+                  <IconButton onClick={() => removeService(index)} color="secondary">
+                    Remove
+                  </IconButton>
+                </Grid>
+              </React.Fragment>
+            ))}
+            <Grid item xs={12}>
+              <Button variant="outlined" onClick={addService}>
+                Add Service
+              </Button>
+            </Grid>
           </Grid>
         </React.Fragment>
 
@@ -286,11 +363,6 @@ export default function HairdresserForm(props) {
         </Button>
 
       </form>
-
-
-      <Typography variant="h4" gutterBottom>Redux store: </Typography>
-      {JSON.stringify(hairsalondetail)}
-
       <DevTool control={control} />
     </React.Fragment>
   );
