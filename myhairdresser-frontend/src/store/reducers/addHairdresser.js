@@ -23,7 +23,8 @@ const initialState = {
       saturday: { morningFrom: '', morningTo: '', afternoonFrom: '', afternoonTo: '', closed: false },
       sunday: { morningFrom: '', morningTo: '', afternoonFrom: '', afternoonTo: '', closed: false },
     },
-    services: []
+    services: [],
+    images: []
   },
   creditCard: {
     number: '',

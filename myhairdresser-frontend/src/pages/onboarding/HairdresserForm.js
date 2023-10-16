@@ -10,6 +10,8 @@ import Button from '@mui/material/Button';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
 
 export default function HairdresserForm(props) {
 
@@ -51,6 +53,29 @@ export default function HairdresserForm(props) {
   const removeService = (index) => {
     services.remove(index);
   };
+
+
+  const images = useFieldArray({
+    control,
+    name: 'hairsalondetail.images', // Update the field name to match your data structure
+    keyName: 'imageKey',
+  });
+
+  const addImage = () => {
+    // Append a new empty string to the images array using the fields object
+    const currentImages = watch('hairsalondetail.images');
+  
+  // If the last image in the list is not empty or the list is empty, then append a new empty string.
+  if (!currentImages.length || (currentImages[currentImages.length - 1] && currentImages[currentImages.length - 1].trim() !== '')) {
+    images.append();
+  }
+  };
+
+  const removeImage = (index) => {
+    // Remove the image at the specified index using the fields object
+    images.remove(index);
+  };
+
 
   const dayMappings = {
     monday: 'Montag',
@@ -301,8 +326,8 @@ export default function HairdresserForm(props) {
 
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <Typography variant="h5" gutterBottom>
-                Services
+              <Typography variant="h3" gutterBottom>
+                Service
               </Typography>
             </Grid>
             {services.fields.map((service, index) => (
@@ -338,18 +363,77 @@ export default function HairdresserForm(props) {
                   />
                 </Grid>
                 <Grid item xs={3}>
-                  <IconButton onClick={() => removeService(index)} color="secondary">
-                    Remove
+                  <IconButton
+                    onClick={() => removeService(index)}
+                    color="secondary"
+                    aria-label={`Remove Service ${index + 1}`}
+                    sx={{ color: 'red', marginLeft: '20px' }}
+                  >
+                    <DeleteIcon />
+                    Entfernen
                   </IconButton>
                 </Grid>
               </React.Fragment>
             ))}
             <Grid item xs={12}>
-              <Button variant="outlined" onClick={addService}>
-                Add Service
+              <Button variant="contained" color="success" onClick={addService}>
+                Service hinzufügen
               </Button>
             </Grid>
           </Grid>
+
+
+
+
+
+
+
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Typography variant="h3" gutterBottom sx={{marginTop:'20px'}}>
+                Bilder
+              </Typography>
+            </Grid>
+            {images.fields.map((image, index) => (
+              <React.Fragment key={index}>
+                <Grid item xs={10}>
+                  <Controller
+                    name={`hairsalondetail.images[${index}]`}
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
+                      <TextField label="Image Link" variant="outlined" fullWidth {...field} />
+                    )}
+                  />
+
+                </Grid>
+                <Grid item xs={2}>
+
+                  
+                  <IconButton
+                    onClick={() => removeImage(index)}
+                    color="secondary"
+                    aria-label={`Remove Service ${index + 1}`}
+                    sx={{ color: 'red', marginLeft: '20px' }}
+                  >
+                    <DeleteIcon />
+                    Entfernen
+                  </IconButton>
+                </Grid>
+              </React.Fragment>
+            ))}
+            <Grid item xs={12}>
+              <Button variant="contained" color="success" onClick={addImage}>
+                Bild hinzufügen
+                <AddIcon />
+              </Button>
+
+            
+            </Grid>
+          </Grid>
+
+
+
         </React.Fragment>
 
         <Button
