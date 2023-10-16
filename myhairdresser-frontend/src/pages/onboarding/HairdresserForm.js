@@ -58,13 +58,13 @@ export default function HairdresserForm(props) {
 
   const images = useFieldArray({
     control,
-    name: 'hairsalondetail.images', // Update the field name to match your data structure
+    name: 'images', // Update the field name to match your data structure
     keyName: 'imageKey',
   });
 
   const addImage = () => {
     // Append a new empty string to the images array using the fields object
-    const currentImages = watch('hairsalondetail.images');
+    const currentImages = watch('images');
 
     // If the last image in the list is not empty or the list is empty, then append a new empty string.
     if (!currentImages.length || (currentImages[currentImages.length - 1] && currentImages[currentImages.length - 1].trim() !== '')) {
@@ -162,7 +162,7 @@ export default function HairdresserForm(props) {
             <Grid item xs={12} sm={6}>
 
               <Controller
-                name="address.street"
+                name="address"
                 control={control}
                 render={({ field, fieldState, formState }) => (
                   <PlaceAutocompleteRHF
@@ -406,7 +406,7 @@ export default function HairdresserForm(props) {
               <React.Fragment key={index}>
                 <Grid item xs={10}>
                   <Controller
-                    name={`hairsalondetail.images[${index}]`}
+                    name={`images[${index}]`}
                     control={control}
                     defaultValue=""
                     render={({ field }) => (

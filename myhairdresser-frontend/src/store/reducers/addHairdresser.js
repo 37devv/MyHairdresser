@@ -5,22 +5,30 @@ import axios from 'axios';
 // initial state
 const initialState = {
   hairsalondetail: {
-    nameOfHairdresser: '',
-    mail:'',
-    password:'',
-    description: '',
-    address: "",
+    nameOfHairdresser: 'Irdins coiffeur',
+    mail:'irdin.ibisevic@gmail.com',
+    password:'hallo123',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    address: "Europa-Strasse 18, Opfikon, Switzerland",
     openingTimes: {
-      monday: { morningFrom: '', morningTo: '', afternoonFrom: '', afternoonTo: '', closed: false },
-      tuesday: { morningFrom: '', morningTo: '', afternoonFrom: '', afternoonTo: '', closed: false },
-      wednesday: { morningFrom: '', morningTo: '', afternoonFrom: '', afternoonTo: '', closed: false },
-      thursday: { morningFrom: '', morningTo: '', afternoonFrom: '', afternoonTo: '', closed: false },
-      friday: { morningFrom: '', morningTo: '', afternoonFrom: '', afternoonTo: '', closed: false },
-      saturday: { morningFrom: '', morningTo: '', afternoonFrom: '', afternoonTo: '', closed: false },
-      sunday: { morningFrom: '', morningTo: '', afternoonFrom: '', afternoonTo: '', closed: false },
+      monday: { morningFrom: '08:00', morningTo: '12:00', afternoonFrom: '13:00', afternoonTo: '17:00', closed: false },
+      tuesday: { morningFrom: '08:00', morningTo: '12:00', afternoonFrom: '13:00', afternoonTo: '17:00', closed: false },
+      wednesday: { morningFrom: '08:00', morningTo: '12:00', afternoonFrom: '13:00', afternoonTo: '17:00', closed: false },
+      thursday: { morningFrom: '08:00', morningTo: '12:00', afternoonFrom: '13:00', afternoonTo: '17:00', closed: false },
+      friday: { morningFrom: '08:00', morningTo: '12:00', afternoonFrom: '13:00', afternoonTo: '17:00', closed: false },
+      saturday: { morningFrom: '', morningTo: '', afternoonFrom: '', afternoonTo: '', closed: true },
+      sunday: { morningFrom: '', morningTo: '', afternoonFrom: '', afternoonTo: '', closed: true },
     },
-    services: [],
-    images: []
+    services: [
+      {name: 'Haare schneiden', price: 25, duration: '30'},
+      {name: 'Augenbrauen kürzen', price: 10, duration: '5'},
+      {name: 'Bart kürzen', price: 15, duration: '10'},
+    ],
+    images: [
+      'https://www.coiffure-armida.ch/wp-content/uploads/2020/05/Coiffeur_Muri_Salon_.jpg',
+      'https://lh3.googleusercontent.com/p/AF1QipODfoH--4h9B3ZOgm6IoeH12_5ocBSy7Hs-4tOv=s680-w680-h510',
+      'https://lh3.googleusercontent.com/p/AF1QipO-PbtD9Dsm9OwftUfuyT9cNoL8sdAhJWr1w_u2=s680-w680-h510',
+    ]
   },
   creditCard: {
     number: '',

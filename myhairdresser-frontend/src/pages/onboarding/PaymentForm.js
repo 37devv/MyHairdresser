@@ -14,10 +14,10 @@ const PaymentForm = (props) => {
 
   const methods = useForm({
     defaultValues: {
-      number: '',
-      expiry: '',
-      cvc: '',
-      name: '',
+      number: '4901123456789012',
+      expiry: '0627',
+      cvc: '982',
+      name: 'Irdin Ibisevic',
       focused: '',
     },
   });
