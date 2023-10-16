@@ -31,11 +31,11 @@ export default function Review(props) {
           <Typography variant="h4" gutterBottom sx={{ mt: 2 }}>
             Infos über den Coiffeur
           </Typography>
-          <Typography gutterBottom>Name: {hairdresserData.hairsalondetail.nameOfHairdresser}</Typography>
-          <Typography gutterBottom>Beschreibung: {hairdresserData.hairsalondetail.description}</Typography>
-          <Typography gutterBottom>Mail: {hairdresserData.hairsalondetail.mail}</Typography>
-          <Typography gutterBottom>Name: {hairdresserData.hairsalondetail.nameOfHairdresser}</Typography>
-          <Typography gutterBottom>Adresse: {hairdresserData.hairsalondetail.address}</Typography>
+          <Typography gutterBottom><strong>Name: </strong>{hairdresserData.hairsalondetail.nameOfHairdresser}</Typography>
+          <Typography gutterBottom><strong>Beschreibung:</strong> {hairdresserData.hairsalondetail.description}</Typography>
+          <Typography gutterBottom><strong>Mail:</strong> {hairdresserData.hairsalondetail.mail}</Typography>
+          <Typography gutterBottom><strong>Name: </strong>{hairdresserData.hairsalondetail.nameOfHairdresser}</Typography>
+          <Typography gutterBottom><strong>Adresse:</strong> {hairdresserData.hairsalondetail.address}</Typography>
         </Grid>
 
 
@@ -43,10 +43,10 @@ export default function Review(props) {
           <Typography variant="h4" gutterBottom sx={{ mt: 2 }}>
             Zahlungsdetails
           </Typography>
-          <Typography gutterBottom>KK-NR: {hairdresserData.creditCard.number}</Typography>
-          <Typography gutterBottom>Ablaufdatum: {hairdresserData.creditCard.expiry}</Typography>
-          <Typography gutterBottom>Karteninhaber: {hairdresserData.creditCard.name}</Typography>
-          <Typography gutterBottom>CVV/CVC: {hairdresserData.creditCard.cvc}</Typography>
+          <Typography gutterBottom><strong>KK-NR:</strong> {hairdresserData.creditCard.number}</Typography>
+          <Typography gutterBottom><strong>Ablaufdatum:</strong> {hairdresserData.creditCard.expiry}</Typography>
+          <Typography gutterBottom><strong>Karteninhaber:</strong> {hairdresserData.creditCard.name}</Typography>
+          <Typography gutterBottom><strong>CVV/CVC:</strong> {hairdresserData.creditCard.cvc}</Typography>
         </Grid>
 
 
@@ -61,6 +61,30 @@ export default function Review(props) {
           {displayOpeningTime(hairdresserData.hairsalondetail.openingTimes.friday, "Freitag")}
           {displayOpeningTime(hairdresserData.hairsalondetail.openingTimes.saturday, "Samstag")}
           {displayOpeningTime(hairdresserData.hairsalondetail.openingTimes.sunday, "Sonntag")}
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <Typography variant="h4" gutterBottom sx={{ mt: 2 }}>
+            Dienstleistungen
+          </Typography>
+          {hairdresserData.hairsalondetail.services.map((service, index) => (
+            <Typography key={index} gutterBottom>
+              {service.name} - {service.price} CHF ({service.duration} Min)
+            </Typography>
+          ))}
+        </Grid>
+
+        <Grid item xs={12}>
+          <Typography variant="h4" gutterBottom sx={{ mt: 2 }}>
+            Bilder
+          </Typography>
+          <Grid container spacing={2}>
+            {hairdresserData.hairsalondetail.images.map((image, index) => (
+              <Grid item xs={12} sm={4} key={index}>
+                <img src={image} alt={`Bild ${index + 1}`} style={{ width: '100%', borderRadius: '5px' }} />
+              </Grid>
+            ))}
+          </Grid>
         </Grid>
       </Grid>
 
