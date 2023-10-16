@@ -31,20 +31,14 @@ const PaymentForm = (props) => {
   }
 
   return (
-    <div>
-
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
       <Typography variant="h3" gutterBottom>
         INFO: Rein visuell - keine Zahlungsabwicklung!
-
-
-
       </Typography>
       <CreditCardTable />
 
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          {/* //usewatch hook  innerhalb einer komponente wo in einem form gerendert wird */}
-
           <FormCard />
 
           <Controller
@@ -55,8 +49,8 @@ const PaymentForm = (props) => {
                 {...field}
                 label="Kreditkartennummer"
                 variant="outlined"
-                fullWidth
                 onFocus={handleInputFocus}
+                sx={{ width: '100%', mb: 2, marginTop: '20px' }}
               />
             )}
           />
@@ -69,12 +63,11 @@ const PaymentForm = (props) => {
                 {...field}
                 label="Name des Inhabers"
                 variant="outlined"
-                fullWidth
                 onFocus={handleInputFocus}
+                sx={{ width: '100%', mb: 2 }}
               />
             )}
           />
-
 
           <Controller
             name="expiry"
@@ -84,12 +77,11 @@ const PaymentForm = (props) => {
                 {...field}
                 label="Ablaufdatum"
                 variant="outlined"
-                fullWidth
                 onFocus={handleInputFocus}
+                sx={{ width: '100%', mb: 2 }}
               />
             )}
           />
-
 
           <Controller
             name="cvc"
@@ -99,8 +91,8 @@ const PaymentForm = (props) => {
                 {...field}
                 label="CVC/CVV"
                 variant="outlined"
-                fullWidth
                 onFocus={handleInputFocus}
+                sx={{ width: '100%', mb: 2 }}
               />
             )}
           />
@@ -108,11 +100,10 @@ const PaymentForm = (props) => {
           <Button
             variant="contained"
             type="submit"
-            sx={{ mt: 3, ml: 1 }}
+            sx={{ mt: 3 }}
 
           >
             Weiter zur Überprüfung
-
           </Button>
         </form>
       </FormProvider>
