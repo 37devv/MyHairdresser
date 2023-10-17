@@ -1,7 +1,9 @@
 package ch.myhairdresser.backend.service;
 
 import ch.myhairdresser.backend.mapper.HairsalonMapper;
+import ch.myhairdresser.backend.model.dao.DailyOpeningHours;
 import ch.myhairdresser.backend.model.dao.Hairsalon;
+import ch.myhairdresser.backend.model.dao.Image;
 import ch.myhairdresser.backend.repository.HairsalonRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +32,26 @@ public class HairsalonService {
 
     public HairsalonOutDTO addHairsalon(HairsalonInDTO hairsalonInDTO) {
         Hairsalon hairsalon = hairsalonMapper.fromInDto(hairsalonInDTO);
+
+        // Set the Hairsalon reference on each DailyOpeningHours, Image, and Service
+        if (hairsalon.getDailyOpeningHours() != null) {
+            for (DailyOpeningHours daily : hairsalon.getDailyOpeningHours()) {
+                daily.setHairsalon(hairsalon);
+            }
+        }
+
+        if (hairsalon.getImages() != null) {
+            for (Image image : hairsalon.getImages()) {
+                image.setHairsalon(hairsalon);
+            }
+        }
+
+        if (hairsalon.getServices() != null) {
+            for (ch.myhairdresser.backend.model.dao.Service service : hairsalon.getServices()) {
+                service.setHairsalon(hairsalon);
+            }
+        }
+
         Hairsalon saved = hairsalonRepository.save(hairsalon);
         HairsalonOutDTO outDto = hairsalonMapper.toOutDto(saved);
         return outDto;

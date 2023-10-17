@@ -2,10 +2,12 @@ package ch.myhairdresser.backend.model.dao;
 
 import ch.myhairdresser.backend.model.converter.DurationConverter;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import io.hypersistence.utils.hibernate.type.interval.PostgreSQLIntervalType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.annotations.Type;
 
 import java.time.Duration;
 import java.util.Set;
@@ -27,7 +29,8 @@ public class Service {
     private Double price;
 
     @Column(name="duration")
-    @Convert(converter = DurationConverter.class)
+    //@Convert(converter = DurationConverter.class)
+    @Type(PostgreSQLIntervalType.class)
     private Duration duration;
 
     @ManyToOne
