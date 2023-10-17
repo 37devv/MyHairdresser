@@ -10,7 +10,8 @@ import java.util.List;
 @Repository
 public interface ServiceRepository extends JpaRepository<Service, Long> {
 
-    @Query("SELECT DISTINCT s FROM Service s")
-    List<Service> findDistinctServices();
+    @Query("SELECT s FROM Service s WHERE s.id IN (SELECT MIN(ss.id) FROM Service ss GROUP BY ss.name)")
+    List<Service> findDistinctServiceObjects();
+
 
 }

@@ -21,6 +21,6 @@ public class ServiceController {
 
     @GetMapping("/distinct")
     public List<Service> getDistinctServices() {
-        return serviceRepository.findDistinctServices();
+        return serviceRepository.findDistinctServiceObjects();
     }
 }
