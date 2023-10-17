@@ -19,6 +19,7 @@ public interface HairsalonMapper {
     HairsalonMapper INSTANCE = Mappers.getMapper(HairsalonMapper.class);
 
     @Mapping(target = "images", source = "images", qualifiedByName = "fromImageUrls")
+    @Mapping(target = "dailyOpeningHours", source = "openingTimes")
     Hairsalon fromInDto(HairsalonInDTO hairsalonInDTO);
 
     @Mapping(target = "dailyOpeningHours", source = "dailyOpeningHours")
