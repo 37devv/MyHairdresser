@@ -5,20 +5,20 @@ import axios from 'axios';
 // initial state
 const initialState = {
   hairsalondetail: {
-    nameOfHairdresser: 'Irdins coiffeur',
+    name: 'Irdins coiffeur',
     mail:'irdin.ibisevic@gmail.com',
     password:'hallo123',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     address: "Europa-Strasse 18, Opfikon, Switzerland",
-    openingTimes: {
-      monday: { morningFrom: '08:00', morningTo: '12:00', afternoonFrom: '13:00', afternoonTo: '17:00', closed: false },
-      tuesday: { morningFrom: '08:00', morningTo: '12:00', afternoonFrom: '13:00', afternoonTo: '17:00', closed: false },
-      wednesday: { morningFrom: '08:00', morningTo: '12:00', afternoonFrom: '13:00', afternoonTo: '17:00', closed: false },
-      thursday: { morningFrom: '08:00', morningTo: '12:00', afternoonFrom: '13:00', afternoonTo: '17:00', closed: false },
-      friday: { morningFrom: '08:00', morningTo: '12:00', afternoonFrom: '13:00', afternoonTo: '17:00', closed: false },
-      saturday: { morningFrom: '', morningTo: '', afternoonFrom: '', afternoonTo: '', closed: true },
-      sunday: { morningFrom: '', morningTo: '', afternoonFrom: '', afternoonTo: '', closed: true },
-    },
+    openingTimes: [
+       { morningFrom: '08:00', morningTo: '12:00', afternoonFrom: '13:00', afternoonTo: '17:00', closed: false, day: 1 },
+       { morningFrom: '08:00', morningTo: '12:00', afternoonFrom: '13:00', afternoonTo: '17:00', closed: false, day: 2 },
+       { morningFrom: '08:00', morningTo: '12:00', afternoonFrom: '13:00', afternoonTo: '17:00', closed: false, day: 3  },
+       { morningFrom: '08:00', morningTo: '12:00', afternoonFrom: '13:00', afternoonTo: '17:00', closed: false, day: 4  },
+       { morningFrom: '08:00', morningTo: '12:00', afternoonFrom: '13:00', afternoonTo: '17:00', closed: false, day: 5  },
+       { morningFrom: '', morningTo: '', afternoonFrom: '', afternoonTo: '', closed: true, day: 6  },
+       { morningFrom: '', morningTo: '', afternoonFrom: '', afternoonTo: '', closed: true, day: 7  },
+    ],
     services: [
       {name: 'Haare schneiden', price: 25, duration: '30'},
       {name: 'Augenbrauen kürzen', price: 10, duration: '5'},
@@ -71,8 +71,8 @@ const addHairdresserForm = createSlice({
   },
 });
 
-export const onboardHairdresser = createAsyncThunk('api/hairdresser', async (userData) => {
-  const response = await axios.post('http://localhost:8080/hairdressers', userData);
+export const onboardHairdresser = createAsyncThunk('api/hairsalons', async (userData) => {
+  const response = await axios.post('http://localhost:8080/api/hairsalons', userData);
   return response.data;
 });
 

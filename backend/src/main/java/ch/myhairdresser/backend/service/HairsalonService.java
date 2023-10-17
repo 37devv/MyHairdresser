@@ -29,10 +29,11 @@ public class HairsalonService {
     }
 
     public HairsalonOutDTO addHairsalon(HairsalonInDTO hairsalonInDTO) {
-        Hairsalon hairsalon = hairsalonMapper.fromInDto(hairsalonInDTO);
+        /*Hairsalon hairsalon = hairsalonMapper.fromInDto(hairsalonInDTO);
         Hairsalon saved = hairsalonRepository.save(hairsalon);
         HairsalonOutDTO outDto = hairsalonMapper.toOutDto(saved);
-        return outDto;
+        return outDto;*/
+        return null;
     }
 
     public List<Hairsalon> autocomplete(String keyword) {

@@ -23,7 +23,7 @@ export default function Onboarding() {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  const hairdresserData = useSelector((state) => state.addHairdresserForm);
+  const hairdresserData = useSelector((state) => state.addHairdresserForm.hairsalondetail);
 
   const handleNext = async () => {
     console.log(activeStep);

@@ -147,7 +147,7 @@ components:
         images:
           type: array
           items:
-            $ref: '#/components/schemas/Image'
+            type: string
 
 
 

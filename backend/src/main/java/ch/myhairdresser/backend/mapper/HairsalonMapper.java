@@ -12,7 +12,7 @@ public interface HairsalonMapper {
 
     HairsalonMapper INSTANCE = Mappers.getMapper(HairsalonMapper.class);
 
-    Hairsalon fromInDto(HairsalonInDTO hairsalonInDTO);
+    //Hairsalon fromInDto(HairsalonInDTO hairsalonInDTO);
 
     @Mapping(target = "dailyOpeningHours", source = "dailyOpeningHours")
     HairsalonOutDTO toOutDto(Hairsalon hairsalon);

@@ -174,35 +174,6 @@ export default function HairdresserForm(props) {
               />
             </Grid>
 
-            {/* <Grid item xs={12} sm={6}>
-              <Controller
-                name="address.plz"
-                control={control}
-                render={({ field }) => (
-                  <TextField
-                    label="PLZ"
-                    variant="outlined"
-                    fullWidth
-                    {...field}
-                  />
-                )}
-              />
-            </Grid>
-
-            <Grid item xs={12} sm={6}>
-              <Controller
-                name="address.place"
-                control={control}
-                render={({ field }) => (
-                  <TextField
-                    label="Ort"
-                    variant="outlined"
-                    fullWidth
-                    {...field}
-                  />
-                )}
-              />
-            </Grid> */}
 
             <Grid item xs={12} sm={6}>
 
