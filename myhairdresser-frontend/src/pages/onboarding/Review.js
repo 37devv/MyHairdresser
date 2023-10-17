@@ -5,28 +5,35 @@ import { useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
 
 export default function Review(props) {
-
   const hairdresserData = useSelector((state) => state.addHairdresserForm);
 
-  const displayOpeningTime = (dayData, dayName) => {
-    if (dayData.closed) return <Typography gutterBottom>{dayName}: Geschlossen</Typography>;
+  const displayOpeningTime = (dayData) => {
+    if (dayData.closed) return <Typography gutterBottom>{dayData.dayName}: Geschlossen</Typography>;
 
     return (
       <Typography gutterBottom>
-        {dayName}: {dayData.morningFrom} - {dayData.morningTo}, {dayData.afternoonFrom} - {dayData.afternoonTo}
+        {dayData.dayName}: {dayData['open-morning']} - {dayData['closing-morning']}, {dayData['open-afternoon']} - {dayData['closing-afternoon']}
       </Typography>
     );
-  }
+  };
+
+  const dayNames = {
+    1: 'Montag',
+    2: 'Dienstag',
+    3: 'Mittwoch',
+    4: 'Donnerstag',
+    5: 'Freitag',
+    6: 'Samstag',
+    7: 'Sonntag',
+  };
+
   return (
     <React.Fragment>
-
       {/* Titel of page */}
       <Typography variant="h3" gutterBottom>
         Zusammenfassung
       </Typography>
       <Grid container spacing={2}>
-
-
         <Grid item xs={12} sm={6}>
           <Typography variant="h4" gutterBottom sx={{ mt: 2 }}>
             Infos über den Coiffeur
@@ -34,11 +41,8 @@ export default function Review(props) {
           <Typography gutterBottom><strong>Name: </strong>{hairdresserData.hairsalondetail.nameOfHairdresser}</Typography>
           <Typography gutterBottom><strong>Beschreibung:</strong> {hairdresserData.hairsalondetail.description}</Typography>
           <Typography gutterBottom><strong>Mail:</strong> {hairdresserData.hairsalondetail.mail}</Typography>
-          <Typography gutterBottom><strong>Name: </strong>{hairdresserData.hairsalondetail.nameOfHairdresser}</Typography>
           <Typography gutterBottom><strong>Adresse:</strong> {hairdresserData.hairsalondetail.address}</Typography>
         </Grid>
-
-
         <Grid item xs={12} sm={6}>
           <Typography variant="h4" gutterBottom sx={{ mt: 2 }}>
             Zahlungsdetails
@@ -48,21 +52,17 @@ export default function Review(props) {
           <Typography gutterBottom><strong>Karteninhaber:</strong> {hairdresserData.creditCard.name}</Typography>
           <Typography gutterBottom><strong>CVV/CVC:</strong> {hairdresserData.creditCard.cvc}</Typography>
         </Grid>
-
-
         <Grid item xs={12} sm={6}>
           <Typography variant="h4" gutterBottom sx={{ mt: 2 }}>
             Öffnungszeiten
           </Typography>
-          {displayOpeningTime(hairdresserData.hairsalondetail.openingTimes.monday, "Montag")}
-          {displayOpeningTime(hairdresserData.hairsalondetail.openingTimes.tuesday, "Dienstag")}
-          {displayOpeningTime(hairdresserData.hairsalondetail.openingTimes.wednesday, "Mittwoch")}
-          {displayOpeningTime(hairdresserData.hairsalondetail.openingTimes.thursday, "Donnerstag")}
-          {displayOpeningTime(hairdresserData.hairsalondetail.openingTimes.friday, "Freitag")}
-          {displayOpeningTime(hairdresserData.hairsalondetail.openingTimes.saturday, "Samstag")}
-          {displayOpeningTime(hairdresserData.hairsalondetail.openingTimes.sunday, "Sonntag")}
+          {hairdresserData.hairsalondetail.openingTimes.map((dayData) => (
+            displayOpeningTime({
+              ...dayData,
+              dayName: dayNames[dayData.day],
+            })
+          ))}
         </Grid>
-
         <Grid item xs={12} sm={6}>
           <Typography variant="h4" gutterBottom sx={{ mt: 2 }}>
             Dienstleistungen
@@ -73,7 +73,6 @@ export default function Review(props) {
             </Typography>
           ))}
         </Grid>
-
         <Grid item xs={12}>
           <Typography variant="h4" gutterBottom sx={{ mt: 2 }}>
             Bilder
@@ -87,9 +86,6 @@ export default function Review(props) {
           </Grid>
         </Grid>
       </Grid>
-
-
-
       <Button
         variant="contained"
         type="submit"
@@ -97,10 +93,7 @@ export default function Review(props) {
         onClick={props.handleNext}
       >
         Bestätigen
-
       </Button>
-
-
     </React.Fragment>
   );
 }
