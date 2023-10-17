@@ -88,6 +88,8 @@ export default function HairdresserForm(props) {
     7: 'Sonntag'
   };
 
+  
+
   return (
     <React.Fragment>
 
