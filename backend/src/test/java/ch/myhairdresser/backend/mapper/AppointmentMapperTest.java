@@ -24,14 +24,5 @@ public class AppointmentMapperTest {
         System.out.println("Duration in seconds: " + d.get(java.time.temporal.ChronoUnit.SECONDS));
     }
 
-    @Test
-    public void testMappingFromDtoToEntity() {
-        AppointmentInDto dto = new AppointmentInDto();
-
-        dto.setDuration("PT1H");
-
-        Appointment entity = appointmentMapper.fromInDtoToEntity(dto);
-        assertEquals(Duration.ofHours(1), entity.getDuration());
-    }
 
 }

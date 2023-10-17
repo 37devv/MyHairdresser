@@ -79,18 +79,18 @@ export default function HairdresserForm(props) {
 
 
   const dayMappings = {
-    monday: 'Montag',
-    tuesday: 'Dienstag',
-    wednesday: 'Mittwoch',
-    thursday: 'Donnerstag',
-    friday: 'Freitag',
-    saturday: 'Samstag',
-    sunday: 'Sonntag',
+    1: 'Montag',
+    2: 'Dienstag',
+    3: 'Mittwoch',
+    4: 'Donnerstag',
+    5: 'Freitag',
+    6: 'Samstag',
+    7: 'Sonntag'
   };
 
   return (
     <React.Fragment>
-
+      
       <Typography variant="h3" gutterBottom>
         Coiffeursalon erstellen
       </Typography>
@@ -99,7 +99,7 @@ export default function HairdresserForm(props) {
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
               <Controller
-                name="nameOfHairdresser"
+                name="name"
                 control={control}
                 render={({ field }) => (
                   <TextField
@@ -190,7 +190,14 @@ export default function HairdresserForm(props) {
 
 
             {Object.keys(dayMappings).map((day, index) => {
-              const isClosed = getValues(`openingTimes.${day}.closed`);
+              
+
+              const dayIndex = parseInt(day) - 1;
+
+              console.log("day " + day)
+              console.log("index " + index)
+
+              const isClosed = getValues(`openingTimes.${dayIndex}.closed`);
 
               return (
                 <div
@@ -212,8 +219,8 @@ export default function HairdresserForm(props) {
                   <FormControlLabel
                     control={
                       <Checkbox
-                        name={`openingTimes.${day}.closed`}
-                        onChange={handleCheckboxChange(day)}
+                        name={`openingTimes.${dayIndex}.closed`}
+                        onChange={handleCheckboxChange(dayIndex)}
                         checked={isClosed}
                         color="primary"
                       />
@@ -223,7 +230,7 @@ export default function HairdresserForm(props) {
                   <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                     <div style={{ width: '45%' }}>
                       <Controller
-                        name={`openingTimes.${day}.morningFrom`}
+                        name={`openingTimes.${dayIndex}.open-morning`}
                         control={control}
                         render={({ field }) => (
                           <TextField
@@ -239,7 +246,7 @@ export default function HairdresserForm(props) {
                     </div>
                     <div style={{ width: '45%' }}>
                       <Controller
-                        name={`openingTimes.${day}.morningTo`}
+                        name={`openingTimes.${dayIndex}.closing-morning`}
                         control={control}
                         render={({ field }) => (
                           <TextField
@@ -257,7 +264,7 @@ export default function HairdresserForm(props) {
                   <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: '8px' }}>
                     <div style={{ width: '45%' }}>
                       <Controller
-                        name={`openingTimes.${day}.afternoonFrom`}
+                        name={`openingTimes.${dayIndex}.open-afternoon`}
                         control={control}
                         render={({ field }) => (
                           <TextField
@@ -273,7 +280,7 @@ export default function HairdresserForm(props) {
                     </div>
                     <div style={{ width: '45%' }}>
                       <Controller
-                        name={`openingTimes.${day}.afternoonTo`}
+                        name={`openingTimes.${dayIndex}.closing-afternoon`}
                         control={control}
                         render={({ field }) => (
                           <TextField
@@ -427,6 +434,8 @@ export default function HairdresserForm(props) {
 
       </form>
       <DevTool control={control} />
+
+      <pre>{JSON.stringify(getValues(), null, 2)}</pre>
     </React.Fragment>
   );
 }

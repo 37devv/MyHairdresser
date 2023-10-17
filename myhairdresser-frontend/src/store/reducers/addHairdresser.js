@@ -11,13 +11,54 @@ const initialState = {
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     address: "Europa-Strasse 18, Opfikon, Switzerland",
     openingTimes: [
-       { morningFrom: '08:00', morningTo: '12:00', afternoonFrom: '13:00', afternoonTo: '17:00', closed: false, day: 1 },
-       { morningFrom: '08:00', morningTo: '12:00', afternoonFrom: '13:00', afternoonTo: '17:00', closed: false, day: 2 },
-       { morningFrom: '08:00', morningTo: '12:00', afternoonFrom: '13:00', afternoonTo: '17:00', closed: false, day: 3  },
-       { morningFrom: '08:00', morningTo: '12:00', afternoonFrom: '13:00', afternoonTo: '17:00', closed: false, day: 4  },
-       { morningFrom: '08:00', morningTo: '12:00', afternoonFrom: '13:00', afternoonTo: '17:00', closed: false, day: 5  },
-       { morningFrom: '', morningTo: '', afternoonFrom: '', afternoonTo: '', closed: true, day: 6  },
-       { morningFrom: '', morningTo: '', afternoonFrom: '', afternoonTo: '', closed: true, day: 7  },
+      {
+        day: 1,
+        "open-morning": "08:00",
+        "closing-morning": "12:00",
+        "open-afternoon": "13:00",
+        "closing-afternoon": "17:00",
+        closed: false,
+      },
+      {
+        "day": 2,
+        "open-morning": "08:00",
+        "closing-morning": "12:00",
+        "open-afternoon": "13:00",
+        "closing-afternoon": "17:00",
+        "closed": false
+      },
+      {
+        "day": 3,
+        "open-morning": "08:00",
+        "closing-morning": "12:00",
+        "open-afternoon": "13:00",
+        "closing-afternoon": "17:00",
+        "closed": false
+      },
+      {
+        "day": 4,
+        "open-morning": "08:00",
+        "closing-morning": "12:00",
+        "open-afternoon": "13:00",
+        "closing-afternoon": "17:00",
+        "closed": false
+      },
+      {
+        "day": 5,
+        "open-morning": "08:00",
+        "closing-morning": "12:00",
+        "open-afternoon": "13:00",
+        "closing-afternoon": "17:00",
+        "closed": false
+      },
+      {
+        "day": 6,
+        "closed": true
+      },
+      {
+        "day": 7,
+        "closed": true
+      }
     ],
     services: [
       {name: 'Haare schneiden', price: 25, duration: '30'},
