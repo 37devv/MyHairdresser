@@ -14,15 +14,7 @@ export default function ContactInformation(props) {
         </Typography>
 
         <Typography>
-          {props.contactInformation.street}
-        </Typography>
-
-        <Typography>
-          {props.contactInformation.plz}
-        </Typography>
-
-        <Typography>
-          {props.contactInformation.place}
+          {props.contactInformation.address}
         </Typography>
 
         <Typography>

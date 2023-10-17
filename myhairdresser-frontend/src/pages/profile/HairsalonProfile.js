@@ -82,9 +82,7 @@ export default function HairsalonProfile() {
         <Grid item xs={4}>
           <ContactInformation
             contactInformation={{
-              street: data.street,
-              plz: data.plz,
-              place: data.place,
+              address: data.address,
               phonenumber: data.phonenumber,
               mail: data.mail,
             }}

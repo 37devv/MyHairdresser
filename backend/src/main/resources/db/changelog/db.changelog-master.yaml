@@ -21,14 +21,8 @@ databaseChangeLog:
                   name: description
                   type: varchar(1000)
               - column:
-                  name: street
-                  type: varchar(255)
-              - column:
-                  name: plz
-                  type: varchar(255)
-              - column:
-                  name: place
-                  type: varchar(255)
+                  name: address
+                  type: varchar(500)
               - column:
                   name: phonenumber
                   type: varchar(500)

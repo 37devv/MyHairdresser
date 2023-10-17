@@ -90,7 +90,7 @@ export default function HairdresserForm(props) {
 
   return (
     <React.Fragment>
-      
+
       <Typography variant="h3" gutterBottom>
         Coiffeursalon erstellen
       </Typography>
@@ -177,9 +177,19 @@ export default function HairdresserForm(props) {
 
             <Grid item xs={12} sm={6}>
 
-              {/* Empty grid so it looks nicer in the form */}
+              <Controller
+                name="phonenumber"
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    label="Telefon"
+                    variant="outlined"
+                    fullWidth
+                    {...field}
+                  />
+                )}
+              />
             </Grid>
-
             <Grid item xs={12} sm={6}>
 
               <Typography variant="h3" style={{ marginBottom: '8px' }}>
@@ -190,7 +200,7 @@ export default function HairdresserForm(props) {
 
 
             {Object.keys(dayMappings).map((day, index) => {
-              
+
 
               const dayIndex = parseInt(day) - 1;
 

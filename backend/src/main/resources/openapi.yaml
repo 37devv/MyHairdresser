@@ -136,6 +136,8 @@ components:
           type: string
         address:
           type: string
+        phonenumber:
+          type: string
         openingTimes:
           type: array
           items:
@@ -168,11 +170,7 @@ components:
           type: string
         description:
           type: string
-        street:
-          type: string
-        plz:
-          type: string
-        place:
+        address:
           type: string
         phonenumber:
           type: string

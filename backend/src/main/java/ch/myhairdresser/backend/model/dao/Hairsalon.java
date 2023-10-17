@@ -22,11 +22,7 @@ public class Hairsalon {
 
     private String description;
 
-    private String street;
-
-    private String plz;
-
-    private String place;
+    private String address;
 
     private String phonenumber;
 
