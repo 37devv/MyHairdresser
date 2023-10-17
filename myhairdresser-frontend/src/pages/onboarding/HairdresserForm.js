@@ -446,8 +446,6 @@ export default function HairdresserForm(props) {
 
       </form>
       <DevTool control={control} />
-
-      <pre>{JSON.stringify(getValues(), null, 2)}</pre>
     </React.Fragment>
   );
 }

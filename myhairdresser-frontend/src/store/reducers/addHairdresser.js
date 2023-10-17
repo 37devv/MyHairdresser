@@ -119,10 +119,44 @@ const addHairdresserForm = createSlice({
   },
 });
 
-export const onboardHairdresser = createAsyncThunk('api/hairsalons', async (userData) => {
-  const response = await axios.post('http://localhost:8080/api/hairsalons', userData);
-  return response.data;
-});
+export const onboardHairdresser = createAsyncThunk(
+  'api/hairsalons',
+  async (userData, { rejectWithValue }) => {
+    const geocoder = new window.google.maps.Geocoder();
+
+    try {
+      const geocodeResult = await new Promise((resolve, reject) => {
+        geocoder.geocode({ 'address': userData.address }, (results, status) => {
+          if (status === window.google.maps.GeocoderStatus.OK) {
+              resolve(results[0].geometry.location);
+          } else {
+              console.error("Geocoding error:", status, results); // Logging more details
+              reject(status);
+          }
+      });
+      
+      
+      });
+
+    // Create a new object based on userData
+const updatedUserData = { ...userData };
+
+// Attach the latitude and longitude to the updatedUserData
+updatedUserData.latitude = geocodeResult.lat();
+updatedUserData.longitude = geocodeResult.lng();
+
+console.log("updatedUserData", updatedUserData);
+
+      // Now send the userData to the backend
+      const response = await axios.post('http://localhost:8080/api/hairsalons', updatedUserData);
+      return response.data;
+      
+    } catch (error) {
+      return rejectWithValue(error.message || 'Unable to retrieve location.');
+    }
+  }
+);
+
 
 export default addHairdresserForm.reducer;
 
