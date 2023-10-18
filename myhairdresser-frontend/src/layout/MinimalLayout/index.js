@@ -6,9 +6,7 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import Container from '@mui/material/Container';
@@ -18,7 +16,6 @@ import Typography from '@mui/material/Typography';
 // ==============================|| MINIMAL LAYOUT ||============================== //
 
 function MinimalLayout() {
-  const pages = ['Products', 'Pricing', 'Blog'];
   const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -27,9 +24,7 @@ function MinimalLayout() {
   const handleOpenNavMenu = (event) => {
       setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event) => {
-      setAnchorElUser(event.currentTarget);
-  };
+  
 
   const handleCloseNavMenu = () => {
       setAnchorElNav(null);
@@ -92,11 +87,7 @@ function MinimalLayout() {
                   display: { xs: 'block', md: 'none' },
                 }}
               >
-                {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
-                  </MenuItem>
-                ))}
+                
               </Menu>
             </Box>
             <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -119,23 +110,11 @@ function MinimalLayout() {
               MyHairdresser
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              {pages.map((page) => (
-                <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
-                >
-                  {page}
-                </Button>
-              ))}
+              
             </Box>
 
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                </IconButton>
-              </Tooltip>
+              <Button variant="contained" color="success">Dashboard</Button>
               <Menu
                 sx={{ mt: '45px' }}
                 id="menu-appbar"

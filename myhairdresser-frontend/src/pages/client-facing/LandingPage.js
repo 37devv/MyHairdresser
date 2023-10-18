@@ -3,22 +3,11 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import BookingBox from './BookingBox';
-import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom';
+import Pricing from './Pricing';
 
-const centerTextButtonStyles = {
-    textAlign: 'center',
-    fontSize: '2rem', // Adjust the font size as needed
-    margin: '0 auto', // Center horizontally
-};
 
 function LandingPage() {
 
-    const navigate = useNavigate();
-
-    const handleOnboardingRequest = () => {
-        navigate('/client/onboarding');
-    }
 
     return (
         <React.Fragment>
@@ -39,20 +28,9 @@ function LandingPage() {
                         <BookingBox />
 
                     </Grid>
-
-
-
-
-
-
-
                 </Grid>
-                <Typography style={centerTextButtonStyles}>
-                    Onboarding für neuen Coiffersalon
-                    <Button variant="contained" color="success" onClick={handleOnboardingRequest}>
-                        Onboarding durchführen
-                    </Button>
-                </Typography>
+                
+                <Pricing />
             </Container>
         </React.Fragment>
     );
