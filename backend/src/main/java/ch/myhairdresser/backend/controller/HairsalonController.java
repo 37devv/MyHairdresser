@@ -50,8 +50,12 @@ public class HairsalonController {
         return new ResponseEntity<HairsalonOutDTO>(hairsalon, HttpStatus.OK);
     }
 
-    public ResponseEntity<Hairsalon> getSearchResultsByFilter(@RequestBody Object object){
-        log.info("HairsalonController::getSearchResultsByFilter request id:{}", object);
+    @GetMapping("/search")
+    public ResponseEntity<Hairsalon> getSearchResultsByFilter(@RequestParam Double latitude,
+                                                              @RequestParam Double longitude,
+                                                              @RequestParam List<String> selectedServices){
+        log.info("HairsalonController::getSearchResultsByFilter request latitude: {}, longitude: {}, selected Services: {}",
+                latitude, longitude, selectedServices);
 
 
         return new ResponseEntity<Hairsalon>(new Hairsalon(), HttpStatus.OK);
