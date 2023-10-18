@@ -28,6 +28,9 @@ import SettingTab from './SettingTab';
 // assets
 import avatar1 from 'assets/images/users/avatar-1.png';
 import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
+
 
 // tab panel wrapper
 function TabPanel({ children, value, index, ...other }) {
@@ -55,9 +58,12 @@ function a11yProps(index) {
 
 const Profile = () => {
   const theme = useTheme();
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
     // logout
+    Cookies.remove('loggedInUser');
+    navigate("/client/login")
   };
 
   const anchorRef = useRef(null);
@@ -81,6 +87,8 @@ const Profile = () => {
 
   const iconBackColorOpen = 'grey.300';
 
+  const user = Cookies.get('loggedInUser');
+
   return (
     <Box sx={{ flexShrink: 0, ml: 0.75 }}>
       <ButtonBase
@@ -98,7 +106,7 @@ const Profile = () => {
       >
         <Stack direction="row" spacing={2} alignItems="center" sx={{ p: 0.5 }}>
           <Avatar alt="profile user" src={avatar1} sx={{ width: 32, height: 32 }} />
-          <Typography variant="subtitle1">John Doe</Typography>
+          <Typography variant="subtitle1">{user}</Typography>
         </Stack>
       </ButtonBase>
       <Popper
