@@ -20,6 +20,7 @@ public interface HairsalonMapper {
 
     @Mapping(target = "images", source = "images", qualifiedByName = "fromImageUrls")
     @Mapping(target = "dailyOpeningHours", source = "openingTimes")
+    @Mapping(target = "password", source = "password")
     Hairsalon fromInDto(HairsalonInDTO hairsalonInDTO);
 
     @Mapping(target = "dailyOpeningHours", source = "dailyOpeningHours")

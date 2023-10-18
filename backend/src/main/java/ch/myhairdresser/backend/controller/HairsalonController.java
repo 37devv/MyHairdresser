@@ -1,6 +1,7 @@
 package ch.myhairdresser.backend.controller;
 
 import ch.myhairdresser.backend.model.dao.Hairsalon;
+import ch.myhairdresser.backend.model.dto.LoginRequest;
 import ch.myhairdresser.backend.service.HairsalonService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -65,5 +66,21 @@ public class HairsalonController {
         List<Hairsalon> hairsalonsByCriteria = hairsalonService.getHairsalonsByCriteria(latitude, longitude, serviceNames);
 
         return new ResponseEntity<List<Hairsalon>>(hairsalonsByCriteria, HttpStatus.OK);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
+        log.info("HairsalonController::login request");
+
+        boolean isAuthenticated = hairsalonService.authenticateHairsalon(
+                loginRequest.mail(),
+                loginRequest.password()
+        );
+
+        if (isAuthenticated) {
+            return new ResponseEntity<>("Login successful", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Invalid credentials", HttpStatus.UNAUTHORIZED);
+        }
     }
 }

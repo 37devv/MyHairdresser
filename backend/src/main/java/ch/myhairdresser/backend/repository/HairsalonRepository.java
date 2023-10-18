@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface HairsalonRepository extends JpaRepository<Hairsalon, Long> {
@@ -25,4 +26,5 @@ public interface HairsalonRepository extends JpaRepository<Hairsalon, Long> {
                                                      @Param("serviceNames") List<String> serviceNames,
                                                      @Param("serviceCount") Long serviceCount);
 
+    Optional<Hairsalon> findByMail(String mail);
 }

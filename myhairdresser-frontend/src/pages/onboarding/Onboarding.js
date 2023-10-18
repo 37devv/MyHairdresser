@@ -32,7 +32,7 @@ export default function Onboarding() {
     if(activeStep === 2){
       setTimeout(async () => {
         await dispatch(onboardHairdresser(hairdresserData))
-        navigate("/login"); // Redirect to the specified route after the delay
+        navigate("/client/login"); // Redirect to the specified route after the delay
       }, 1000);
     }
   };

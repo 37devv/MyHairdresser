@@ -4,6 +4,7 @@ import ch.myhairdresser.backend.mapper.HairsalonMapper;
 import ch.myhairdresser.backend.model.dao.DailyOpeningHours;
 import ch.myhairdresser.backend.model.dao.Hairsalon;
 import ch.myhairdresser.backend.model.dao.Image;
+import ch.myhairdresser.backend.model.dto.LoginRequest;
 import ch.myhairdresser.backend.repository.HairsalonRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -74,5 +76,17 @@ public class HairsalonService {
     public List<Hairsalon> getHairsalonsByCriteria(Double latitude, Double longitude, List<String> serviceNames) {
         Long serviceCount = (long) serviceNames.size();
         return hairsalonRepository.findHairsalonsNearbyWithServices(latitude, longitude, serviceNames, serviceCount);
+    }
+
+    public boolean authenticateHairsalon(String email, String password) {
+        Optional<Hairsalon> optionalHairsalon = hairsalonRepository.findByMail(email);
+
+        if (!optionalHairsalon.isPresent()) {
+            return false;
+        }
+
+        Hairsalon hairsalon = optionalHairsalon.get();
+
+        return hairsalon.getPassword().equals(password);
     }
 }

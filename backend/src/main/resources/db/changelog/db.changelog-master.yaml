@@ -30,6 +30,9 @@ databaseChangeLog:
                   name: mail
                   type: varchar(500)
               - column:
+                  name: password
+                  type: varchar(500)
+              - column:
                   name: latitude
                   type: DECIMAL(9,6)
               - column:

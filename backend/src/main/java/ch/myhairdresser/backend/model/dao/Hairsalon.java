@@ -29,6 +29,8 @@ public class Hairsalon {
 
     private String mail;
 
+    private String password;
+
     @Column(precision = 9, scale = 6)
     private BigDecimal latitude;
 
