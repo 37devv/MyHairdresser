@@ -241,6 +241,10 @@ public class AppointmentService {
     public Long getAppointmentCountForHairsalonByEmail(String mail) {
         return appointmentRepository.countByHairsalon_Mail(mail);
     }
+
+    public Double getTotalPriceForHairsalon(String hairsalonMail) {
+        return appointmentRepository.findTotalPriceByHairsalonMail(hairsalonMail);
+    }
 }
 
 record DurationTimeResult(Duration duration, Double price, Set<ch.myhairdresser.backend.model.dao.Service> bookedServices) {}

@@ -2,6 +2,8 @@ package ch.myhairdresser.backend.repository;
 
 import ch.myhairdresser.backend.model.dao.Appointment;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -20,4 +22,8 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     List<Appointment> findByDateAndHairsalon_Id(Date date, int hairsalonId);
 
     Long countByHairsalon_Mail(String mail);
+
+    @Query("SELECT SUM(a.price) FROM Appointment a WHERE a.hairsalon.mail = :mail")
+    Double findTotalPriceByHairsalonMail(@Param("mail") String hairsalonMail);
+
 }

@@ -77,6 +77,7 @@ const DashboardDefault = () => {
   const [value, setValue] = useState('today');
   const [slot, setSlot] = useState('week');
   const [appointmentsCount, setAppointmentsCount] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const navigate = useNavigate();
   
@@ -98,9 +99,11 @@ const DashboardDefault = () => {
       try {
         console.log("before triggering request:" + user)
         const response = await axios.get(`http://localhost:8080/api/appointments/hairsalon/count?hairsalonEmail=${user}`);
+        const totalPrice = await axios.get(`http://localhost:8080/api/appointments/hairsalon/totalPrice?hairsalonEmail=${user}`);
 
         if (response.status === 200) {
           setAppointmentsCount(response.data);
+          setTotalPrice(totalPrice.data)
         } else {
           console.error("Error fetching appointments count:", response);
         }
@@ -122,7 +125,7 @@ const DashboardDefault = () => {
         <AnalyticEcommerce title="Anzahl Termine" count={appointmentsCount} percentage={59.3} />
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
-        <AnalyticEcommerce title="Umsatz" count="78,250" percentage={70.5} extra="8,900" />
+        <AnalyticEcommerce title="Umsatz" count={totalPrice + "CHF"} percentage={70.5} extra="8,900" />
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <AnalyticEcommerce title="Besucher (fiktive Zahl)" count="18,800" percentage={27.4} extra="13'323" />
