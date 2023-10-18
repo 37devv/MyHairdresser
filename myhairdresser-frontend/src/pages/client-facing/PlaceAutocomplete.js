@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TextField, Autocomplete } from '@mui/material';
 import debounce from 'lodash/debounce';
 
-function PlaceAutocomplete() {
+function PlaceAutocomplete(props) {
   const [options, setOptions] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState(null);  // Store the selected place details
 
@@ -27,15 +27,19 @@ function PlaceAutocomplete() {
       fields: ['geometry']
     }, (place, status) => {
       if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+        console.log(place);
         setSelectedPlace(place);
+        props.onChangeCoordinates({
+          long: place.geometry?.location?.lng(),
+          lat: place.geometry?.location?.lat(),
+        })
       }
     });
   }
 
   const debouncedLoadSuggestions = debounce(loadSuggestions, 300);
 
-  const latitude = selectedPlace?.geometry?.location?.lat();
-  const longitude = selectedPlace?.geometry?.location?.lng();
+
 
   return (
     <>
@@ -46,6 +50,8 @@ function PlaceAutocomplete() {
       }}
       onChange={(event, value) => {
         if (value) {
+          console.log(value);
+          props.onChangeAdressName(value.description)
           fetchPlaceDetails(value.place_id);
         } else {
           setSelectedPlace(null);
@@ -57,9 +63,7 @@ function PlaceAutocomplete() {
         <TextField {...params} label="Place" fullWidth />
       )}
     />
-    {"lat"+ latitude}
-    <br></br>
-    {"long" + longitude}
+    {selectedPlace?.geometry?.location?.lat()}
     </>
     
   );

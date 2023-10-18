@@ -3,7 +3,7 @@ import axios from 'axios';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 
-function DistinctServicesAutocomplete() {
+function DistinctServicesAutocomplete(props) {
   const [services, setServices] = useState([]);
   const [selectedServices, setSelectedServices] = useState([]);
 
@@ -28,6 +28,7 @@ function DistinctServicesAutocomplete() {
         value={selectedServices}
         onChange={(event, newValue) => {
           setSelectedServices(newValue);
+          props.onChangeDistinctServicesAutocomplete(newValue);
         }}
         renderInput={(params) => (
           <TextField {...params} variant="outlined" label="Select Services" placeholder="Services" />

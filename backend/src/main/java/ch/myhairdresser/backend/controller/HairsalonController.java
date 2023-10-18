@@ -49,4 +49,11 @@ public class HairsalonController {
         HairsalonOutDTO hairsalon = hairsalonService.getHairsalonById(salonId);
         return new ResponseEntity<HairsalonOutDTO>(hairsalon, HttpStatus.OK);
     }
+
+    public ResponseEntity<Hairsalon> getSearchResultsByFilter(@RequestBody Object object){
+        log.info("HairsalonController::getSearchResultsByFilter request id:{}", object);
+
+
+        return new ResponseEntity<Hairsalon>(new Hairsalon(), HttpStatus.OK);
+    }
 }
