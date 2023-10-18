@@ -18,4 +18,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     int deleteByAppointmentidentifier(String appointmentidentifier);
 
     List<Appointment> findByDateAndHairsalon_Id(Date date, int hairsalonId);
+
+    Long countByHairsalon_Mail(String mail);
 }

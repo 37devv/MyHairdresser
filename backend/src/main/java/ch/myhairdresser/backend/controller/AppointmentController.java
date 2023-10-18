@@ -33,6 +33,14 @@ public class AppointmentController implements AppointmentsApi {
         return new ResponseEntity<String>(bookingUuid, HttpStatus.CREATED);
     }
 
+    @GetMapping("/hairsalon/count")
+    public ResponseEntity<Long> getAppointmentCountForHairsalon(@RequestParam String hairsalonEmail) {
+        log.info("AppointmentController::getAppointmentCountForHairsalon request email: {}", hairsalonEmail);
+
+        Long count = appointmentService.getAppointmentCountForHairsalonByEmail(hairsalonEmail);
+        return new ResponseEntity<>(count, HttpStatus.OK);
+    }
+
     @DeleteMapping("/{appointmentId}")
     public ResponseEntity<?> deleteAppointment(@PathVariable String appointmentId) {
         log.info("AppointmentController::deleteAppointment request {}", appointmentId);
@@ -55,4 +63,6 @@ public class AppointmentController implements AppointmentsApi {
         AvailableTimeslotResult availableTimeslots = appointmentService.getAvailableTimeslots(date, hairsalonid, serviceIds);
         return new ResponseEntity<AvailableTimeslotResult>(availableTimeslots, HttpStatus.OK);
     }
+
+
 }

@@ -36,6 +36,7 @@ import avatar4 from 'assets/images/users/avatar-4.png';
 
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import axios from 'axios';
 
 // avatar style
 const avatarSX = {
@@ -75,25 +76,41 @@ const status = [
 const DashboardDefault = () => {
   const [value, setValue] = useState('today');
   const [slot, setSlot] = useState('week');
+  const [appointmentsCount, setAppointmentsCount] = useState(0);
 
   const navigate = useNavigate();
+  
+
+
+
+  /** DATA TO DISPLAY */
 
   React.useEffect(() => {
-    console.log("inside useeffect")
     const user = Cookies.get('loggedInUser');
 
     if (user == null){
       console.log("inside if")
       navigate("/client/login");
     }
-  }, [])
 
+    const fetchData = async () => {
 
-  /** DATA TO DISPLAY */
+      try {
+        console.log("before triggering request:" + user)
+        const response = await axios.get(`http://localhost:8080/api/appointments/hairsalon/count?hairsalonEmail=${user}`);
 
-  React.useEffect(() => {
+        if (response.status === 200) {
+          setAppointmentsCount(response.data);
+        } else {
+          console.error("Error fetching appointments count:", response);
+        }
+      } catch (error) {
+        console.error("Axios error:", error);
+      }
+    };
 
-  }, [])
+    fetchData();
+  }, []);
 
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>
@@ -102,7 +119,7 @@ const DashboardDefault = () => {
         <Typography variant="h5">Dashboard</Typography>
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
-        <AnalyticEcommerce title="Anzahl Appointments" count="4,42,236" percentage={59.3} />
+        <AnalyticEcommerce title="Anzahl Termine" count={appointmentsCount} percentage={59.3} />
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <AnalyticEcommerce title="Umsatz" count="78,250" percentage={70.5} extra="8,900" />

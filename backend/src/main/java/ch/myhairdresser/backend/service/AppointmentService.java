@@ -237,6 +237,10 @@ public class AppointmentService {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Entity not found");
         }
     }
+
+    public Long getAppointmentCountForHairsalonByEmail(String mail) {
+        return appointmentRepository.countByHairsalon_Mail(mail);
+    }
 }
 
 record DurationTimeResult(Duration duration, Double price, Set<ch.myhairdresser.backend.model.dao.Service> bookedServices) {}
