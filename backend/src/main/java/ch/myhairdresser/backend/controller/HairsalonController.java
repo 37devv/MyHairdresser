@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -51,13 +53,17 @@ public class HairsalonController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Hairsalon> getSearchResultsByFilter(@RequestParam Double latitude,
+    public ResponseEntity<List<Hairsalon>> getSearchResultsByFilter(@RequestParam Double latitude,
                                                               @RequestParam Double longitude,
-                                                              @RequestParam List<String> selectedServices){
+                                                              @RequestParam String selectedServices){
         log.info("HairsalonController::getSearchResultsByFilter request latitude: {}, longitude: {}, selected Services: {}",
                 latitude, longitude, selectedServices);
 
 
-        return new ResponseEntity<Hairsalon>(new Hairsalon(), HttpStatus.OK);
+        List<String> serviceNames = Arrays.asList(selectedServices.split(","));
+
+        List<Hairsalon> hairsalonsByCriteria = hairsalonService.getHairsalonsByCriteria(latitude, longitude, serviceNames);
+
+        return new ResponseEntity<List<Hairsalon>>(hairsalonsByCriteria, HttpStatus.OK);
     }
 }

@@ -18,11 +18,11 @@ export default function FilterHairsalonSearch() {
     const serviceNames = selectedServices.map(service => service.name);
 
     try {
-      const response = await axios.get('http://localhost:8080/api/hairsalon/search', {
+      const response = await axios.get('http://localhost:8080/api/hairsalons/search', {
         params: {
           latitude: latitude,
           longitude: longitude,
-          selectedServices: serviceNames
+          selectedServices: serviceNames.join(',')
         }
       });
 

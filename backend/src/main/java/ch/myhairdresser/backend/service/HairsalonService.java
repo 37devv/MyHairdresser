@@ -70,4 +70,9 @@ public class HairsalonService {
         Hairsalon hairsalon = hairsalonRepository.findById(Long.valueOf(salonId)).get();
         return hairsalonMapper.toOutDto(hairsalon);
     }
+
+    public List<Hairsalon> getHairsalonsByCriteria(Double latitude, Double longitude, List<String> serviceNames) {
+        Long serviceCount = (long) serviceNames.size();
+        return hairsalonRepository.findHairsalonsNearbyWithServices(latitude, longitude, serviceNames, serviceCount);
+    }
 }
