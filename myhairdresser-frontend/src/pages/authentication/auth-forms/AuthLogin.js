@@ -10,13 +10,14 @@ import {
   InputLabel,
   OutlinedInput,
   Stack,
-  
 } from '@mui/material';
 
 // third party
 import * as Yup from 'yup';
-import { Formik } from 'formik';
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 // project import
 import AnimateButton from 'components/@extended/AnimateButton';
@@ -24,105 +25,99 @@ import AnimateButton from 'components/@extended/AnimateButton';
 // assets
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 
-// ============================|| FIREBASE - LOGIN ||============================ //
-
 const AuthLogin = () => {
-
   const navigate = useNavigate();
-
   const [showPassword, setShowPassword] = React.useState(false);
+  
+  const schema = Yup.object().shape({
+    email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+    password: Yup.string().max(255).required('Password is required')
+  });
 
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
+  const {
+    control,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      email: 'irdin.ibisevic@gmail.com',
+      password: 'hallo123',
+    },
+  });
 
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
+ 
 
-  const handleLogin = async (values, { setErrors, setStatus, setSubmitting }) => {
+  
+  const onSubmit = async (data) => {
     try {
-        // Replace with your API endpoint
-        const endpoint = "http://localhost:8080/api/hairsalons/login"; 
+      const endpoint = "http://localhost:8080/api/hairsalons/login"; 
+      const response = await axios.post(endpoint, {
+        mail: data.email,
+        password: data.password
+      });
 
-        const response = await axios.post(endpoint, {
-            mail: values.email,
-            password: values.password
-        });
 
-        // Assuming the API returns a success message in the form { success: true, message: "Logged in!" }
-        if (response.data.success) {
-            console.log(response.data.message);
-            // Redirect user or do any other task on successful login
-            navigate("/");
-        } else {
-          console.log(response);
-          setErrors({ submit: response.data.message }); // Assuming the error message is in the format { success: false, message: "Error!" }
-        }
-        setSubmitting(false);
+      if (response.status === 200) {
+        console.log(response)
+        Cookies.set('loggedInUser', data.email, { expires: 7 }); // Expires in 7 days
+        navigate("/");
+      } else {
+        console.log(response)
+        setError("submit", { type: "manual", message: response.data.message });
+      }
     } catch (err) {
-        setStatus({ success: false });
-        setErrors({ submit: err.message });
-        setSubmitting(false);
+      setError("submit", { type: "manual", message: err.response.data });
     }
-};
+  };
 
   return (
     <>
-      <Formik
-        initialValues={{
-          email: 'irdin.ibisevic@gmail.com',
-          password: 'hallo123',
-          submit: null
-        }}
-        validationSchema={Yup.object().shape({
-          email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-          password: Yup.string().max(255).required('Password is required')
-        })}
-        onSubmit={handleLogin}
-      >
-        {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
-          <form noValidate onSubmit={handleSubmit}>
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <Stack spacing={1}>
-                  <InputLabel htmlFor="email-login">Email Address</InputLabel>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <Stack spacing={1}>
+              <InputLabel htmlFor="email-login">Email Address</InputLabel>
+              <Controller
+                name="email"
+                control={control}
+                render={({ field }) => (
                   <OutlinedInput
+                    {...field}
                     id="email-login"
                     type="email"
-                    value={values.email}
-                    name="email"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
                     placeholder="Enter email address"
                     fullWidth
-                    error={Boolean(touched.email && errors.email)}
+                    error={Boolean(errors.email)}
                   />
-                  {touched.email && errors.email && (
-                    <FormHelperText error id="standard-weight-helper-text-email-login">
-                      {errors.email}
-                    </FormHelperText>
-                  )}
-                </Stack>
-              </Grid>
-              <Grid item xs={12}>
-                <Stack spacing={1}>
-                  <InputLabel htmlFor="password-login">Password</InputLabel>
+                )}
+              />
+              {errors.email && (
+                <FormHelperText error>
+                  {errors.email.message}
+                </FormHelperText>
+              )}
+            </Stack>
+          </Grid>
+          <Grid item xs={12}>
+            <Stack spacing={1}>
+              <InputLabel htmlFor="password-login">Password</InputLabel>
+              <Controller
+                name="password"
+                control={control}
+                render={({ field }) => (
                   <OutlinedInput
+                    {...field}
                     fullWidth
-                    error={Boolean(touched.password && errors.password)}
-                    id="-password-login"
+                    error={Boolean(errors.password)}
+                    id="password-login"
                     type={showPassword ? 'text' : 'password'}
-                    value={values.password}
-                    name="password"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
                     endAdornment={
                       <InputAdornment position="end">
                         <IconButton
                           aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
+                          onClick={() => setShowPassword((prev) => !prev)}
                           edge="end"
                           size="large"
                         >
@@ -132,32 +127,36 @@ const AuthLogin = () => {
                     }
                     placeholder="Enter password"
                   />
-                  {touched.password && errors.password && (
-                    <FormHelperText error id="standard-weight-helper-text-password-login">
-                      {errors.password}
-                    </FormHelperText>
-                  )}
-                </Stack>
-              </Grid>
-
-              
-              {errors.submit && (
-                <Grid item xs={12}>
-                  <FormHelperText error>{errors.submit}</FormHelperText>
-                </Grid>
+                )}
+              />
+              {errors.password && (
+                <FormHelperText error>
+                  {errors.password.message}
+                </FormHelperText>
               )}
-              <Grid item xs={12}>
-                <AnimateButton>
-                  <Button disableElevation disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained" color="primary">
-                    Login
-                  </Button>
-                </AnimateButton>
-              </Grid>
-              
+            </Stack>
+          </Grid>
+          {errors.submit && (
+            <Grid item xs={12}>
+              <FormHelperText error>{errors.submit.message}</FormHelperText>
             </Grid>
-          </form>
-        )}
-      </Formik>
+          )}
+          <Grid item xs={12}>
+            <AnimateButton>
+              <Button
+                disableElevation
+                fullWidth
+                size="large"
+                type="submit"
+                variant="contained"
+                color="primary"
+              >
+                Login
+              </Button>
+            </AnimateButton>
+          </Grid>
+        </Grid>
+      </form>
     </>
   );
 };

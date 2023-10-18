@@ -80,7 +80,7 @@ public class HairsalonController {
         if (isAuthenticated) {
             return new ResponseEntity<>("Login successful", HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Invalid credentials", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Ungültiges Login", HttpStatus.UNAUTHORIZED);
         }
     }
 }
