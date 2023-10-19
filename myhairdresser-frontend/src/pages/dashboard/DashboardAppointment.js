@@ -2,7 +2,7 @@ import React from 'react'
 import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
 import dayjs from 'dayjs';
 import axios from 'axios'
-import { Box, Typography, Card, CardContent, List, ListItem, ListItemText } from '@mui/material';
+import { Box, Typography, Card, CardContent, List, ListItem, ListItemText, Grid } from '@mui/material';
 import Button from '@mui/material/Button';
 
 export default function DashboardAppointment(props) {
@@ -46,19 +46,19 @@ export default function DashboardAppointment(props) {
     const cancelAppointment = async (id) => {
         console.log(id)
         try {
-          const response = await axios.delete(`http://localhost:8080/api/appointments/${id}`);
-          if (response.status === 204) {
-            // The deletion was successful (status code 204 No Content)
-            console.log("Appointment canceled successfully");
-            // Redirect to the landing page
-            window.location.href = '/free';
-          } else {
-            console.log("Appointment cancellation failed");
-          }
+            const response = await axios.delete(`http://localhost:8080/api/appointments/${id}`);
+            if (response.status === 204) {
+                // The deletion was successful (status code 204 No Content)
+                console.log("Appointment canceled successfully");
+                // Redirect to the landing page
+                window.location.href = '/free';
+            } else {
+                console.log("Appointment cancellation failed");
+            }
         } catch (error) {
-          console.error(error);
+            console.error(error);
         }
-      };
+    };
 
 
     return (
@@ -68,44 +68,48 @@ export default function DashboardAppointment(props) {
             </Typography>
             <StaticDatePicker value={selectedDate} onChange={handleDateChange} />
             <br />
-
+    
             {backendResponse?.length ? (
-                backendResponse.map((appointment, index) => (
-                    <Card key={index} sx={{ mt: 2 }}>
-                        <CardContent>
-                            <Typography variant="h6">{appointment.firstname} {appointment.lastname}</Typography>
-                            <Typography color="textSecondary">{appointment.mail}</Typography>
-                            <List>
-                                <ListItem>
-                                    <ListItemText primary="Preis" secondary={`CHF ${appointment.price}`} />
-                                </ListItem>
-                                <ListItem>
-                                    <ListItemText primary="Dauer" secondary={formatDuration(appointment.duration)} />
-                                </ListItem>
-                                <ListItem>
-                                    <ListItemText primary="Telefon" secondary={appointment.telephone} />
-                                </ListItem>
-                                <Typography>Services:</Typography>
-                                <ul>
-                                    {appointment.services.map(service => (
-                                        <li key={service.id}>
-                                            {service.name}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </List>
-                            <Button variant="contained" color="error" onClick={() => cancelAppointment(appointment.appointmentidentifier)}>
-                                Termin stornieren
-                            </Button>
-                        </CardContent>
-                    </Card>
-                ))
+                <Grid container spacing={3}>
+                    {backendResponse.map((appointment, index) => (
+                        <Grid item xs={12} sm={6} md={4} key={index}>
+                            <Card sx={{ mt: 2 }}>
+                                <CardContent>
+                                    <Typography variant="h6">{appointment.firstname} {appointment.lastname}</Typography>
+                                    <Typography color="textSecondary">{appointment.mail}</Typography>
+                                    <List>
+                                        <ListItem>
+                                            <ListItemText primary="Preis" secondary={`CHF ${appointment.price}`} />
+                                        </ListItem>
+                                        <ListItem>
+                                            <ListItemText primary="Dauer" secondary={formatDuration(appointment.duration)} />
+                                        </ListItem>
+                                        <ListItem>
+                                            <ListItemText primary="Telefon" secondary={appointment.telephone} />
+                                        </ListItem>
+                                        <Typography>Services:</Typography>
+                                        <ul>
+                                            {appointment.services.map(service => (
+                                                <li key={service.id}>
+                                                    {service.name}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </List>
+                                    <Button variant="contained" color="error" onClick={() => cancelAppointment(appointment.appointmentidentifier)}>
+                                        Termin stornieren
+                                    </Button>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                    ))}
+                </Grid>
             ) : (
                 <Typography variant="h1" color="textSecondary" sx={{ mt: 3 }}>
                     Für den ausgewählten Tag sind keine Termine eingetragen
                 </Typography>
             )}
-
+    
         </Box>
     );
 }
