@@ -37,6 +37,7 @@ import avatar4 from 'assets/images/users/avatar-4.png';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import DashboardAppointment from './DashboardAppointment';
 
 // avatar style
 const avatarSX = {
@@ -135,6 +136,14 @@ const DashboardDefault = () => {
       </Grid>
 
       <Grid item md={8} sx={{ display: { sm: 'none', md: 'block', lg: 'none' } }} />
+
+      <Grid item xs={12} sx={{ mb: -2.25 }}>
+        <Typography variant="h5">Termine</Typography>
+      </Grid>
+
+      <Grid item xs={12} sx={{ mb: -2.25 }}>
+        <DashboardAppointment mail={Cookies.get('loggedInUser')}/>
+      </Grid>
 
       {/* row 2 */}
       <Grid item xs={12} md={7} lg={8}>

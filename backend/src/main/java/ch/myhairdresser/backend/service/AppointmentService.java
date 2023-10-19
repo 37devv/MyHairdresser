@@ -245,6 +245,18 @@ public class AppointmentService {
     public Double getTotalPriceForHairsalon(String hairsalonMail) {
         return appointmentRepository.findTotalPriceByHairsalonMail(hairsalonMail);
     }
+
+    @Transactional  // Ensures the session remains open for lazy loading
+    public List<Appointment> getAppointmentsByMailAndDate(String mail, Date date) {
+        List<Appointment> appointments = appointmentRepository.findByDateAndHairsalon_Mail(date, mail);
+
+        // Eagerly load services for each appointment (this will cause Hibernate to fetch them)
+        for (Appointment appointment : appointments) {
+            appointment.getServices().size();  // Just accessing the services will cause Hibernate to load them
+        }
+
+        return appointments;
+    }
 }
 
 record DurationTimeResult(Duration duration, Double price, Set<ch.myhairdresser.backend.model.dao.Service> bookedServices) {}

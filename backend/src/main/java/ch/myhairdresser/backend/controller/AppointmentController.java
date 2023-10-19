@@ -70,4 +70,11 @@ public class AppointmentController implements AppointmentsApi {
         Double totalPrice = appointmentService.getTotalPriceForHairsalon(hairsalonEmail);
         return new ResponseEntity<>(totalPrice, HttpStatus.OK);
     }
+
+    @GetMapping("/filter")
+    public List<Appointment> getAppointmentsByMailAndDate(
+            @RequestParam String mail,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+        return appointmentService.getAppointmentsByMailAndDate(mail, date);
+    }
 }

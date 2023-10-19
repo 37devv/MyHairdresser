@@ -26,4 +26,5 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     @Query("SELECT SUM(a.price) FROM Appointment a WHERE a.hairsalon.mail = :mail")
     Double findTotalPriceByHairsalonMail(@Param("mail") String hairsalonMail);
 
+    List<Appointment> findByDateAndHairsalon_Mail(Date date, String mail);
 }
