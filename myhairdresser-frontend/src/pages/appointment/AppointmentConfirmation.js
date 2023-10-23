@@ -98,7 +98,7 @@ function AppointmentConfirmation() {
                             {/* Hair Salon Information */}
                             <Typography variant="h6">Coiffeursalon Info</Typography>
                             <Typography><strong>Name:</strong> {data.hairsalon.name}</Typography>
-                            <Typography><strong>Location:</strong> {data.hairsalon.street}, {data.hairsalon.plz} {data.hairsalon.place}</Typography>
+                            <Typography><strong>Location:</strong> {data.hairsalon.address}</Typography>
                             <Typography><strong>Phone:</strong> {data.hairsalon.phonenumber}</Typography>
                             <Typography><strong>Email:</strong> {data.hairsalon.mail}</Typography>
 
