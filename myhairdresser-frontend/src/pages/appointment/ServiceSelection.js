@@ -90,7 +90,7 @@ export default function ServiceSelection({ services, handleServiceIdChange }) {
       </FormControl>
       <div>Preis: {totalPrice.toFixed(2)} CHF </div>
       <div>Dauer: {totalDuration.toFixed(2)} Minuten</div>
-      <div>Service IDs: {selectedServiceIds.join(', ')}</div>
+      <div hidden>Service IDs: {selectedServiceIds.join(', ')}</div>
     </div>
   );
 }

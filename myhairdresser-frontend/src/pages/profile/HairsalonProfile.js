@@ -8,18 +8,16 @@ import axios from 'axios';
 import Typography from '@mui/material/Typography';
 import { useParams } from 'react-router-dom';
 import ContactInformation from './ContactInformation';
-import HairsalonRating from './HairsalonRating';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 
 const baseURL = 'http://localhost:8080/api';
 
 const instance = axios.create({
   baseURL,
 });
-
-
-
 
 export default function HairsalonProfile() {
 
@@ -64,20 +62,26 @@ export default function HairsalonProfile() {
         {data.name}
       </Typography>
       <ImageGallery items={fetchedImages} />
-  
+
       <Grid container spacing={2}>
         <Grid item xs={8}>
-          <Typography variant="h1" gutterBottom>
-            Beschreibung
-          </Typography>
-          <p>{data.description}</p>
+          <Card sx={{ minWidth: 275 }}>
+            <CardContent>
+              <Typography variant="h1" gutterBottom>
+                Beschreibung
+              </Typography>
+              {data.description}
+            </CardContent>
+
+          </Card>
+
         </Grid>
         <Grid item xs={4}>
           <OpeningTimes openingTimes={data['daily-opening-hours']} services={data['services']} />
         </Grid>
-  
+
         <Grid item xs={8}>
-          <HairsalonRating />
+
         </Grid>
         <Grid item xs={4}>
           <ContactInformation
@@ -91,6 +95,6 @@ export default function HairsalonProfile() {
       </Grid>
     </Container>
   );
-  
+
   return content;
 }

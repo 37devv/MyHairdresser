@@ -58,14 +58,7 @@ export default function FilterHairsalonSearch() {
 
   return (
     <div>
-      {"Latitude: " + latitude}
-      <br />
-      {"Longitude: " + longitude}
-      <br />
-      {"Address: " + address}
-      <br />
-      {"selectedServices: " + JSON.stringify(selectedServices)}
-      <br />
+
       <PlaceAutocomplete
         onChangeCoordinates={onChangeCoordinates}
         onChangeAdressName={onChangeAdressName} />

@@ -81,8 +81,6 @@ export default function SearchResults() {
           ))}
         </List>
       )}
-      {/* Displaying latitude for your reference */}
-      {latitude}
     </div>
   );
 }

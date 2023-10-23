@@ -63,7 +63,7 @@ function PlaceAutocomplete(props) {
         <TextField {...params} label="Place" fullWidth />
       )}
     />
-    {selectedPlace?.geometry?.location?.lat()}
+    <p hidden>{selectedPlace?.geometry?.location?.lat()}</p>
     </>
     
   );
