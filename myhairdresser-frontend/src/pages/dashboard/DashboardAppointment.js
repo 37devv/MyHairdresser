@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import axios from 'axios'
 import { Box, Typography, Card, CardContent, List, ListItem, ListItemText, Grid } from '@mui/material';
 import Button from '@mui/material/Button';
-
+import { getAppointmentTimeRange } from 'pages/appointment/AppointmentTimeRangeUtil';
 export default function DashboardAppointment(props) {
 
     const [selectedDate, setSelectedDate] = React.useState(dayjs());
@@ -78,6 +78,9 @@ export default function DashboardAppointment(props) {
                                     <Typography variant="h6">{appointment.firstname} {appointment.lastname}</Typography>
                                     <Typography color="textSecondary">{appointment.mail}</Typography>
                                     <List>
+                                        <ListItem>
+                                            <ListItemText primary="Datum/Uhrzeit:" secondary={dayjs(appointment.date).format('DD.MM.YYYY') + " " + getAppointmentTimeRange(appointment)} />
+                                        </ListItem>
                                         <ListItem>
                                             <ListItemText primary="Preis" secondary={`CHF ${appointment.price}`} />
                                         </ListItem>

@@ -7,7 +7,7 @@ import {
 import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
 import dayjs from 'dayjs';
-import {getAppointmentTimeRange} from './AppointmentTimeRangeUtil';
+import { getAppointmentTimeRange } from './AppointmentTimeRangeUtil';
 
 function isoDurationToGermanFormat(duration) {
     const matches = duration.match(/PT(?:(\d+)H)?(?:(\d+)M)?/);
