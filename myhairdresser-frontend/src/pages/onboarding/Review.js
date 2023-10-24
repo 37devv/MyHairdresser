@@ -38,7 +38,7 @@ export default function Review(props) {
           <Typography variant="h4" gutterBottom sx={{ mt: 2 }}>
             Infos über den Coiffeur
           </Typography>
-          <Typography gutterBottom><strong>Name: </strong>{hairdresserData.hairsalondetail.nameOfHairdresser}</Typography>
+          <Typography gutterBottom><strong>Name: </strong>{hairdresserData.hairsalondetail.name}</Typography>
           <Typography gutterBottom><strong>Beschreibung:</strong> {hairdresserData.hairsalondetail.description}</Typography>
           <Typography gutterBottom><strong>Mail:</strong> {hairdresserData.hairsalondetail.mail}</Typography>
           <Typography gutterBottom><strong>Adresse:</strong> {hairdresserData.hairsalondetail.address}</Typography>

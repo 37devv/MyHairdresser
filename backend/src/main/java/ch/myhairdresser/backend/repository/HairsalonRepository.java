@@ -13,6 +13,7 @@ import java.util.Optional;
 public interface HairsalonRepository extends JpaRepository<Hairsalon, Long> {
     List<Hairsalon> findByNameContaining(String name);
 
+    // Mit Hilfe von ChatGPT gelöst
     @Query(nativeQuery = true,
             value = "SELECT h.* FROM Hairsalon h " +
                     "JOIN Service s ON h.id = s.hairsalon_id " +
