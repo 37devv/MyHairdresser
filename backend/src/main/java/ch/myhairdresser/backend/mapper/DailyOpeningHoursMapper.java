@@ -13,8 +13,6 @@ import java.util.regex.Pattern;
 public interface DailyOpeningHoursMapper {
 
     DailyOpeningHoursMapper INSTANCE = Mappers.getMapper(DailyOpeningHoursMapper.class);
-
-    //@Mapping(target = "hairsalon", ignore = true) // Ignore hairsalon to avoid cyclic mapping
     @Mapping(target="open_morning", source = "openMorning", qualifiedByName = "toTime")
     @Mapping(target="closing_morning", source = "closingMorning", qualifiedByName = "toTime")
     @Mapping(target="has_lunch_break", source = "hasLunchBreak")
