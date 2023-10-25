@@ -14,10 +14,10 @@ public class GlobalCorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
 
-        // Configure allowed origins, methods, headers, etc.
+
         config.setAllowCredentials(true);
-        config.addAllowedOriginPattern("*"); // Allow requests from any origin (you may restrict this)
-        config.addAllowedHeader("*"); // Allow all headers
+        config.addAllowedOriginPattern("*");
+        config.addAllowedHeader("*");
         config.addAllowedMethod("GET");
         config.addAllowedMethod("POST");
         config.addAllowedMethod("PUT");
