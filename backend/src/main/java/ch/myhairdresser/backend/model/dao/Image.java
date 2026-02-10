@@ -2,14 +2,8 @@ package ch.myhairdresser.backend.model.dao;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 
 @Entity
-@Getter
-@Setter
-@Slf4j
 public class Image {
 
     @Id
@@ -23,4 +17,28 @@ public class Image {
     @JoinColumn(name = "hairsalon_id")
     @JsonBackReference
     private Hairsalon hairsalon;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public Hairsalon getHairsalon() {
+        return hairsalon;
+    }
+
+    public void setHairsalon(Hairsalon hairsalon) {
+        this.hairsalon = hairsalon;
+    }
 }

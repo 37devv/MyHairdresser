@@ -4,14 +4,10 @@ import ch.myhairdresser.backend.mapper.HairsalonMapper;
 import ch.myhairdresser.backend.model.dao.DailyOpeningHours;
 import ch.myhairdresser.backend.model.dao.Hairsalon;
 import ch.myhairdresser.backend.model.dao.Image;
-import ch.myhairdresser.backend.model.dto.LoginRequest;
 import ch.myhairdresser.backend.repository.HairsalonRepository;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.factory.Mappers;
 import org.openapitools.model.HairsalonInDTO;
 import org.openapitools.model.HairsalonOutDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,15 +15,12 @@ import java.util.Optional;
 
 
 @Service
-@RequiredArgsConstructor
-@Slf4j
 public class HairsalonService {
 
-    HairsalonRepository hairsalonRepository;
+    private final HairsalonRepository hairsalonRepository;
 
     private static final HairsalonMapper hairsalonMapper = Mappers.getMapper(HairsalonMapper.class);
 
-    @Autowired
     public HairsalonService(HairsalonRepository hairsalonRepository) {
         this.hairsalonRepository = hairsalonRepository;
     }

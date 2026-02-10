@@ -10,16 +10,14 @@ import ch.myhairdresser.backend.model.dto.Severity;
 import ch.myhairdresser.backend.repository.AppointmentRepository;
 import ch.myhairdresser.backend.repository.HairsalonRepository;
 import ch.myhairdresser.backend.repository.TimeslotRepository;
-import io.swagger.models.Response;
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.factory.Mappers;
 import org.openapitools.model.AppointmentInDto;
-import org.springframework.cglib.core.Local;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Time;
 import java.time.*;
@@ -29,14 +27,21 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 @Service
-@RequiredArgsConstructor
-@Slf4j
 public class AppointmentService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AppointmentService.class);
     private final AppointmentRepository appointmentRepository;
     private final HairsalonRepository hairsalonRepository;
     private final TimeslotRepository timeslotRepository;
     private static final AppointmentMapper appointmentMapper = Mappers.getMapper(AppointmentMapper.class);
+
+    public AppointmentService(AppointmentRepository appointmentRepository,
+                              HairsalonRepository hairsalonRepository,
+                              TimeslotRepository timeslotRepository) {
+        this.appointmentRepository = appointmentRepository;
+        this.hairsalonRepository = hairsalonRepository;
+        this.timeslotRepository = timeslotRepository;
+    }
     public String bookAppointment(AppointmentInDto appointmentInDto) {
         //Mapper
         Appointment appointmentToSave = appointmentMapper.fromInDtoToEntity(appointmentInDto);
@@ -111,7 +116,7 @@ public class AppointmentService {
 
         //Check if salon is closed
         if(isHairsalonClosedOnGivenDaten(date,hairsalon)){
-            log.info("Hairsalon is closed on {}", date);
+            LOGGER.info("Hairsalon is closed on {}", date);
             return new AvailableTimeslotResult(
                     Severity.WARNING,
                     null,

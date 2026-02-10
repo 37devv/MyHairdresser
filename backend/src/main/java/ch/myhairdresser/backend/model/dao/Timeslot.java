@@ -2,17 +2,11 @@ package ch.myhairdresser.backend.model.dao;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 
 import java.sql.Time;
 import java.util.Set;
 
 @Entity
-@Getter
-@Setter
-@Slf4j
 public class Timeslot {
 
     @Id
@@ -28,4 +22,36 @@ public class Timeslot {
     @ManyToMany(mappedBy = "timeslots")
     @JsonBackReference
     private Set<Appointment> appointments;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Time getStart() {
+        return start;
+    }
+
+    public void setStart(Time start) {
+        this.start = start;
+    }
+
+    public Time getEnd() {
+        return end;
+    }
+
+    public void setEnd(Time end) {
+        this.end = end;
+    }
+
+    public Set<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(Set<Appointment> appointments) {
+        this.appointments = appointments;
+    }
 }
