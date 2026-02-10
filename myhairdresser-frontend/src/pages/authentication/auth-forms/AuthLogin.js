@@ -68,7 +68,12 @@ const AuthLogin = () => {
         setError("submit", { type: "manual", message: response.data.message });
       }
     } catch (err) {
-      setError("submit", { type: "manual", message: err.response.data });
+      const errorPayload = err?.response?.data;
+      const message =
+        typeof errorPayload === 'string'
+          ? errorPayload
+          : errorPayload?.message || 'Login failed. Please try again.';
+      setError('submit', { type: 'manual', message });
     }
   };
 

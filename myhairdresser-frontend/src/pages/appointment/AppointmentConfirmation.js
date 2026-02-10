@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import {
     Typography, Grid, Box
-} from '@material-ui/core';
+} from '@mui/material';
 import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
 import dayjs from 'dayjs';
